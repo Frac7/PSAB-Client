@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-import { Navbar } from 'reactstrap';
+import { Navbar, Badge } from 'reactstrap';
 
 const StyledNavbar = styled(Navbar)`
 	background-color: #006D77;
 `
 
-export { StyledNavbar };
+const StyledBadge = styled(Badge)`
+	background-color: #006D77;
+`
+
+export { StyledNavbar, StyledBadge };

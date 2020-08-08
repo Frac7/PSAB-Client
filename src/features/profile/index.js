@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Profile = () => <h1>Profile</h1>
+import ProfileContainer from './containers';
+
+const Profile = () => {
+	return (
+		<ProfileContainer />
+	);
+}
 
 export default Profile;
