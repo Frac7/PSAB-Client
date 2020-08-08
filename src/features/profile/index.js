@@ -1,7 +1,12 @@
 import React from 'react';
 
+import ProfileContainer from './containers';
 import withAuthentication from '../../shared/auth';
 
-const Profile = () => <h1>Profile</h1>
+const Profile = () => {
+	return (
+		<ProfileContainer />
+	);
+}
 
 export default withAuthentication(Profile);
