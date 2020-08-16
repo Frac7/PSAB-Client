@@ -1,0 +1,2 @@
+(this.webpackJsonppsab=this.webpackJsonppsab||[]).push([[4],{452:function(t,e,n){"use strict";n.r(e);var s=n(0),a=n.n(s);e.default=function(){return a.a.createElement("h1",null,"Certify")}}}]);
+//# sourceMappingURL=4.b6f5b434.chunk.js.map

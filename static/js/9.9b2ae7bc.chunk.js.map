@@ -1,0 +1,1 @@
+{"version":3,"sources":["features/sign-out/index.js"],"names":["SignOut"],"mappings":"8FAAA,2BAIeA,UAFC,kBAAM","file":"static/js/9.9b2ae7bc.chunk.js","sourcesContent":["import React from 'react';\n\nconst SignOut = () => <h1>Sign Out</h1>\n\nexport default SignOut;\n"],"sourceRoot":""}

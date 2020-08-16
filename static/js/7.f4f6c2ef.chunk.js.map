@@ -1,0 +1,1 @@
+{"version":3,"sources":["features/register/index.js"],"names":["Register"],"mappings":"8FAAA,2BAIeA,UAFE,kBAAM","file":"static/js/7.f4f6c2ef.chunk.js","sourcesContent":["import React from 'react';\n\nconst Register = () => <h1>Register</h1>\n\nexport default Register;\n"],"sourceRoot":""}
