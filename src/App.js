@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Spinner } from 'reactstrap';
 
 import routes from './config/routes';
 
@@ -10,13 +10,14 @@ const App = () => {
 		<Container fluid style={{ margin: '2rem 0' }}>
 			<Row className="justify-content-center">
 				<Col md={8}>
-					<Switch>
-						{ routes.map(({ path, component }, index) =>
-							<Route key={index} path={path}>
-								{component}
-							</Route>
-						)}
-					</Switch>
+					<Suspense fallback={<Spinner color="success" size="large"/>}>
+						<Switch>
+							{ routes.map(({ path, component }, index) =>
+								<Route key={index} path={path} component={component}>
+								</Route>
+							)}
+						</Switch>
+					</Suspense>
 				</Col>
 			</Row>
 		</Container>
