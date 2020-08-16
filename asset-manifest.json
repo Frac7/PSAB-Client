@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/PSAB-Client/static/css/main.2c7f14db.chunk.css",
+    "main.js": "/PSAB-Client/static/js/main.4b0fb7ce.chunk.js",
+    "main.js.map": "/PSAB-Client/static/js/main.4b0fb7ce.chunk.js.map",
+    "runtime-main.js": "/PSAB-Client/static/js/runtime-main.da60ae10.js",
+    "runtime-main.js.map": "/PSAB-Client/static/js/runtime-main.da60ae10.js.map",
+    "static/css/2.11829350.chunk.css": "/PSAB-Client/static/css/2.11829350.chunk.css",
+    "static/js/2.35c63024.chunk.js": "/PSAB-Client/static/js/2.35c63024.chunk.js",
+    "static/js/2.35c63024.chunk.js.map": "/PSAB-Client/static/js/2.35c63024.chunk.js.map",
+    "index.html": "/PSAB-Client/index.html",
+    "precache-manifest.afeb447444aa74bcc0214c83cf940fe1.js": "/PSAB-Client/precache-manifest.afeb447444aa74bcc0214c83cf940fe1.js",
+    "service-worker.js": "/PSAB-Client/service-worker.js",
+    "static/css/2.11829350.chunk.css.map": "/PSAB-Client/static/css/2.11829350.chunk.css.map",
+    "static/css/main.2c7f14db.chunk.css.map": "/PSAB-Client/static/css/main.2c7f14db.chunk.css.map",
+    "static/js/2.35c63024.chunk.js.LICENSE.txt": "/PSAB-Client/static/js/2.35c63024.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da60ae10.js",
+    "static/css/2.11829350.chunk.css",
+    "static/js/2.35c63024.chunk.js",
+    "static/css/main.2c7f14db.chunk.css",
+    "static/js/main.4b0fb7ce.chunk.js"
+  ]
+}
