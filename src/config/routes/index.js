@@ -1,17 +1,19 @@
-import Profile from '../../features/profile';
-import Admin from '../../features/admin';
-import Discover from '../../features/discover';
-import Certify from '../../features/certify';
-import Register from '../../features/register';
-import SignIn from '../../features/sign-in';
-import SignOut from '../../features/sign-out';
+import { lazy } from 'react';
+
+const Profile =  lazy(() => import('../../features/profile'));
+const Admin =  lazy(() => import('../../features/admin'));
+const Discover =  lazy(() => import('../../features/discover'));
+const Certify =  lazy(() => import('../../features/certify'));
+const Register =  lazy(() => import('../../features/register'));
+const SignIn =  lazy(() => import('../../features/sign-in'));
+const SignOut =  lazy(() => import('../../features/sign-out'));
 
 const PROFILE = '/profile';
 const REGISTER = '/register';
 const CERTIFY = '/certify';
 const DISCOVER = '/discover';
 const SIGNIN = '/sign-in';
-const SIGNOUT = 'sign-out';
+const SIGNOUT = '/sign-out';
 const ADMIN = '/admin'
 
 const routes = [

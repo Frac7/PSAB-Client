@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,15 +22,15 @@ const Header = () => {
 							{ menu.map(({ route, label }, index) =>
 								<Col md={{ size: 2, offset: index ? 0 : 2 }} key={index}>
 									<NavItem active={pathname === route}>
-										<NavLink href={route}>{label}</NavLink>
+										<Link component={NavLink} to={route}>{label}</Link>
 									</NavItem>
 								</Col>
 							)}
 							<Col md={{ size: 2, offset: 2 }}>
-								<NavItem>
-									<NavLink active={pathname === PROFILE} href={PROFILE}>
+								<NavItem active={pathname === PROFILE}>
+									<Link component={NavLink} to={PROFILE}>
 										<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />
-									</NavLink>
+									</Link>
 								</NavItem>
 							</Col>
 						</Row>
