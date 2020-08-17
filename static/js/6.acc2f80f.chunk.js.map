@@ -1,1 +1,0 @@
-{"version":3,"sources":["features/profile/index.js"],"names":["Profile"],"mappings":"8FAAA,2BAIeA,UAFC,kBAAM","file":"static/js/6.acc2f80f.chunk.js","sourcesContent":["import React from 'react';\n\nconst Profile = () => <h1>Profile</h1>\n\nexport default Profile;\n"],"sourceRoot":""}

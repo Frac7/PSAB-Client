@@ -1,0 +1,1 @@
+{"version":3,"sources":["features/admin/index.js"],"names":["Admin"],"mappings":"8FAAA,2BAIeA,UAFD,kBAAM","file":"static/js/8.f695cace.chunk.js","sourcesContent":["import React from 'react';\n\nconst Admin = () => <h1>Admin</h1>\n\nexport default Admin;\n"],"sourceRoot":""}

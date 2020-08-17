@@ -1,2 +1,0 @@
-(this.webpackJsonppsab=this.webpackJsonppsab||[]).push([[3],{450:function(n,t,e){"use strict";e.r(t);var s=e(0),a=e.n(s);t.default=function(){return a.a.createElement("h1",null,"Admin")}}}]);
-//# sourceMappingURL=3.993d0380.chunk.js.map
