@@ -14,7 +14,6 @@ const withAuthentication = (AuthComponent) => {
         }
 
         render() {
-            console.log(this.state);
             if (this.state.auth) {
                 return <AuthComponent />;
             }
