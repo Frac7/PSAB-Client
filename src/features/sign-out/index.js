@@ -1,5 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-const SignOut = () => <h1>Sign Out</h1>
+import { SIGNIN } from '../../config/routes';
+
+const SignOut = () => {
+    window.localStorage.clear();
+
+    return <Redirect to={SIGNIN} />
+}
 
 export default SignOut;

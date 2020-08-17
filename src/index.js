@@ -13,9 +13,7 @@ import * as serviceWorker from './serviceWorker';
 window.addEventListener('load', () => {
     window.ethereum.enable(
 		ReactDOM.render(
-			<React.StrictMode>
-				<Root />
-			</React.StrictMode>,
+			<Root />,
 			document.getElementById('root')
 		)
 	);
