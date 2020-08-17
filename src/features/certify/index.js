@@ -1,5 +1,7 @@
 import React from 'react';
 
+import withAuthentication from '../../shared/auth';
+
 const Certify = () => <h1>Certify</h1>
 
-export default Certify;
+export default withAuthentication(Certify);
