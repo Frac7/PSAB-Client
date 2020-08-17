@@ -1,31 +1,17 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import {
     AuthenticationDetails,
-    CognitoUserPool,
     CognitoUser
   } from "amazon-cognito-identity-js";
-import { string, object } from 'yup';
 import { Formik } from 'formik';
 import { Row, Col } from 'reactstrap';
 
 import SignInForm from '../components';
 
-const SignIn = ({ history }) => {
-    const userPool = useMemo(() => new CognitoUserPool({
-        UserPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-        ClientId: process.env.REACT_APP_COGNITO_CLIENT_ID
-    }), []);
+import { userPool, initialValues, validationSchema } from '../values';
 
-    const initialValues = useMemo(() => ({ 
-        email: '', 
-        password: '' 
-    }), []);
-    const validationSchema = useMemo(() => 
-        object().shape(({ 
-            email: string().email('E-mail non valida').required('Inserire l\'e-mail'), 
-            password: string().required('Inserire la password') 
-        })), []);
+const SignIn = ({ history }) => {
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
         const authDetails = new AuthenticationDetails({ Username: email, Password: password });
         const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
@@ -33,7 +19,7 @@ const SignIn = ({ history }) => {
         cognitoUser.authenticateUser(authDetails, {
             onSuccess(result) {
                 console.log(result);
-                window.localStorage.setItem('LoggedUser', email);
+                window.localStorage.setItem('LoggedIn', JSON.stringify(result));
                 setSubmitting(false);
                 history.push('/profile');
 
@@ -42,11 +28,13 @@ const SignIn = ({ history }) => {
                 console.error(error);
                 setSubmitting(false);
                 setErrors({ password: error.message });
+            },
+            newPasswordRequired(data) {
+                console.log(data);
+                cognitoUser.completeNewPasswordChallenge(password, null, this);
             }
-        })
-
-        window.localStorage.setItem('UserAuth', JSON.stringify({ email }));
-    }, [history, userPool]);
+        });
+    }, [history]);
 
     return (
         <Row>
