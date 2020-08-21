@@ -17,5 +17,5 @@ jobs:
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
           source-directory: build
-          build-command: yarn deploy
+          build-command: git config user.name "Frac7" && yarn deploy
     
