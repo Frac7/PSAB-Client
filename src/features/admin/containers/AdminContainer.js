@@ -22,6 +22,9 @@ const AdminContainer = () => {
 
 	const onSubmit = useCallback(({ name, email, address, password }, { setSubmitting, setErrors, resetForm }) => {
 		const userAttributes = [{
+			Name: 'custom:role',
+			Value: '1'
+		},{
 			Name: 'email',
 			Value: email
 		}, {

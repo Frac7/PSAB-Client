@@ -4,20 +4,25 @@ import { Redirect } from 'react-router-dom';
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 import { SIGNIN } from '../../config/routes';
+
 import { loggedIn } from '../../store/user/action';
+import { Selector } from '../../store/user/reducer';
 
 const withAuthentication = (AuthComponent) => {
     class AuthContainer extends Component {
         constructor(props) {
             super(props);
-            this.state = {
-                auth: window.localStorage.getItem('LoggedIn')
-            };
+
+            const auth = window.localStorage.getItem('LoggedIn');
+            this.state = { auth };
+
+            if (auth && !this.props.user.data) {
+                this.props.loggedIn({ data: JSON.parse(this.state.auth) });
+            }
         }
 
         render() {
             if (this.state.auth) {
-                this.props.loggedIn({ data: JSON.parse(this.state.auth) });
                 return <AuthComponent />;
             }
 
@@ -25,7 +30,7 @@ const withAuthentication = (AuthComponent) => {
         }
     }
 
-    return connect(null, { loggedIn })(AuthContainer);
+    return connect((state) => ({ user: Selector.getUser(state) }), { loggedIn })(AuthContainer);
 }
 
 const userPool = new CognitoUserPool({

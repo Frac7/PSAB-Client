@@ -9,12 +9,12 @@ const initialValues = {
 };
 const validationSchema = object().shape(({
 	email: string().email('E-mail non valida').required('Inserire l\'e-mail'),
-	password: string().required('Inserire la password').test('len', 'La password deve essere lunga almeno 8 caratteri', value => value.length > 7),
+	password: string().required('Inserire la password').length(7, 'La password deve essere lunga almeno 8 caratteri'),
 	confirmPassword: string().required('Inserire la conferma per la password').oneOf([ref('password'), null], 'Le due password non coincidono'),
 	name: string().required('Inserire il nome'),
 	address: string()
 		.required('Inserire l\'indirizzo')
-		.test('len', 'L\'address è lungo esattamente 42 caratteri', value => value.length === 42),
+		.length(42, 'L\'address è lungo esattamente 42 caratteri'),
 }));
 
 export { initialValues, validationSchema };
