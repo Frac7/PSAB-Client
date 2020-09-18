@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import {
     AuthenticationDetails,
     CognitoUser
-  } from "amazon-cognito-identity-js";
+  } from 'amazon-cognito-identity-js';
 import { Formik } from 'formik';
 import { Row, Col } from 'reactstrap';
 
 import SignInForm from '../components';
 
+import { loggedIn } from '../../../store/user/action';
 import { userPool, initialValues, validationSchema } from '../values';
 import { PROFILE } from '../../../config/routes';
 
-const SignIn = ({ history }) => {
+const SignIn = ({ history, loggedIn }) => {
     useEffect(() => {
         const auth = window.localStorage.getItem('LoggedIn');
 
@@ -30,7 +32,7 @@ const SignIn = ({ history }) => {
                 console.log(result);
                 window.localStorage.setItem('LoggedIn', JSON.stringify(result));
                 setSubmitting(false);
-                // TODO: dispatch LOGGED_IN action with user data
+                loggedIn({ data: result });
                 history.push(PROFILE);
 
             },
@@ -41,7 +43,7 @@ const SignIn = ({ history }) => {
             },
             newPasswordRequired(data) {
                 console.log(data);
-                cognitoUser.completeNewPasswordChallenge(password, null, this);
+                cognitoUser.completeNewPasswordChallenge(password, { name: email }, this);
             }
         });
     }, [history]);
@@ -61,4 +63,8 @@ const SignIn = ({ history }) => {
     );
 }
 
-export default SignIn;
+const dispatchToProps = {
+    loggedIn
+}
+
+export default connect(null, dispatchToProps)(SignIn);
