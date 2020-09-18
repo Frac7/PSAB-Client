@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Container } from 'reactstrap';
-import { ProfileData, OwnedLands } from '../components';
+import { ProfileData, OwnedLands, PurchasedLands } from '../components';
 
 import { Selector } from '../../../store/user/reducer';
 
@@ -16,6 +16,7 @@ const ProfileContainer = ({ user: { data } }) => {
 				name
 			}} />
 			<OwnedLands />
+			<PurchasedLands />
 		</Container>
 	)
 }

@@ -11,7 +11,7 @@ const App = () => {
 	return (
 		<Container fluid style={{ margin: '2rem 0' }}>
 			<Row className="justify-content-center">
-				<Col md={8}>
+				<Col md={6}>
 					<Suspense fallback={<StyledSpinner size="large"/>}>
 						<Switch>
 							{ routes.map(({ path, component }, index) =>
