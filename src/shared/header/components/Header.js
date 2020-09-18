@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
-import { faUsersCog } from '@fortawesome/free-solid-svg-icons/faUsersCog'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus'
 
 import { StyledNavbar } from '../../styled';
 
@@ -31,7 +31,7 @@ const Header = () => {
 							<Col md={{ size: 1, offset: 1 }}>
 								<NavItem active={pathname === ADMIN}>
 									<Link component={NavLink} to={ADMIN}>
-										<FontAwesomeIcon icon={faUsersCog} color="inherit" size="lg" />
+										<FontAwesomeIcon icon={faUserPlus} color="inherit" size="lg" />
 									</Link>
 								</NavItem>
 							</Col>
