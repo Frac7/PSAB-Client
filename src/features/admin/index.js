@@ -1,5 +1,12 @@
 import React from 'react';
 
-const Admin = () => <h1>Admin</h1>
+import AdminContainer from './containers';
+import withAuthentication from '../../shared/auth';
 
-export default Admin;
+const Admin = () => {
+	return (
+		<AdminContainer />
+	);
+}
+
+export default withAuthentication(Admin);
