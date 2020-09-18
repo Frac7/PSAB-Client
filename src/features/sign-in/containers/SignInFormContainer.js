@@ -9,7 +9,8 @@ import { Row, Col } from 'reactstrap';
 
 import SignInForm from '../components';
 
-import { userPool, initialValues, validationSchema } from '../values';
+import { initialValues, validationSchema } from '../values';
+import { userPool } from '../../../shared/auth';
 import { PROFILE } from '../../../config/routes';
 
 const SignIn = ({ history }) => {
