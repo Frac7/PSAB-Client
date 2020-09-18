@@ -1,19 +1,59 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Formik } from 'formik';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Toast, ToastHeader, ToastBody } from 'reactstrap';
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 
 import RegisterUserForm from '../components';
 import { initialValues, validationSchema } from '../values';
+import { userPool } from '../../../shared/auth';
 
-const AdminContainer = ({ name, email, address, password }) => {
-	const onSubmit = useCallback(() => {
+const AdminContainer = () => {
+	const [registered, setRegistered] = useState(false);
 
+	useEffect(() => {
+		if (registered) {
+			setTimeout(() => setRegistered(false), 5000);
+		}
+	}, [registered]);
+
+	const onSubmit = useCallback(({ name, email, address, password }, { setSubmitting, setErrors, resetForm }) => {
+		const userAttributes = [{
+			Name: 'email',
+			Value: email
+		}, {
+			Name: 'name',
+			Value: name
+		}, {
+			Name: 'custom:eth_address',
+			Value: address
+		}];
+
+		userPool.signUp(
+			email,
+			password,
+			userAttributes.map((attribute) => new CognitoUserAttribute(attribute)),
+			[],
+			(error, result) => {
+			console.log(error, result);
+			setSubmitting(false);
+
+			if (error) {
+				setErrors({ confirmPassword: error.message });
+			} else {
+				setRegistered(true);
+				resetForm();
+			}
+		})
 	}, []);
 
 	return (
+		<>
 		<Container fluid>
-			<Row style={{ padding: '1rem' }}>
+			<Row>
 				<Col>
 					<h1>Aggiungi utente</h1>
 				</Col>
@@ -30,6 +70,11 @@ const AdminContainer = ({ name, email, address, password }) => {
 				</Col>
 			</Row>
 		</Container>
+		<Toast style={{ position: 'fixed', bottom: '10%', right: '10%' }} color="primary" isOpen={registered}>
+			<ToastHeader><FontAwesomeIcon icon={faCheck} color="#006D77"/> Utente registrato</ToastHeader>
+			<ToastBody>L'utente è stato registrato correttamente</ToastBody>
+		</Toast>
+		</>
 	)
 }
 

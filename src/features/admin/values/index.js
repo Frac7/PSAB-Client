@@ -4,7 +4,6 @@ const initialValues = {
 	email: '',
 	password: '',
 	name: '',
-	username: '',
 	address: '',
 	confirmPassword: ''
 };
@@ -13,7 +12,6 @@ const validationSchema = object().shape(({
 	password: string().required('Inserire la password').test('len', 'La password deve essere lunga almeno 8 caratteri', value => value.length > 7),
 	confirmPassword: string().required('Inserire la conferma per la password').oneOf([ref('password'), null], 'Le due password non coincidono'),
 	name: string().required('Inserire il nome'),
-	username: string().required('Inserire lo username'),
 	address: string()
 		.required('Inserire l\'indirizzo')
 		.test('len', 'L\'address è lungo esattamente 42 caratteri', value => value.length === 42),

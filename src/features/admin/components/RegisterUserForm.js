@@ -33,6 +33,11 @@ const RegisterUserForm = ({
 			<FormText>Almeno 8 caratteri, lettere maiuscole, lettere minuscole, caratteri speciali, numeri</FormText>
 			{ errors.password && <FormText color="danger">{errors.password}</FormText>}
 		</FormGroup>
+		<FormGroup>
+			<Label for="confirmPassword">Conferma password</Label>
+			<Input valid={touched.email && !errors.confirmPassword} type="password" name="confirmPassword" id="confirmPassword" onChange={handleChange} value={values.confirmPassword}/>
+			{ errors.confirmPassword && <FormText color="danger">{errors.confirmPassword}</FormText>}
+		</FormGroup>
 		<StyledFilledButton type="submit" disabled={isSubmitting}>
 			Aggiungi
 		</StyledFilledButton>
