@@ -18,7 +18,8 @@ const UserList = () => {
 					<th>Nome</th>
 					<th>Username</th>
 					<th>E-mail</th>
-					<th>Ethereum Address</th>
+					<th>Address</th>
+					<th>Azioni</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +30,7 @@ const UserList = () => {
 					<td>{user['cognito:username']}</td>
 					<td>{user.email}</td>
 					<td>{user['custom:eth_address']}</td>
+					<td></td>
 				</>
 			))}
 			</tbody>
