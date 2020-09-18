@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { SIGNIN } from '../../config/routes';
+import { loggedIn } from '../../store/user/action';
 
 const withAuthentication = (AuthComponent) => {
     class AuthContainer extends Component {
@@ -15,14 +16,15 @@ const withAuthentication = (AuthComponent) => {
 
         render() {
             if (this.state.auth) {
+                this.props.loggedIn({ data: JSON.parse(this.state.auth) });
                 return <AuthComponent />;
             }
-    
-            return <Redirect to={SIGNIN} />   
+
+            return <Redirect to={SIGNIN} />
         }
     }
 
-    return AuthContainer;
+    return connect(null, { loggedIn })(AuthContainer);
 }
 
 export default withAuthentication;

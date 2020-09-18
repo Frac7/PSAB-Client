@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Container } from 'reactstrap';
 import { ProfileData, OwnedLands } from '../components';
 
-const ProfileContainer = () => {
+import { Selector } from '../../../store/user/reducer';
+
+const ProfileContainer = ({ user }) => {
 	return (
 		<Container fluid>
 			<ProfileData />
@@ -12,4 +15,8 @@ const ProfileContainer = () => {
 	)
 }
 
-export default ProfileContainer;
+const mapStateToProps = (state) => ({
+	user: Selector.getUser(state)
+});
+
+export default connect(mapStateToProps)(ProfileContainer);

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import { connect } from 'react-redux';
 
 import {
     AuthenticationDetails,
@@ -10,11 +9,10 @@ import { Row, Col } from 'reactstrap';
 
 import SignInForm from '../components';
 
-import { loggedIn } from '../../../store/user/action';
 import { userPool, initialValues, validationSchema } from '../values';
 import { PROFILE } from '../../../config/routes';
 
-const SignIn = ({ history, loggedIn }) => {
+const SignIn = ({ history }) => {
     useEffect(() => {
         const auth = window.localStorage.getItem('LoggedIn');
 
@@ -32,7 +30,6 @@ const SignIn = ({ history, loggedIn }) => {
                 console.log(result);
                 window.localStorage.setItem('LoggedIn', JSON.stringify(result));
                 setSubmitting(false);
-                loggedIn({ data: result });
                 history.push(PROFILE);
 
             },
@@ -63,8 +60,4 @@ const SignIn = ({ history, loggedIn }) => {
     );
 }
 
-const dispatchToProps = {
-    loggedIn
-}
-
-export default connect(null, dispatchToProps)(SignIn);
+export default SignIn;
