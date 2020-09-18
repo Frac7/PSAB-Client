@@ -30,6 +30,7 @@ const SignIn = ({ history }) => {
                 console.log(result);
                 window.localStorage.setItem('LoggedIn', JSON.stringify(result));
                 setSubmitting(false);
+                // TODO: dispatch LOGGED_IN action with user data
                 history.push(PROFILE);
 
             },
