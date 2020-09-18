@@ -6,10 +6,15 @@ import { ProfileData, OwnedLands } from '../components';
 
 import { Selector } from '../../../store/user/reducer';
 
-const ProfileContainer = ({ user }) => {
+const ProfileContainer = ({ user: { data } }) => {
+	const { idToken: { payload: { email, name } }} = data; // username is cognito:username
+
 	return (
 		<Container fluid>
-			<ProfileData />
+			<ProfileData user={{
+				email,
+				name
+			}} />
 			<OwnedLands />
 		</Container>
 	)

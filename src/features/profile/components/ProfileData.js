@@ -4,14 +4,15 @@ import { Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
-const ProfileData = () => {
+const ProfileData = ({ user: { email, name } }) => {
 	return (
 		<Row className="align-items-center">
 			<Col md={1}>
 				<FontAwesomeIcon icon={faUser} size="lg" />
 			</Col>
 			<Col>
-				<h1>Jane Doe</h1>
+				<h1>{name}</h1>
+				<h6>{email}</h6>
 			</Col>
 		</Row>
 	)
