@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 // eslint-disable-next-line
 import Web3 from 'web3';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,7 +16,9 @@ import * as serviceWorker from './serviceWorker';
 window.addEventListener('load', () => {
     window.ethereum.enable(
 		ReactDOM.render(
-			<Root />,
+			<Provider store={store}>
+				<Root />
+			</Provider>,
 			document.getElementById('root')
 		)
 	);

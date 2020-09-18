@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import {
     AuthenticationDetails,
     CognitoUser
-  } from "amazon-cognito-identity-js";
+  } from 'amazon-cognito-identity-js';
 import { Formik } from 'formik';
 import { Row, Col } from 'reactstrap';
 
@@ -40,7 +40,7 @@ const SignIn = ({ history }) => {
             },
             newPasswordRequired(data) {
                 console.log(data);
-                cognitoUser.completeNewPasswordChallenge(password, null, this);
+                cognitoUser.completeNewPasswordChallenge(password, { name: email }, this);
             }
         });
     }, [history]);

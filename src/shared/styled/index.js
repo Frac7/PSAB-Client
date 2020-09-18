@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Navbar, Button, Spinner } from 'reactstrap';
+import { Navbar, Badge, Button, Spinner } from 'reactstrap';
 
 const StyledNavbar = styled(Navbar)`
 	background-color: #006D77 !important;
@@ -25,5 +25,8 @@ const StyledFilledButton = styled(Button)`
 const StyledSpinner = styled(Spinner)`
 	color: #006D77;
 `
+const StyledBadge = styled(Badge)`
+	background-color: #006D77;
+`
 
-export { StyledNavbar, StyledFilledButton, StyledSpinner };
+export { StyledNavbar, StyledFilledButton, StyledSpinner, StyledBadge };
