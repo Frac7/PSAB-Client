@@ -3,7 +3,7 @@ import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 import { StyledFilledButton } from '../../../shared/styled';
 
-const ProductionForm = ({
+const ProductActivitiesForm = ({
     values,
     touched,
     errors,
@@ -29,4 +29,4 @@ const ProductionForm = ({
 	</Form>
 );
 
-export default ProductionForm;
+export default ProductActivitiesForm;

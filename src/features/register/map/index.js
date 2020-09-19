@@ -6,7 +6,7 @@ import {
 	MaintenanceForm,
 	PortionForm,
 	ProductForm,
-	ProductionForm
+	ProductActivitiesForm
 } from '../components';
 import {
 	LAND,
@@ -54,12 +54,18 @@ const forms = {
 		})
 	},
 	[PRODUCT]: {
-		component: (props) => <ProductForm {...props} />,
-		initialValues: {},
-		validationSchema: null
+		component: (props) => <ProductActivitiesForm {...props} />,
+		initialValues: {
+			portion: null,
+			description: ''
+		},
+		validationSchema: object().shape({
+			portion: number().required('Selezionare la porzione di terreno alla quale appartiene il prodotto'),
+			description: string().required('Il campo descrizione è obbligatorio')
+		})
 	},
 	[PROD_ACTIVITIES]: {
-		component: (props) => <ProductionForm {...props} />,
+		component: (props) => <ProductActivitiesForm {...props} />,
 		initialValues: {
 			portion: null,
 			description: ''
@@ -70,9 +76,15 @@ const forms = {
 		})
 	},
 	[MAINTENANCE_ACTIVITIES]: {
-		component: (props) => <MaintenanceForm {...props} />,
-		initialValues: {},
-		validationSchema: null
+		component: (props) => <ProductActivitiesForm {...props} />,
+		initialValues: {
+			portion: null,
+			description: ''
+		},
+		validationSchema: object().shape({
+			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di manutenzione'),
+			description: string().required('Il campo descrizione è obbligatorio')
+		})
 	}
 }
 
