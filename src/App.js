@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Suspense, useCallback } from 'react';
+import { Redirect, Switch, Route } from 'react-router-dom';
 
 import { Container, Row, Col } from 'reactstrap';
 
@@ -8,16 +8,27 @@ import { StyledSpinner } from './shared/styled';
 import routes from './config/routes';
 
 const App = () => {
+	const RedirectToLogin = useCallback(() => <Redirect to="/sign-in" />, []);
+
 	return (
 		<Container fluid style={{ margin: '2rem 0' }}>
 			<Row className="justify-content-center">
 				<Col md={6}>
-					<Suspense fallback={<StyledSpinner size="large"/>}>
+					<Suspense fallback={
+						<Container fluid>
+							<Row className="justify-content-center align-content-center align-items-center">
+								<Col md={1}>
+									<StyledSpinner size="large"/>
+								</Col>
+							</Row>
+						</Container>
+						}>
 						<Switch>
 							{ routes.map(({ path, component }, index) =>
 								<Route key={index} path={path} component={component}>
 								</Route>
 							)}
+							<Route exact path="/" component={RedirectToLogin} />
 						</Switch>
 					</Suspense>
 				</Col>
