@@ -1,5 +1,5 @@
 const LAND = 'Terreno';
-const PORTION = 'Porzione/Risorsa agricola';
+const PORTION = 'Porzione di terreno';
 const PROD_ACTIVITIES = 'Attività legate alla produzione';
 const PRODUCT = 'Prodotto';
 const MAINTENANCE_ACTIVITIES = 'Attività di manutenzione';
