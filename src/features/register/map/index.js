@@ -60,8 +60,14 @@ const forms = {
 	},
 	[PROD_ACTIVITIES]: {
 		component: (props) => <ProductionForm {...props} />,
-		initialValues: {},
-		validationSchema: null
+		initialValues: {
+			portion: null,
+			description: ''
+		},
+		validationSchema: object().shape({
+			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di produzione'),
+			description: string().required('Il campo descrizione è obbligatorio')
+		})
 	},
 	[MAINTENANCE_ACTIVITIES]: {
 		component: (props) => <MaintenanceForm {...props} />,
