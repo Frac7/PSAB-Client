@@ -25,15 +25,19 @@ const DocumentField = ({
 				<Row className="my-3" form key={i}>
 					<Col>
 						<Input valid={touched.documents && touched.documents[i] && !errors.documents && !errors.documents[i]} type="file" name={`documents[${i}]`} id={`documents[${i}]`} onChange={handleFileChange(i)} />
-						{ errors.documents && errors.documents[i] && <FormText color="danger">{errors.documents[i]}</FormText>}
 					</Col>
 				</Row>
 			)
 		}
 		return fields;
-	}, [files]);
+	}, [files, touched, errors]);
 
-	return <>{fields}</>;
+	return (
+		<>
+			{fields}
+			{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
+		</>
+	);
 }
 
 export default DocumentField;

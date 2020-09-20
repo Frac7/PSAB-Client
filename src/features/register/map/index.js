@@ -23,8 +23,7 @@ const forms = {
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			// documents: array().of(mixed()).min(1, 'Inserire almeno un documento')
-			// TODO: create test function for this kind of data
+			documents: array().of(string()).min(1, 'Inserire almeno un documento')
 		})
 	},
 	[PORTION]: {
@@ -48,7 +47,11 @@ const forms = {
 			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
 			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori'),
-			buyer: string().length(42, 'L\'indirizzo è lungo esattamente 42 caratteri').required('L\'indirizzo dell\'acquirente è obbligatorio') // TODO: create test function for eth address
+			buyer: string()
+				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
+				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
+				.required('L\'indirizzo dell\'acquirente è obbligatorio'),
+			documents: array().of(string()).min(1, 'Inserire almeno un documento')
 		})
 	},
 	[PRODUCT]: {
