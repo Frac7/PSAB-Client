@@ -1,6 +1,10 @@
 import React from 'react';
-import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+import { Form, FormGroup, FormText, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
 
+import { faEuroSign } from '@fortawesome/free-solid-svg-icons/faEuroSign';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import DocumentField from './DocumentField';
 import { StyledFilledButton } from '../../../shared/styled';
 
 const PortionForm = ({
@@ -25,14 +29,24 @@ const PortionForm = ({
 		</FormGroup>
 		<FormGroup>
 			<Label for="documents">Documenti</Label>
-			<Input valid={touched.documents && !errors.documents} type="file" name="documents" id="documents" onChange={handleChange} value={values.documents}/>
-			{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
+			<FormText>Deve essere caricato un documento al minimo; una volta inserito un file, apparirà un nuovo campo di input per ulteriori file</FormText>
+			<DocumentField
+				values={values}
+				errors={errors}
+				handleChange={handleChange}
+				touched={touched}
+			/>
 		</FormGroup>
 		<FormGroup tag="fieldset">
 			<legend>Dati del contratto</legend>
 			<FormGroup>
 				<Label for="price">Prezzo</Label>
-				<Input valid={touched.price && !errors.price} type="number" name="price" id="price" onChange={handleChange} value={values.price}/>
+				<InputGroup>
+					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
+						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
+					</InputGroupAddon>
+					<Input valid={touched.price && !errors.price} type="number" name="price" id="price" onChange={handleChange} value={values.price}/>
+				</InputGroup>
 				{ errors.price && <FormText color="danger">{errors.price}</FormText>}
 			</FormGroup>
 			<FormGroup>
@@ -48,16 +62,25 @@ const PortionForm = ({
 			</FormGroup>
 			<FormGroup>
 				<Label for="expMainActivityCost">Costi di manutenzione attesi</Label>
-				<Input valid={touched.expMainActivityCost && !errors.expMainActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expMainActivityCost}/>
+				<InputGroup>
+					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
+						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
+					</InputGroupAddon>
+					<Input valid={touched.expMainActivityCost && !errors.expMainActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expMainActivityCost}/>
+				</InputGroup>
 				{ errors.expMainActivityCost && <FormText color="danger">{errors.expMainActivityCost}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="expProdActivityCost">Costi di produzione attesi</Label>
-				<Input valid={touched.expProdActivityCost && !errors.expProdActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expProdActivityCost}/>
+				<InputGroup>
+					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
+						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
+					</InputGroupAddon>
+					<Input valid={touched.expProdActivityCost && !errors.expProdActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expProdActivityCost}/>
+				</InputGroup>
 				{ errors.expProdActivityCost && <FormText color="danger">{errors.expProdActivityCost}</FormText>}
 			</FormGroup>
 		</FormGroup>
-		{/* TODO: add euro icon to number fields */}
 		<StyledFilledButton type="submit" disabled={isSubmitting}>
 			Aggiungi
 		</StyledFilledButton>

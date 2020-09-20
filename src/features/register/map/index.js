@@ -3,9 +3,7 @@ import { object, string, array, mixed, number } from 'yup';
 
 import {
 	LandForm,
-	MaintenanceForm,
 	PortionForm,
-	ProductForm,
 	ProductActivitiesForm
 } from '../components';
 import {

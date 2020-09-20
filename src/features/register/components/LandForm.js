@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 import { StyledFilledButton } from '../../../shared/styled';
+import DocumentField from './DocumentField';
 
 const LandForm = ({
 	values,
@@ -10,36 +11,27 @@ const LandForm = ({
 	isSubmitting,
 	handleSubmit,
 	handleChange
-}) => {
-	const [fileInputs, setFileInputs] = useState(1);
-
-	const handleFileChange = useCallback((event) => {
-		event.persist();
-
-		handleChange(event);
-		if (event.target.value !== '') {
-			setFileInputs((prev) => prev++);
-		} // TODO: improve handling
-	}, [setFileInputs]);
-	// TODO: render the correct number of input fields
-
-	return (
-		<Form onSubmit={handleSubmit} noValidate>
-			<FormGroup>
-				<Label for="description">Descrizione</Label>
-				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
-			</FormGroup>
-			<FormGroup>
-				<Label for="documents">Documenti</Label>
-				<Input valid={touched.documents && !errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} value={values.documents}/>
-				{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
-			</FormGroup>
-			<StyledFilledButton type="submit" disabled={isSubmitting}>
-				Aggiungi
-			</StyledFilledButton>
-		</Form>
-	);
-}
+}) => (
+	<Form onSubmit={handleSubmit} noValidate>
+		<FormGroup>
+			<Label for="description">Descrizione</Label>
+			<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
+			{ errors.description && <FormText color="danger">{errors.description}</FormText>}
+		</FormGroup>
+		<FormGroup>
+			<Label for="documents">Documenti</Label>
+			<FormText>Deve essere caricato un documento al minimo; una volta inserito un file, apparirà un nuovo campo di input per ulteriori file</FormText>
+			<DocumentField
+				values={values}
+				errors={errors}
+				handleChange={handleChange}
+				touched={touched}
+			/>
+		</FormGroup>
+		<StyledFilledButton type="submit" disabled={isSubmitting}>
+			Aggiungi
+		</StyledFilledButton>
+	</Form>
+);
 
 export default LandForm;
