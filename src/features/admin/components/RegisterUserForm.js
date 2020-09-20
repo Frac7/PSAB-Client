@@ -4,12 +4,12 @@ import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import { StyledFilledButton } from '../../../shared/styled';
 
 const RegisterUserForm = ({
-  values,
-  touched,
-  errors,
-  isSubmitting,
-  handleSubmit,
-  handleChange
+	values,
+	touched,
+	errors,
+	isSubmitting,
+	handleSubmit,
+	handleChange
 }) => (
 	<Form onSubmit={handleSubmit} noValidate>
 		<FormGroup>

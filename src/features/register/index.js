@@ -1,7 +1,8 @@
 import React from 'react';
 
+import RegisterFormContainer from './containers';
 import withAuthentication from '../../shared/auth';
 
-const Register = () => <h1>Register</h1>
+const Register = () => <RegisterFormContainer />
 
 export default withAuthentication(Register);
