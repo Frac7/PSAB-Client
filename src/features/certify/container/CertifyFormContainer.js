@@ -1,22 +1,15 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 
+import { CertifyForm } from '../components';
 import { FormSelector } from '../../../shared/form-dropdown';
 
-import {
-	LAND,
-	PORTION,
-	PRODUCT,
-	PROD_ACTIVITIES,
-	MAINTENANCE_ACTIVITIES
-} from '../../../shared/values';
-import { forms } from '../map';
+import { initialValues, validationSchema } from '../map';
+import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 
-const RegisterFormContainer = () => {
-	const [currentForm, setCurrentForm] = useState(LAND);
-
-	const { component: Form, initialValues, validationSchema } = useMemo(() => forms[currentForm], [currentForm]);
+const CertifyFormContainer = () => {
+	const [currentForm, setCurrentForm] = useState(PRODUCT);
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		// TODO: handle upload using s3 and redux-saga
@@ -30,16 +23,13 @@ const RegisterFormContainer = () => {
 		<Container fluid>
 			<Row className="justify-content-between align-items-center">
 				<Col>
-					<h1>Registra {currentForm}</h1>
+					<h1>Certifica {currentForm}</h1>
 				</Col>
 				<Col md={5} className="justify-content-center">
 					<FormSelector
 						forms={[
-							LAND,
-							PORTION,
 							PRODUCT,
-							PROD_ACTIVITIES,
-							MAINTENANCE_ACTIVITIES
+							PROD_ACTIVITIES
 						]}
 						currentForm={currentForm}
 						setCurrentForm={setCurrentForm}
@@ -53,7 +43,7 @@ const RegisterFormContainer = () => {
 						validationSchema={validationSchema}
 						onSubmit={onSubmit}
 					>
-						{props => <Form {...props}/>}
+						{props => <CertifyForm {...props}/>}
 					</Formik>
 				</Col>
 			</Row>
@@ -62,4 +52,4 @@ const RegisterFormContainer = () => {
 	);
 }
 
-export default RegisterFormContainer;
+export default CertifyFormContainer;

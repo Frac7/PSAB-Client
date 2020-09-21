@@ -4,18 +4,18 @@ import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import { StyledFilledButton } from '../../../shared/styled';
 
 const ProductActivitiesForm = ({
-    values,
-    touched,
-    errors,
-    isSubmitting,
-    handleSubmit,
-    handleChange
+   values,
+   touched,
+   errors,
+   isSubmitting,
+   handleSubmit,
+   handleChange
 }) => (
 	<Form onSubmit={handleSubmit} noValidate>
 		<FormGroup>
-			<Label for="portion">Porzione relativa all'oggetto della registrazione</Label>
-			<Input valid={touched.portion && !errors.portion} type="number" name="portion" id="portion" onChange={handleChange} value={values.portion}/>
-			{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
+			<Label for="portion">Oggetto della certificazione</Label>
+			<Input valid={touched.object && !errors.object} type="number" name="object" id="object" onChange={handleChange} value={values.object}/>
+			{ errors.object && <FormText color="danger">{errors.object}</FormText>}
 		</FormGroup>
 		<FormGroup>
 			<Label for="description">Descrizione</Label>
@@ -24,7 +24,7 @@ const ProductActivitiesForm = ({
 			{ errors.description && <FormText color="danger">{errors.description}</FormText>}
 		</FormGroup>
 		<StyledFilledButton type="submit" disabled={isSubmitting}>
-			Aggiungi
+			Certifica
 		</StyledFilledButton>
 	</Form>
 );

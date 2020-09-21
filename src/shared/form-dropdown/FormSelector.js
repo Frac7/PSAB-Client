@@ -2,9 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-import * as values from '../values';
-
-const FormSelector = ({ currentForm, setCurrentForm }) => {
+const FormSelector = ({ forms, currentForm, setCurrentForm }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = useCallback(() => setIsOpen((isOpen) => !isOpen), [setIsOpen]);
@@ -13,8 +11,8 @@ const FormSelector = ({ currentForm, setCurrentForm }) => {
 	}, [setCurrentForm]);
 
 	const choices = useMemo(() => {
-		return Object.keys(values).map((value, index) =>
-			<DropdownItem onClick={onClick(values[value])} key={index}>{values[value]}</DropdownItem>
+		return Object.keys(forms).map((value, index) =>
+			<DropdownItem onClick={onClick(forms[value])} key={index}>{forms[value]}</DropdownItem>
 		)
 	}, [onClick]);
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
+import CertifyFormContainer from './container';
 import withAuthentication from '../../shared/auth';
 
-const Certify = () => <h1>Certify</h1>
+const Certify = () => <CertifyFormContainer />
 
 export default withAuthentication(Certify);

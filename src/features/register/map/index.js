@@ -12,7 +12,7 @@ import {
 	PRODUCT,
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES
-} from '../values';
+} from '../../../shared/values';
 
 const forms = {
 	[LAND]: {
@@ -29,13 +29,13 @@ const forms = {
 	[PORTION]: {
 		component: (props) => <PortionForm {...props} />,
 		initialValues: {
-			land: null,
+			land: '',
 			description: '',
-			price: null,
+			price: '',
 			duration: '',
 			expectedProduction: '',
-			expMainActivityCost: null,
-			expProdActivityCost: null,
+			expMainActivityCost: '',
+			expProdActivityCost: '',
 			buyer: '',
 			documents: []
 		},
@@ -57,7 +57,7 @@ const forms = {
 	[PRODUCT]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
 		initialValues: {
-			portion: null,
+			portion: '',
 			description: ''
 		},
 		validationSchema: object().shape({
@@ -68,7 +68,7 @@ const forms = {
 	[PROD_ACTIVITIES]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
 		initialValues: {
-			portion: null,
+			portion: '',
 			description: ''
 		},
 		validationSchema: object().shape({
@@ -79,7 +79,7 @@ const forms = {
 	[MAINTENANCE_ACTIVITIES]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
 		initialValues: {
-			portion: null,
+			portion: '',
 			description: ''
 		},
 		validationSchema: object().shape({
