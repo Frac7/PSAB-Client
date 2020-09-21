@@ -23,7 +23,7 @@ const DiscoverContainer = () => {
 		<Container fluid>
 			<Row className="justify-content-between align-items-center">
 				<Col>
-					<h1>Scopri {currentElement}</h1>
+					<h1>Esplora {currentElement}</h1>
 				</Col>
 				<Col md={5} className="justify-content-center">
 					<ElementSelector

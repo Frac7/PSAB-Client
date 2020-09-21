@@ -11,7 +11,7 @@ const menu = [
 	},
 	{
 		route: DISCOVER,
-		label: 'Scopri'
+		label: 'Esplora'
 	}
 ]
 

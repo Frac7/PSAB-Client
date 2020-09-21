@@ -8,16 +8,16 @@ const DiscoverLand = ({ description, documents }) => {
 
 	return (
 		<Container fluid>
-			<Row className="align-items-center">
-				<Col md={4}>
+			<Row className="align-items-center my-3">
+				<Col md={3}>
 					<Title>Descrizione</Title>
 				</Col>
 				<Col>
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
-			<Row className="align-items-center">
-				<Col md={4}>
+			<Row className="align-items-center my-3">
+				<Col md={3}>
 					<Title>Documenti</Title>
 				</Col>
 				<Col>
@@ -31,6 +31,6 @@ const DiscoverLand = ({ description, documents }) => {
 			</Row>
 		</Container>
 	);
-}
+};
 
 export default DiscoverLand;

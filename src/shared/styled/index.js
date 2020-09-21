@@ -22,6 +22,26 @@ const StyledFilledButton = styled(Button)`
 	}
 `
 
+const StyledOutlinedButton = styled(Button)`
+	color: #006D77 !important;
+	border-color: #006D77 !important;
+
+	&:hover {
+		background-color: #006D77 !important;
+		color: white !important;
+	}
+
+	&:active {
+		background-color: #006D77 !important;
+		color: white !important;
+	}
+
+	&:focus {
+		background-color: #006D77 !important;
+		color: white !important;
+	}
+`
+
 const StyledSpinner = styled(Spinner)`
 	color: #006D77;
 `
@@ -33,4 +53,4 @@ const StyledTitle = (level) => styled(level)`
 	color: #006D77;
 `
 
-export { StyledNavbar, StyledFilledButton, StyledSpinner, StyledBadge, StyledTitle };
+export { StyledNavbar, StyledFilledButton, StyledOutlinedButton, StyledSpinner, StyledBadge, StyledTitle };

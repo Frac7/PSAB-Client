@@ -3,8 +3,7 @@ import {
 	DiscoverLand,
 	DiscoverPortion,
 	DiscoverProduct,
-	DiscoverProdActivity,
-	DiscoverMainActivity
+	DiscoverActivity
 } from '../components';
 
 import {
@@ -19,8 +18,8 @@ const elementWrappers = {
 	[LAND]: (props) => <DiscoverLand {...props} />,
 	[PORTION]: (props) => <DiscoverPortion {...props} />,
 	[PRODUCT]: (props) => <DiscoverProduct {...props} />,
-	[PROD_ACTIVITIES]: (props) => <DiscoverProdActivity {...props} />,
-	[MAINTENANCE_ACTIVITIES]: (props) => <DiscoverMainActivity {...props} />,
+	[PROD_ACTIVITIES]: (props) => <DiscoverActivity {...props} />,
+	[MAINTENANCE_ACTIVITIES]: (props) => <DiscoverActivity {...props} />,
 }
 
 export { elementWrappers };

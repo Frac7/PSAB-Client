@@ -1,5 +1,5 @@
 import ProfileData from './ProfileData';
 import OwnedLands from './OwnedLands';
-import PurchasedLands from './PurchasedLands';
+import PurchasedPortions from './PurchasedPortions';
 
-export { ProfileData, OwnedLands, PurchasedLands }
+export { ProfileData, OwnedLands, PurchasedPortions }

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Row, Col, Jumbotron } from 'reactstrap';
+import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { StyledBadge } from '../../../shared/styled';
 
-const PurchasedLands = () => {
+const PurchasedPortions = () => {
 	return (
 		<Row className="align-items-center">
 			<Col md="auto">
@@ -15,12 +15,13 @@ const PurchasedLands = () => {
 				</StyledBadge>
 			</Col>
 			<Col md={12}>
-				<Jumbotron>
-
-				</Jumbotron>
+				<ListGroup flush>
+					<ListGroupItem>Item #1</ListGroupItem>
+					<ListGroupItem>Item #2</ListGroupItem>
+				</ListGroup>
 			</Col>
 		</Row>
 	)
 }
 
-export default PurchasedLands;
+export default PurchasedPortions;

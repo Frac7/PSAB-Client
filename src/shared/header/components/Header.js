@@ -44,7 +44,7 @@ const Header = ({ user }) => {
 										</Link>
 									</NavItem>
 								</Col>)}
-							<Col md={{ size: 1, offset: 2 }}>
+							<Col md={{ size: 1, offset: 1 }}>
 								<NavItem active={pathname === PROFILE}>
 									<Link component={NavLink} to={PROFILE}>
 										<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />
