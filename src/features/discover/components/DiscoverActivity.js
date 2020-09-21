@@ -13,7 +13,7 @@ const DiscoverActivity = ({ portion, description }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
-	}, [setIsOpen])
+	}, [setIsOpen]);
 
 	return (
 		<Container fluid>

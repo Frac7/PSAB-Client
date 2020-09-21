@@ -17,6 +17,7 @@ const fakeLand = {
 };
 
 const fakePortion = {
+	id: -1,
 	land: -1,
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque congue ex rutrum feugiat. Mauris lacinia turpis elit, non iaculis felis iaculis nec.',
 	documents: [
@@ -36,6 +37,7 @@ const fakeProdActivity = {
 };
 
 const fakeProduct = {
+	id: -1,
 	portion: -1,
 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque congue ex rutrum feugiat. Mauris lacinia turpis elit, non iaculis felis iaculis nec.'
 };
