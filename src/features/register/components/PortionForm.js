@@ -13,8 +13,9 @@ const PortionForm = ({
      errors,
      isSubmitting,
      handleSubmit,
-     handleChange
- }) => (
+     handleChange,
+     setFieldValue
+}) => (
 	<Form onSubmit={handleSubmit} noValidate>
 		<FormGroup>
 			<Label for="land">Terreno da dividere</Label>
@@ -31,6 +32,7 @@ const PortionForm = ({
 			<Label for="documents">Documenti</Label>
 			<FormText>Deve essere caricato un documento al minimo; una volta inserito un file, apparirà un nuovo campo di input per ulteriori file</FormText>
 			<DocumentField
+				setFieldValue={setFieldValue}
 				values={values}
 				errors={errors}
 				handleChange={handleChange}

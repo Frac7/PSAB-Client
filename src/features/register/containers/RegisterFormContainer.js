@@ -15,11 +15,10 @@ import { forms } from '../map';
 
 const RegisterFormContainer = () => {
 	const [currentForm, setCurrentForm] = useState(LAND);
-
 	const { component: Form, initialValues, validationSchema } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
-		// TODO: handle upload using s3 and redux-saga
+		console.log(values);
 		setTimeout(() => {
 			setSubmitting(false);
 			resetForm();

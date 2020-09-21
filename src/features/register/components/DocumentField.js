@@ -5,18 +5,22 @@ const DocumentField = ({
 	values,
 	touched,
 	errors,
-	handleChange
+	setFieldValue
 }) => {
 	const [files, setFiles] = useState(1);
 	const handleFileChange = useCallback((index) => (event) => {
 		event.persist();
 		const prev = values.documents[index];
 
-		handleChange(event);
-		if (event.target.value !== '' && prev === undefined && event.target.value !== prev) {
+		setFieldValue(`documents[${index}]`, {
+			value: event.target.value,
+			file: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0] : null
+		});
+
+		if (event.target.value !== '' && (prev === undefined || prev === '') && event.target.value !== prev) {
 			setFiles(files + 1);
 		}
-	}, [files, setFiles, handleChange, values.documents]);
+	}, [files, setFiles, setFieldValue, values.documents]);
 
 	const fields = useMemo(() => {
 		const fields = [];
@@ -24,7 +28,7 @@ const DocumentField = ({
 			fields.push(
 				<Row className="my-3" form key={i}>
 					<Col>
-						<Input valid={touched.documents && touched.documents[i] && !errors.documents && !errors.documents[i]} type="file" name={`documents[${i}]`} id={`documents[${i}]`} onChange={handleFileChange(i)} />
+						<Input valid={touched.documents && touched.documents[i] && (errors.documents && !errors.documents[i])} type="file" name={`documents[${i}]`} id={`documents[${i}]`} onChange={handleFileChange(i)} />
 					</Col>
 				</Row>
 			)
