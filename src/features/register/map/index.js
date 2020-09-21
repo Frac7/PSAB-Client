@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, array, mixed, number } from 'yup';
+import { object, string, array, number } from 'yup';
 
 import {
 	LandForm,

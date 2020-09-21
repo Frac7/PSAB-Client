@@ -16,7 +16,7 @@ const FormSelector = ({ currentForm, setCurrentForm }) => {
 		return Object.keys(values).map((value, index) =>
 			<DropdownItem onClick={onClick(values[value])} key={index}>{values[value]}</DropdownItem>
 		)
-	}, []);
+	}, [onClick]);
 
 	return (
 		<Dropdown

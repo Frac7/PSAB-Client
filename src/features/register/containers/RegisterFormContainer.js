@@ -4,13 +4,7 @@ import { Formik } from 'formik';
 
 import { FormSelector } from '../components';
 
-import {
-	PRODUCT,
-	PROD_ACTIVITIES,
-	LAND,
-	PORTION,
-	MAINTENANCE_ACTIVITIES
-} from '../values';
+import { LAND } from '../values';
 import { forms } from '../map';
 
 const RegisterFormContainer = () => {

@@ -16,7 +16,7 @@ const DocumentField = ({
 		if (event.target.value !== '' && prev === undefined && event.target.value !== prev) {
 			setFiles(files + 1);
 		}
-	}, [files, setFiles]);
+	}, [files, setFiles, handleChange, values.documents]);
 
 	const fields = useMemo(() => {
 		const fields = [];
@@ -30,7 +30,7 @@ const DocumentField = ({
 			)
 		}
 		return fields;
-	}, [files, touched, errors]);
+	}, [files, touched, errors, handleFileChange]);
 
 	return (
 		<>
