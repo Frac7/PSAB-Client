@@ -12,6 +12,8 @@ import {
 } from '../../../shared/values';
 import { ElementSelector } from '../../../shared/element-dropdown';
 
+import { elementWrappers } from '../map';
+
 const DiscoverContainer = () => {
 	const [currentElement, setCurrentElement] = useState(LAND);
 
@@ -37,7 +39,7 @@ const DiscoverContainer = () => {
 			</Row>
 			<ElementListContainer
 				elements={[]}
-				ElementWrapper={null}
+				ElementWrapper={elementWrappers[currentElement]}
 			/>
 		</Container>
 	)
