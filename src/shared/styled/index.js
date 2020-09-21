@@ -29,4 +29,8 @@ const StyledBadge = styled(Badge)`
 	background-color: #006D77;
 `
 
-export { StyledNavbar, StyledFilledButton, StyledSpinner, StyledBadge };
+const StyledTitle = (level) => styled(level)`
+	color: #006D77;
+`
+
+export { StyledNavbar, StyledFilledButton, StyledSpinner, StyledBadge, StyledTitle };

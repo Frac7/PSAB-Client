@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'reactstrap';
 
 import ElementListContainer from './ElementListContainer';
 
+import { mock } from '../mock';
+
 import {
 	LAND,
 	PORTION,
@@ -38,7 +40,7 @@ const DiscoverContainer = () => {
 				</Col>
 			</Row>
 			<ElementListContainer
-				elements={[]}
+				elements={mock[currentElement]}
 				ElementWrapper={elementWrappers[currentElement]}
 			/>
 		</Container>
