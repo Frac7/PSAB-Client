@@ -36,9 +36,11 @@ const RegisterFormContainer = () => {
 						} else {
 							setHasErrors(false);
 						}
+						setIsOpen(true);
 					}).catch((error) => {
 						console.log(error);
 						setHasErrors(true);
+						setIsOpen(true);
 					});
 			});
 		}
@@ -48,6 +50,8 @@ const RegisterFormContainer = () => {
 			resetForm();
 		}, 2500);
 	}, []);
+
+	console.log(hasErrors);
 
 	return (
 		<>
