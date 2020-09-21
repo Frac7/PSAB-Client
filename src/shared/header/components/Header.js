@@ -28,23 +28,23 @@ const Header = ({ user }) => {
 			<StyledNavbar dark expand>
 				<Nav navbar style={{ width: '100%' }}>
 					<Container fluid>
-						<Row md={4} style={{ width: '100%' }}>
+						<Row style={{ width: '100%' }}>
 							{ menu.map(({ route, label }, index) =>
-								<Col md={{ size: 2, offset: index ? 0 : 2 }} key={index}>
+								<Col md={{ size: 1, offset: index ? 0 : 3 }} key={index}>
 									<NavItem active={pathname === route}>
 										<Link component={NavLink} to={route}>{label}</Link>
 									</NavItem>
 								</Col>
 							)}
 							{isAdmin && (
-								<Col md={1}>
+								<Col md={{ size: 2, offset: 1 }}>
 									<NavItem active={pathname === ADMIN}>
 										<Link component={NavLink} to={ADMIN}>
-											Utenti
+											Aggiungi Utente
 										</Link>
 									</NavItem>
 								</Col>)}
-							<Col md={{ size: 1, offset: 1 }}>
+							<Col md={{ size: 1, offset: isAdmin ? 0 : 3 }}>
 								<NavItem active={pathname === PROFILE}>
 									<Link component={NavLink} to={PROFILE}>
 										<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />

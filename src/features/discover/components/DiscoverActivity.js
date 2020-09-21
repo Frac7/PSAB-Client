@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Col, Container, Row, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import DiscoverPortion from './DiscoverPortion';
-import { StyledOutlinedButton, StyledTitle } from '../../../shared/styled';
+import { StyledLinkButton, StyledTitle } from '../../../shared/styled';
 
 import { mock } from '../mock';
 import { PORTION } from '../../../shared/values';
@@ -22,14 +22,14 @@ const DiscoverActivity = ({ portion, description }) => {
 					<Title>Porzione</Title>
 				</Col>
 				<Col>
-					<StyledOutlinedButton outline onClick={handleClick}>
+					<StyledLinkButton color="link" onClick={handleClick}>
 						Porzione #{portion}
-					</StyledOutlinedButton>
-					<Modal isOpen={isOpen} toggle={handleClick}>
+					</StyledLinkButton>
+					<Modal className="modal-lg" isOpen={isOpen} toggle={handleClick}>
 						<ModalHeader toggle={handleClick}>
 							Dettagli Porzione #{portion}</ModalHeader>
 						<ModalBody>
-							<DiscoverPortion {...mock[PORTION]}/>
+							<DiscoverPortion {...mock[PORTION][0]}/>
 						</ModalBody>
 					</Modal>
 				</Col>
