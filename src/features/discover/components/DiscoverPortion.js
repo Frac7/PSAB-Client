@@ -38,7 +38,7 @@ const DiscoverPortion = ({
 	const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 	const handleDetailsClick = useCallback(() => {
 		setIsDetailsOpen((isOpen) => !isOpen);
-	})
+	}, [setIsDetailsOpen])
 	const icon = useMemo(() => isDetailsOpen ? faChevronUp : faChevronDown, [isDetailsOpen]);
 
 	return (
