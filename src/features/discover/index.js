@@ -1,7 +1,8 @@
 import React from 'react';
 
+import DiscoverContainer from './containers';
 import withAuthentication from '../../shared/auth';
 
-const Discover = () => <h1>Discover</h1>
+const Discover = () => <DiscoverContainer />;
 
 export default withAuthentication(Discover);

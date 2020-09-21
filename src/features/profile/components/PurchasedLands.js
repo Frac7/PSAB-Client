@@ -7,7 +7,7 @@ const PurchasedLands = () => {
 	return (
 		<Row className="align-items-center">
 			<Col md="auto">
-				<h2>Lands</h2>
+				<h2>Portions</h2>
 			</Col>
 			<Col>
 				<StyledBadge>

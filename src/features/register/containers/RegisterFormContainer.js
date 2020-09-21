@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 
-import { FormSelector } from '../../../shared/form-dropdown';
+import { ElementSelector } from '../../../shared/element-dropdown';
 
 import {
 	LAND,
@@ -33,16 +33,16 @@ const RegisterFormContainer = () => {
 					<h1>Registra {currentForm}</h1>
 				</Col>
 				<Col md={5} className="justify-content-center">
-					<FormSelector
-						forms={[
+					<ElementSelector
+						elements={[
 							LAND,
 							PORTION,
 							PRODUCT,
 							PROD_ACTIVITIES,
 							MAINTENANCE_ACTIVITIES
 						]}
-						currentForm={currentForm}
-						setCurrentForm={setCurrentForm}
+						currentElement={currentForm}
+						setCurrentElement={setCurrentForm}
 					/>
 				</Col>
 			</Row>

@@ -2,19 +2,19 @@ import React, { useState, useCallback, useMemo } from 'react';
 
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const FormSelector = ({ forms, currentForm, setCurrentForm }) => {
+const ElementSelector = ({ elements, currentElement, setCurrentElement }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = useCallback(() => setIsOpen((isOpen) => !isOpen), [setIsOpen]);
 	const onClick = useCallback((value) => () => {
-		setCurrentForm(value);
-	}, [setCurrentForm]);
+		setCurrentElement(value);
+	}, [setCurrentElement]);
 
 	const choices = useMemo(() => {
-		return Object.keys(forms).map((value, index) =>
-			<DropdownItem onClick={onClick(forms[value])} key={index}>{forms[value]}</DropdownItem>
+		return Object.keys(elements).map((value, index) =>
+			<DropdownItem onClick={onClick(elements[value])} key={index}>{elements[value]}</DropdownItem>
 		)
-	}, [onClick]);
+	}, [onClick, elements]);
 
 	return (
 		<Dropdown
@@ -22,7 +22,7 @@ const FormSelector = ({ forms, currentForm, setCurrentForm }) => {
 			toggle={toggle}
 		>
 			<DropdownToggle caret block>
-				{currentForm}
+				{currentElement}
 			</DropdownToggle>
 			<DropdownMenu>
 				{choices}
@@ -31,4 +31,4 @@ const FormSelector = ({ forms, currentForm, setCurrentForm }) => {
 	)
 };
 
-export default FormSelector;
+export default ElementSelector;
