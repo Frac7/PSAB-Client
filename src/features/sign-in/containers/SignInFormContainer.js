@@ -11,11 +11,13 @@ import { PROFILE } from '../../../config/routes';
 
 const SignIn = ({ history }) => {
     useEffect(() => {
-        const auth = window.localStorage.getItem('LoggedIn');
-
-        if (auth) {
-            history.push(PROFILE);
-        }
+        Auth.currentUserInfo()
+            .then((result) => {
+                if (Object.keys(result) > 0) {
+                    history.push(PROFILE);
+                }
+            })
+            .catch((error) => console.error(error));
     }, [history]);
 
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
@@ -29,7 +31,6 @@ const SignIn = ({ history }) => {
                     .catch((err) => {
                         console.log(err);
                     });
-                window.localStorage.setItem('LoggedIn', JSON.stringify(result));
                 setSubmitting(false);
                 history.push(PROFILE);
             })

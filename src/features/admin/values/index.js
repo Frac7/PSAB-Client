@@ -1,11 +1,12 @@
-import { object, string, ref } from 'yup';
+import { object, string, ref, number } from 'yup';
 
 const initialValues = {
 	email: '',
 	password: '',
 	name: '',
 	address: '',
-	confirmPassword: ''
+	confirmPassword: '',
+	role: ''
 };
 const validationSchema = object().shape({
 	email: string().email('E-mail non valida').required('Inserire l\'e-mail'),
@@ -15,6 +16,7 @@ const validationSchema = object().shape({
 	address: string()
 		.required('Inserire l\'indirizzo')
 		.length(42, 'L\'address è lungo esattamente 42 caratteri'),
+	role: number().required('Inserire il ruolo del nuovo utente')
 });
 
 export { initialValues, validationSchema };

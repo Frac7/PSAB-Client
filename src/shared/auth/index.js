@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import Auth from '@aws-amplify/auth';
+
 import { SIGNIN } from '../../config/routes';
 
 import { loggedIn } from '../../store/user/action';
@@ -12,16 +14,16 @@ const withAuthentication = (AuthComponent) => {
         constructor(props) {
             super(props);
 
-            const auth = window.localStorage.getItem('LoggedIn');
-            this.state = { auth };
-
-            if (auth && !this.props.user.data) {
-                this.props.loggedIn({ data: JSON.parse(this.state.auth) });
-            }
+            (async () => {
+                const user = await Auth.currentUserInfo();
+                if (!props.user.data) {
+                    props.loggedIn({ data: JSON.parse(user) });
+                }
+            })();
         }
 
         render() {
-            if (this.state.auth) {
+            if (this.props.user.data) {
                 return <AuthComponent />;
             }
 

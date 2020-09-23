@@ -3,6 +3,8 @@ import React from 'react';
 import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import { StyledFilledButton } from '../../../shared/styled';
 
+import { roles } from '../../../shared/values';
+
 const RegisterUserForm = ({
 	values,
 	touched,
@@ -37,6 +39,13 @@ const RegisterUserForm = ({
 			<Label for="confirmPassword">Conferma password</Label>
 			<Input valid={touched.email && !errors.confirmPassword} type="password" name="confirmPassword" id="confirmPassword" onChange={handleChange} value={values.confirmPassword}/>
 			{ errors.confirmPassword && <FormText color="danger">{errors.confirmPassword}</FormText>}
+		</FormGroup>
+		<FormGroup>
+			<Label for="role">Ruolo</Label>
+			<Input valid={touched.role && !errors.role} type="select" name="role" id="role" onChange={handleChange} value={values.role}>
+				{roles.map((role, index) => <option key={index} value={index}>{role}</option>)}
+			</Input>
+			{ errors.role && <FormText color="danger">{errors.role}</FormText>}
 		</FormGroup>
 		<StyledFilledButton type="submit" disabled={isSubmitting}>
 			Aggiungi

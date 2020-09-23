@@ -9,7 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 
 import RegisterUserForm from '../components';
+
 import { initialValues, validationSchema } from '../values';
+import { roles, USER } from '../../../shared/values';
 
 const AdminContainer = () => {
 	const [registered, setRegistered] = useState(false);
@@ -20,11 +22,19 @@ const AdminContainer = () => {
 		}
 	}, [registered]);
 
-	const onSubmit = useCallback(({ name, email, address, password }, { setSubmitting, setErrors, resetForm }) => {
+	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
+		const attributes = {
+			name,
+			'custom:eth_address': address,
+		};
+		if (role !== roles.indexOf(USER)) {
+			attributes['custom:role'] = role;
+		}
+
 		Auth.signUp({
 			email,
 			password,
-			attributes: {}
+			attributes
 		})
 			.then((result) => {
 				console.log(result);
