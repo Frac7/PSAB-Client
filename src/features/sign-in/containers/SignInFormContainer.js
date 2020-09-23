@@ -6,20 +6,25 @@ import { Formik } from 'formik';
 import { Row, Col, Container } from 'reactstrap';
 
 import SignInForm from '../components';
+import { StyledSpinner } from '../../../shared/styled';
 
 import { initialValues, validationSchema } from '../values';
 import { PROFILE } from '../../../config/routes';
 
-import { requestLogin } from '../../../store/user/action';
+import { requestLogin, loggedIn } from '../../../store/user/action';
 import { Selector } from '../../../store/user/reducer';
-import { StyledSpinner } from '../../../shared/styled';
 
-const SignIn = ({ history, requestLogin, user: { data, isLoading } }) => {
+const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) => {
     useEffect(() => {
-        if (data) {
-            history.push(PROFILE);
-        }
-    }, [data, history]);
+        Auth.currentUserInfo()
+            .then((user) => {
+                if (!data) {
+                    loggedIn({ data: user });
+                }
+                    history.push(PROFILE);
+            })
+            .catch((error) => console.error(error));
+    }, [data, loggedIn, history]);
 
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
         Auth.signIn(email, password)
@@ -75,7 +80,8 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = {
-    requestLogin
+    requestLogin,
+    loggedIn
 }
 
 export default connect(mapStateToProps, dispatchToProps)(SignIn);

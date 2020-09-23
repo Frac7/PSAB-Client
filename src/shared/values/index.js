@@ -10,7 +10,6 @@ const OPERATOR = 'Operatore';
 const USER = 'Utente';
 
 const roles = [
-	ADMIN,
 	CERTIFIER,
 	OPERATOR,
 	USER
