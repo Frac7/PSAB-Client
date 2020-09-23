@@ -2,6 +2,8 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 
+import Storage from '@aws-amplify/storage';
+
 import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
 
@@ -23,14 +25,28 @@ const RegisterFormContainer = () => {
 	const [hasErrors, setHasErrors] = useState(false);
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		if (values.documents) {
+			values.documents.forEach((document) => {
+				if (!hasErrors) {
+					Storage.put(document.value, document.file)
+						.then((result) => {
+							console.log(result);
+						})
+						.catch((error) => {
+							console.log(error);
+							setHasErrors(true);
+						});
+				}
+			});
 
-		}
-
-		setTimeout(() => {
+			setIsOpen(true);
+			resetForm(initialValues);
 			setSubmitting(false);
-			resetForm();
-		}, 2500);
-	}, []);
+
+		} else {
+			resetForm(initialValues);
+			setSubmitting(false);
+		}
+	}, [initialValues, hasErrors]);
 
 	return (
 		<>

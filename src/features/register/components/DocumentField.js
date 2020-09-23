@@ -13,7 +13,7 @@ const DocumentField = ({
 		const prev = values.documents[index];
 
 		setFieldValue(`documents[${index}]`, {
-			value: event.target.value,
+			value: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0].name : '',
 			file: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0] : null
 		});
 
