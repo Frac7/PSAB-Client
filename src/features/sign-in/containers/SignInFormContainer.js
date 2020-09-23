@@ -1,50 +1,62 @@
 import React, { useCallback, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import {
-    AuthenticationDetails,
-    CognitoUser
-  } from 'amazon-cognito-identity-js';
+import Auth from '@aws-amplify/auth';
 import { Formik } from 'formik';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 
 import SignInForm from '../components';
+import { StyledSpinner } from '../../../shared/styled';
 
 import { initialValues, validationSchema } from '../values';
-import { userPool } from '../../../shared/auth';
 import { PROFILE } from '../../../config/routes';
 
-const SignIn = ({ history }) => {
-    useEffect(() => {
-        const auth = window.localStorage.getItem('LoggedIn');
+import { requestLogin, loggedIn } from '../../../store/user/action';
+import { Selector } from '../../../store/user/reducer';
 
-        if (auth) {
-            history.push(PROFILE);
+const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) => {
+    useEffect(() => {
+        if (!data) {
+            Auth.currentUserInfo()
+                .then((user) => {
+                    loggedIn({data: user});
+                })
+                .catch((error) => console.error(error));
         }
-    }, [history]);
+        // eslint-disable-next-line
+    }, [data, loggedIn]);
 
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
-        const authDetails = new AuthenticationDetails({ Username: email, Password: password });
-        const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
-
-        cognitoUser.authenticateUser(authDetails, {
-            onSuccess(result) {
+        Auth.signIn(email, password)
+            .then((result) => {
                 console.log(result);
-                window.localStorage.setItem('LoggedIn', JSON.stringify(result));
+                requestLogin();
                 setSubmitting(false);
                 history.push(PROFILE);
-
-            },
-            onFailure(error) {
+            })
+            .catch((error) => {
                 console.error(error);
                 setSubmitting(false);
                 setErrors({ password: error.message });
-            },
-            newPasswordRequired(data) {
-                console.log(data);
-                cognitoUser.completeNewPasswordChallenge(password, { name: email }, this);
-            }
-        });
-    }, [history]);
+            });
+    }, [history, requestLogin]);
+
+    if (data) {
+        return <Redirect to={PROFILE} />
+    }
+
+    if (isLoading) {
+        return (
+            <Container fluid>
+                <Row className="justify-content-center align-content-center align-items-center">
+                    <Col md={1}>
+                        <StyledSpinner size="large"/>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    }
 
     return (
         <Row>
@@ -61,4 +73,13 @@ const SignIn = ({ history }) => {
     );
 }
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+    user: Selector.getUser(state)
+});
+
+const dispatchToProps = {
+    requestLogin,
+    loggedIn
+}
+
+export default connect(mapStateToProps, dispatchToProps)(SignIn);

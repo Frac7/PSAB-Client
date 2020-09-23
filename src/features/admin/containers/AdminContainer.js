@@ -1,55 +1,60 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { Formik } from 'formik';
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from 'reactstrap';
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+
+import Auth from '@aws-amplify/auth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 
 import RegisterUserForm from '../components';
+
 import { initialValues, validationSchema } from '../values';
-import { userPool } from '../../../shared/auth';
+import { Selector } from '../../../store/user/reducer';
 
-const AdminContainer = () => {
+import { PROFILE } from '../../../config/routes';
+
+const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdmin }} } }) => {
 	const [registered, setRegistered] = useState(false);
-
 	useEffect(() => {
 		if (registered) {
 			setTimeout(() => setRegistered(false), 5000);
 		}
 	}, [registered]);
 
-	const onSubmit = useCallback(({ name, email, address, password }, { setSubmitting, setErrors, resetForm }) => {
-		const userAttributes = [{
-			Name: 'custom:role',
-			Value: '1'
-		},{
-			Name: 'email',
-			Value: email
-		}, {
-			Name: 'name',
-			Value: name
-		}, {
-			Name: 'custom:eth_address',
-			Value: address
-		}];
+	const history = useHistory();
+	useEffect(() => {
+		if(!isAdmin) {
+			history.push(PROFILE);
+		}
+	}, [isAdmin, history]);
 
-		userPool.signUp(
-			email,
+	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
+		const attributes = {
+			name,
+			'custom:eth_address': address,
+			'custom:role': role.toString(),
+			'custom:is_admin': '0'
+		};
+
+		Auth.signUp({
+			username: email,
 			password,
-			userAttributes.map((attribute) => new CognitoUserAttribute(attribute)),
-			[],
-			(error, result) => {
-			console.log(error, result);
-			setSubmitting(false);
-
-			if (error) {
-				setErrors({ confirmPassword: error.message });
-			} else {
+			attributes
+		})
+			.then((result) => {
+				console.log(result);
+				setSubmitting(false);
 				setRegistered(true);
 				resetForm();
-			}
+			}).catch((error) => {
+			console.log(error);
+			setSubmitting(false);
+			setErrors({ role: error.message });
+
 		})
 	}, []);
 
@@ -81,4 +86,8 @@ const AdminContainer = () => {
 	)
 }
 
-export default AdminContainer;
+const mapStateToProps = (state) => ({
+	user: Selector.getUser(state)
+})
+
+export default connect(mapStateToProps)(AdminContainer);

@@ -13,7 +13,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Root from './Root';
 import * as serviceWorker from './serviceWorker';
 
+import configureAwsAmplify from './config/aws-amplify';
+
 window.addEventListener('load', () => {
+	configureAwsAmplify();
+
     window.ethereum.enable(
 		ReactDOM.render(
 			<Provider store={store}>

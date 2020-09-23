@@ -2,6 +2,9 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
 
+import Storage from '@aws-amplify/storage';
+
+import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
 
 import {
@@ -18,47 +21,65 @@ const RegisterFormContainer = () => {
 
 	const { component: Form, initialValues, validationSchema } = useMemo(() => forms[currentForm], [currentForm]);
 
+	const [isOpen, setIsOpen] = useState(false);
+	const [hasErrors, setHasErrors] = useState(false);
+
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
-		// TODO: handle upload using s3 and redux-saga
-		setTimeout(() => {
-			setSubmitting(false);
-			resetForm();
-		}, 2500);
-	}, []);
+		if (values.documents) {
+			values.documents.forEach((document) => {
+				if (!hasErrors) {
+					Storage.put(document.value, document.file)
+						.then((result) => {
+							console.log(result);
+						})
+						.catch((error) => {
+							console.log(error);
+							setHasErrors(true);
+						});
+				}
+			});
+		}
+
+		setIsOpen(true);
+		resetForm(initialValues);
+		setSubmitting(false);
+	}, [initialValues, hasErrors]);
 
 	return (
-		<Container fluid>
-			<Row className="justify-content-between align-items-center">
-				<Col>
-					<h1>Registra {currentForm}</h1>
-				</Col>
-				<Col md={5} className="justify-content-center">
-					<ElementSelector
-						elements={[
-							LAND,
-							PORTION,
-							PRODUCT,
-							PROD_ACTIVITIES,
-							MAINTENANCE_ACTIVITIES
-						]}
-						currentElement={currentForm}
-						setCurrentElement={setCurrentForm}
-					/>
-				</Col>
-			</Row>
-			<Row>
-				<Col md={12}>
-					<Formik
-						initialValues={initialValues}
-						validationSchema={validationSchema}
-						onSubmit={onSubmit}
-					>
-						{props => <Form {...props}/>}
-					</Formik>
-				</Col>
-			</Row>
-		</Container>
-
+		<>
+			<Container fluid>
+				<Row className="justify-content-between align-items-center">
+					<Col>
+						<h1>Registra {currentForm}</h1>
+					</Col>
+					<Col md={5} className="justify-content-center">
+						<ElementSelector
+							elements={[
+								LAND,
+								PORTION,
+								PRODUCT,
+								PROD_ACTIVITIES,
+								MAINTENANCE_ACTIVITIES
+							]}
+							currentElement={currentForm}
+							setCurrentElement={setCurrentForm}
+						/>
+					</Col>
+				</Row>
+				<Row>
+					<Col md={12}>
+						<Formik
+							initialValues={initialValues}
+							validationSchema={validationSchema}
+							onSubmit={onSubmit}
+						>
+							{props => <Form {...props}/>}
+						</Formik>
+					</Col>
+				</Row>
+			</Container>
+		<ToastFeedback isOpen={isOpen} setIsOpen={setIsOpen} hasErrors={hasErrors} />
+	</>
 	);
 }
 

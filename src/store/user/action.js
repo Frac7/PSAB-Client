@@ -4,16 +4,24 @@ import { createActionType } from '../utils';
 const DOMAIN = '@user';
 
 const TYPES = {
-	LOGGED_IN: createActionType(DOMAIN, 'LOGGED_IN')
+	REQUEST_LOGIN: createActionType(DOMAIN, 'REQUEST_LOGIN'),
+	LOGGED_IN: createActionType(DOMAIN, 'LOGGED_IN'),
+	LOGGED_OUT: createActionType(DOMAIN, 'LOGGED_OUT')
 };
 
 const {
-	loggedIn
+	requestLogin,
+	loggedIn,
+	loggedOut
 } = createActions({
-	[TYPES.LOGGED_IN]: ({ data }) => ({ data })
+	[TYPES.REQUEST_LOGIN]: null,
+	[TYPES.LOGGED_IN]: ({ data }) => ({ data }),
+	[TYPES.LOGGED_OUT]: null,
 }).user;
 
 export {
 	TYPES,
-	loggedIn
+	requestLogin,
+	loggedIn,
+	loggedOut
 };

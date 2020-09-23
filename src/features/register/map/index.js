@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, array, number } from 'yup';
+import { object, string, array, number, mixed } from 'yup';
 
 import {
 	LandForm,
@@ -23,7 +23,10 @@ const forms = {
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().of(string()).min(1, 'Inserire almeno un documento')
+			documents: array().of(object().shape({
+				value: string(),
+				file: mixed()
+			})).min(1, 'Inserire almeno un documento')
 		})
 	},
 	[PORTION]: {
@@ -51,7 +54,10 @@ const forms = {
 				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
 				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
 				.required('L\'indirizzo dell\'acquirente è obbligatorio'),
-			documents: array().of(string()).min(1, 'Inserire almeno un documento')
+			documents: array().of(object().shape({
+				value: string(),
+				file: mixed()
+			})).min(1, 'Inserire almeno un documento')
 		})
 	},
 	[PRODUCT]: {
