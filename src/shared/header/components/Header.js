@@ -19,8 +19,8 @@ const Header = ({ user }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
 	useEffect(() => {
 		if (user.data) {
-			const { payload } = user.data.idToken;
-			setIsAdmin(!payload['custom:role']);
+			const { attributes } = user.data;
+			setIsAdmin(!attributes['custom:role']);
 		}
 	}, [user]);
 

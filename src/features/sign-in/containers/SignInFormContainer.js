@@ -13,24 +13,22 @@ const SignIn = ({ history }) => {
     useEffect(() => {
         Auth.currentUserInfo()
             .then((result) => {
-                if (Object.keys(result) > 0) {
-                    history.push(PROFILE);
-                }
+                history.push(PROFILE);
             })
             .catch((error) => console.error(error));
-    }, [history]);
+    }, []);
 
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
         Auth.signIn(email, password)
             .then((result) => {
                 console.log(result);
-                Auth.completeNewPassword(result, password)
-                    .then((res) => {
-                        console.log(res);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                // Auth.completeNewPassword(result, password)
+                //     .then((res) => {
+                //         console.log(res);
+                //     })
+                //     .catch((err) => {
+                //         console.log(err);
+                //     });
                 setSubmitting(false);
                 history.push(PROFILE);
             })

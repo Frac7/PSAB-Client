@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -9,29 +9,24 @@ import { SIGNIN } from '../../config/routes';
 import { loggedIn } from '../../store/user/action';
 import { Selector } from '../../store/user/reducer';
 
-const withAuthentication = (AuthComponent) => {
-    class AuthContainer extends Component {
-        constructor(props) {
-            super(props);
-
-            (async () => {
-                const user = await Auth.currentUserInfo();
-                if (!props.user.data) {
-                    props.loggedIn({ data: JSON.parse(user) });
+const withAuthentication = (AuthComponent) =>
+    connect((state) => ({ user: Selector.getUser(state) }), { loggedIn })(
+        ({ loggedIn, user: { data }}) => {
+            useEffect(() => {
+                if (!data) {
+                    Auth.currentUserInfo()
+                        .then((user) => {
+                            loggedIn({ data: user });
+                        })
+                        .catch((error) => console.error(error));
                 }
-            })();
-        }
+            }, [loggedIn, data]);
 
-        render() {
-            if (this.props.user.data) {
+            if (data) {
                 return <AuthComponent />;
+            } else {
+                return <Redirect to={SIGNIN} />
             }
-
-            return <Redirect to={SIGNIN} />
-        }
-    }
-
-    return connect((state) => ({ user: Selector.getUser(state) }), { loggedIn })(AuthContainer);
-}
+        });
 
 export default withAuthentication;
