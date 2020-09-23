@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { FormText, Input, Row, Col } from 'reactstrap';
 
 const DocumentField = ({
@@ -7,24 +7,18 @@ const DocumentField = ({
 	errors,
 	setFieldValue
 }) => {
-	const [files, setFiles] = useState(1);
 	const handleFileChange = useCallback((index) => (event) => {
 		event.persist();
-		const prev = values.documents[index];
 
 		setFieldValue(`documents[${index}]`, {
 			value: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0].name : '',
 			file: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0] : null
 		});
-
-		if (event.target.value !== '' && (prev === undefined || prev === '') && event.target.value !== prev) {
-			setFiles(files + 1);
-		}
-	}, [files, setFiles, setFieldValue, values.documents]);
+	}, [setFieldValue, values.documents]);
 
 	const fields = useMemo(() => {
 		const fields = [];
-		for (let i = 0; i < files; i++) {
+		for (let i = 0; i < values.documents.length + 1; i++) {
 			fields.push(
 				<Row className="my-3" form key={i}>
 					<Col>
@@ -34,7 +28,7 @@ const DocumentField = ({
 			)
 		}
 		return fields;
-	}, [files, touched, errors, handleFileChange]);
+	}, [touched, errors, handleFileChange]);
 
 	return (
 		<>

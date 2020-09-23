@@ -23,6 +23,7 @@ const RegisterFormContainer = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
+
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		if (values.documents) {
 			values.documents.forEach((document) => {
