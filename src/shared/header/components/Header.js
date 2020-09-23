@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { Nav, NavItem, NavLink, Container, Row, Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 
 import { StyledNavbar } from '../../styled';
 
 import { menu } from '../data';
-import { ADMIN, PROFILE } from '../../../config/routes';
+import { ADMIN, PROFILE, SIGNOUT } from '../../../config/routes';
 import { Selector } from '../../../store/user/reducer';
 
 const Header = ({ user }) => {
@@ -44,13 +45,20 @@ const Header = ({ user }) => {
 										</Link>
 									</NavItem>
 								</Col>)}
-							<Col md={{ size: 1, offset: isAdmin ? 0 : 3 }}>
+							<Col md={{ size: 1, offset: isAdmin ? 0 : 2 }}>
 								<NavItem active={pathname === PROFILE}>
 									<Link component={NavLink} to={PROFILE}>
 										<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />
 									</Link>
 								</NavItem>
 							</Col>
+							{user.data && <Col md={{ size: 1 }}>
+								<NavItem active={pathname === SIGNOUT}>
+									<Link component={NavLink} to={SIGNOUT}>
+										<FontAwesomeIcon icon={faSignOutAlt} color="inherit" size="lg" />
+									</Link>
+								</NavItem>
+							</Col>}
 						</Row>
 					</Container>
 				</Nav>

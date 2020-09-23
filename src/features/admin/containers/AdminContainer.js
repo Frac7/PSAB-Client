@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { Formik } from 'formik';
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from 'reactstrap';
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+
+import Auth from '@aws-amplify/auth';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 
 import RegisterUserForm from '../components';
 import { initialValues, validationSchema } from '../values';
-import { userPool } from '../../../shared/auth';
 
 const AdminContainer = () => {
 	const [registered, setRegistered] = useState(false);
@@ -21,35 +21,21 @@ const AdminContainer = () => {
 	}, [registered]);
 
 	const onSubmit = useCallback(({ name, email, address, password }, { setSubmitting, setErrors, resetForm }) => {
-		const userAttributes = [{
-			Name: 'custom:role',
-			Value: '1'
-		},{
-			Name: 'email',
-			Value: email
-		}, {
-			Name: 'name',
-			Value: name
-		}, {
-			Name: 'custom:eth_address',
-			Value: address
-		}];
-
-		userPool.signUp(
+		Auth.signUp({
 			email,
 			password,
-			userAttributes.map((attribute) => new CognitoUserAttribute(attribute)),
-			[],
-			(error, result) => {
-			console.log(error, result);
-			setSubmitting(false);
-
-			if (error) {
-				setErrors({ confirmPassword: error.message });
-			} else {
+			attributes: {}
+		})
+			.then((result) => {
+				console.log(result);
+				setSubmitting(false);
 				setRegistered(true);
 				resetForm();
-			}
+			}).catch((error) => {
+			console.log(error);
+			setSubmitting(false);
+			setErrors({ confirmPassword: error.message });
+
 		})
 	}, []);
 
