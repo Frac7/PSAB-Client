@@ -13,19 +13,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Root from './Root';
 import * as serviceWorker from './serviceWorker';
 
-import Auth from '@aws-amplify/auth';
-import Storage from '@aws-amplify/storage';
-
-Auth.configure({
-	identityPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
-	region: process.env.REACT_APP_REGION
-});
-Storage.configure({
-	bucket: process.env.REACT_APP_BUCKET_NAME,
-	region: process.env.REACT_APP_REGION
-});
+import configureAwsAmplify from './config/aws-amplify';
 
 window.addEventListener('load', () => {
+	configureAwsAmplify();
+
     window.ethereum.enable(
 		ReactDOM.render(
 			<Provider store={store}>
