@@ -38,15 +38,11 @@ const RegisterFormContainer = () => {
 						});
 				}
 			});
-
-			setIsOpen(true);
-			resetForm(initialValues);
-			setSubmitting(false);
-
-		} else {
-			resetForm(initialValues);
-			setSubmitting(false);
 		}
+
+		setIsOpen(true);
+		resetForm(initialValues);
+		setSubmitting(false);
 	}, [initialValues, hasErrors]);
 
 	return (
