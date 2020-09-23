@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { Formik } from 'formik';
 import { Container, Row, Col, Toast, ToastHeader, ToastBody } from 'reactstrap';
@@ -11,16 +13,24 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import RegisterUserForm from '../components';
 
 import { initialValues, validationSchema } from '../values';
-import { roles, USER } from '../../../shared/values';
+import { Selector } from '../../../store/user/reducer';
 
-const AdminContainer = () => {
+import { PROFILE } from '../../../config/routes';
+
+const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdmin }} } }) => {
 	const [registered, setRegistered] = useState(false);
-
 	useEffect(() => {
 		if (registered) {
 			setTimeout(() => setRegistered(false), 5000);
 		}
 	}, [registered]);
+
+	const history = useHistory();
+	useEffect(() => {
+		if(!isAdmin) {
+			history.push(PROFILE);
+		}
+	}, [isAdmin, history]);
 
 	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
 		const attributes = {
@@ -76,4 +86,8 @@ const AdminContainer = () => {
 	)
 }
 
-export default AdminContainer;
+const mapStateToProps = (state) => ({
+	user: Selector.getUser(state)
+})
+
+export default connect(mapStateToProps)(AdminContainer);
