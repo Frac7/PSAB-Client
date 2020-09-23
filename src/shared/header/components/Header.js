@@ -20,7 +20,7 @@ const Header = ({ user }) => {
 	useEffect(() => {
 		if (user.data) {
 			const { attributes } = user.data;
-			setIsAdmin(!attributes['custom:role']);
+			setIsAdmin(attributes['custom:is_admin']);
 		}
 	}, [user]);
 

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Auth from '@aws-amplify/auth';
@@ -16,28 +17,21 @@ import { Selector } from '../../../store/user/reducer';
 
 const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) => {
     useEffect(() => {
-        Auth.currentUserInfo()
-            .then((user) => {
-                if (!data) {
-                    loggedIn({ data: user });
-                }
-                    history.push(PROFILE);
-            })
-            .catch((error) => console.error(error));
-    }, [data, loggedIn, history]);
+        if (!data) {
+            Auth.currentUserInfo()
+                .then((user) => {
+                    loggedIn({data: user});
+                })
+                .catch((error) => console.error(error));
+        }
+        // eslint-disable-next-line
+    }, [data, loggedIn]);
 
     const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
         Auth.signIn(email, password)
             .then((result) => {
                 console.log(result);
                 requestLogin();
-                // Auth.completeNewPassword(result, password)
-                //     .then((res) => {
-                //         console.log(res);
-                //     })
-                //     .catch((err) => {
-                //         console.log(err);
-                //     });
                 setSubmitting(false);
                 history.push(PROFILE);
             })
@@ -47,6 +41,10 @@ const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) 
                 setErrors({ password: error.message });
             });
     }, [history, requestLogin]);
+
+    if (data) {
+        return <Redirect to={PROFILE} />
+    }
 
     if (isLoading) {
         return (

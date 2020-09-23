@@ -26,13 +26,12 @@ const AdminContainer = () => {
 		const attributes = {
 			name,
 			'custom:eth_address': address,
+			'custom:role': role.toString(),
+			'custom:is_admin': '0'
 		};
-		if (role !== roles.indexOf(USER)) {
-			attributes['custom:role'] = role;
-		}
 
 		Auth.signUp({
-			email,
+			username: email,
 			password,
 			attributes
 		})
@@ -44,7 +43,7 @@ const AdminContainer = () => {
 			}).catch((error) => {
 			console.log(error);
 			setSubmitting(false);
-			setErrors({ confirmPassword: error.message });
+			setErrors({ role: error.message });
 
 		})
 	}, []);
