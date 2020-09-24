@@ -18,7 +18,6 @@ import { forms } from '../map';
 
 const RegisterFormContainer = () => {
 	const [currentForm, setCurrentForm] = useState(LAND);
-
 	const { component: Form, initialValues, validationSchema } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);

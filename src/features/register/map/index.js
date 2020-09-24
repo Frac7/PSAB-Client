@@ -14,6 +14,37 @@ import {
 	MAINTENANCE_ACTIVITIES
 } from '../../../shared/values';
 
+import {
+	Land,
+	Portion,
+	Product,
+	Maintenance,
+	ProductionActivity
+} from '../../../contracts';
+
+const contracts = {
+	[LAND]: {
+		ABI: Land,
+		address: '0xF58010644C4FdD342955392D8b04bA1fC57b49Ba'
+	},
+	[PORTION]: {
+		ABI: Portion,
+		address: '0x0F67f617974299E40aaB44311d190a82666B0CE7'
+	},
+	[PRODUCT]: {
+		ABI: Product,
+		address: ''
+	},
+	[MAINTENANCE_ACTIVITIES]: {
+		ABI: Maintenance,
+		address: ''
+	},
+	[PROD_ACTIVITIES]: {
+		ABI: ProductionActivity,
+		address: ''
+	}
+};
+
 const forms = {
 	[LAND]: {
 		component: (props) => <LandForm {...props} />,
@@ -27,7 +58,20 @@ const forms = {
 				value: string(),
 				file: mixed()
 			})).min(1, 'Inserire almeno un documento')
-		})
+		}),
+		handleSubmit: ({ description, documents }, setHasErrors) => {
+			const landABI = JSON.parse(Land);
+			const landInstance = window.web3.contract(landABI).at(contracts[LAND].address);
+
+			landInstance.register.call(description, documents, (error, result) => {
+				console.log(error, result);
+				if (error) {
+					setHasErrors(true);
+				} else {
+					setHasErrors(false);
+				}
+			});
+		}
 	},
 	[PORTION]: {
 		component: (props) => <PortionForm {...props} />,
@@ -58,7 +102,20 @@ const forms = {
 				value: string(),
 				file: mixed()
 			})).min(1, 'Inserire almeno un documento')
-		})
+		}),
+		handleSubmit: ({ id, description, documents }, setHasErrors) => {
+			const landABI = JSON.parse(Land);
+			const landInstance = window.web3.contract(landABI).at(contracts[PORTION].address);
+
+			landInstance.divide.call(id, description, documents, (error, result) => {
+				console.log(error, result);
+				if (error) {
+					setHasErrors(true);
+				} else {
+					setHasErrors(false);
+				}
+			});
+		}
 	},
 	[PRODUCT]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
