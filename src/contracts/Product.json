@@ -5,6 +5,11 @@
 				"internalType": "uint256",
 				"name": "_id",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
 			}
 		],
 		"name": "certify",
@@ -58,12 +63,24 @@
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "certifiedBy",
-						"type": "address"
+						"components": [
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "certifier",
+								"type": "address"
+							}
+						],
+						"internalType": "struct ProductionActivity.Certification",
+						"name": "certification",
+						"type": "tuple"
 					}
 				],
-				"internalType": "struct Product.Data",
+				"internalType": "struct ProductionActivity.Data",
 				"name": "",
 				"type": "tuple"
 			}
@@ -85,11 +102,11 @@
 				"components": [
 					{
 						"internalType": "uint256[]",
-						"name": "productsRegistered",
+						"name": "activitiesRegistered",
 						"type": "uint256[]"
 					}
 				],
-				"internalType": "struct Product.Operator",
+				"internalType": "struct ProductionActivity.Operator",
 				"name": "",
 				"type": "tuple"
 			}
@@ -111,13 +128,26 @@
 				"components": [
 					{
 						"internalType": "uint256[]",
-						"name": "products",
+						"name": "activitiesPerformed",
 						"type": "uint256[]"
 					}
 				],
-				"internalType": "struct Product.Portion",
+				"internalType": "struct ProductionActivity.Portion",
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalProdActivities",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
