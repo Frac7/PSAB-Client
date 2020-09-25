@@ -20,24 +20,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			}
-		],
-		"name": "register",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "_id",
 				"type": "uint256"
@@ -75,12 +57,12 @@
 								"type": "address"
 							}
 						],
-						"internalType": "struct ProductionActivity.Certification",
+						"internalType": "struct Product.Certification",
 						"name": "certification",
 						"type": "tuple"
 					}
 				],
-				"internalType": "struct ProductionActivity.Data",
+				"internalType": "struct Product.Data",
 				"name": "",
 				"type": "tuple"
 			}
@@ -102,11 +84,11 @@
 				"components": [
 					{
 						"internalType": "uint256[]",
-						"name": "activitiesRegistered",
+						"name": "productsRegistered",
 						"type": "uint256[]"
 					}
 				],
-				"internalType": "struct ProductionActivity.Operator",
+				"internalType": "struct Product.Operator",
 				"name": "",
 				"type": "tuple"
 			}
@@ -128,11 +110,11 @@
 				"components": [
 					{
 						"internalType": "uint256[]",
-						"name": "activitiesPerformed",
+						"name": "products",
 						"type": "uint256[]"
 					}
 				],
-				"internalType": "struct ProductionActivity.Portion",
+				"internalType": "struct Product.Portion",
 				"name": "",
 				"type": "tuple"
 			}
@@ -142,7 +124,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getTotalProdActivities",
+		"name": "getTotalProducts",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -151,6 +133,24 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "register",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
