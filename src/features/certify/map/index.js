@@ -20,10 +20,11 @@ const handleSubmit = ({ object, description }, handleFeedback, subject) => {
 		.then((result) => {
 			console.log(result);
 			handleFeedback(false);
-		}).catch((error) => {
-		console.log(error);
-		handleFeedback(true);
-	});
+		})
+		.catch((error) => {
+			console.log(error);
+			handleFeedback(true);
+		});
 }
 
 export {

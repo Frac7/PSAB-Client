@@ -6,7 +6,7 @@ import { StyledFilledButton } from '../../../shared/styled';
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
 
-const ProductActivitiesForm = ({
+const ContractTermsForm = ({
     values,
     touched,
     errors,
@@ -16,7 +16,7 @@ const ProductActivitiesForm = ({
 }) => {
 	useEffect(() => {
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		// TODO: add operation feedback
+		// TODO: add fetch feedback
 		portionInstance.methods.getByOwner('0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5')
 			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
 			.then((result) => {
@@ -30,21 +30,21 @@ const ProductActivitiesForm = ({
 	return (
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
-				<Label for="portion">Porzione relativa all'oggetto della registrazione</Label>
+				<Label for="portion">Porzione relativa</Label>
+				{/* TODO: change with dropdown */}
 				<Input valid={touched.portion && !errors.portion} type="number" name="portion" id="portion" onChange={handleChange} value={values.portion}/>
 				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>
 			<FormGroup>
-				<Label for="description">Descrizione</Label>
-				<Input valid={
-					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
+				<Label for="address">Address</Label>
+				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address}/>
+				{ errors.address && <FormText color="danger">{errors.address}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
-				Aggiungi
+				Trasferisci
 			</StyledFilledButton>
 		</Form>
 	);
 }
 
-export default ProductActivitiesForm;
+export default ContractTermsForm;
