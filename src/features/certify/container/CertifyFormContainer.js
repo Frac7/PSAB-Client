@@ -31,7 +31,7 @@ const CertifyFormContainer = () => {
 					<Col>
 						<h1>Certifica {currentForm}</h1>
 					</Col>
-					<Col md={5} className="justify-content-center">
+					<Col md={5} sm={12} className="justify-content-center">
 						<ElementSelector
 							elements={[
 								PRODUCT,
@@ -43,7 +43,7 @@ const CertifyFormContainer = () => {
 					</Col>
 				</Row>
 				<Row>
-					<Col md={12}>
+					<Col md={12} sm={12}>
 						<Formik
 							initialValues={initialValues}
 							validationSchema={validationSchema}

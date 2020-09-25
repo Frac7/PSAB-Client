@@ -9,7 +9,7 @@ const DiscoverLand = ({ description, documents }) => {
 	return (
 		<Container fluid>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
 				<Col>
@@ -17,7 +17,7 @@ const DiscoverLand = ({ description, documents }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Documenti</Title>
 				</Col>
 				<Col>

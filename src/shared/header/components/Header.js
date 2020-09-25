@@ -26,43 +26,44 @@ const Header = ({ user }) => {
 
 	return (
 		<header>
+			{user.data && (
 			<StyledNavbar dark expand>
 				<Nav navbar style={{ width: '100%' }}>
 					<Container fluid>
-						<Row style={{ width: '100%' }}>
-							{ menu.map(({ route, label }, index) =>
-								<Col md={{ size: 1, offset: index ? 0 : 3 }} key={index}>
-									<NavItem active={pathname === route}>
-										<Link component={NavLink} to={route}>{label}</Link>
-									</NavItem>
-								</Col>
-							)}
-							{isAdmin && (
-								<Col md={{ size: 2, offset: 1 }}>
-									<NavItem active={pathname === ADMIN}>
-										<Link component={NavLink} to={ADMIN}>
-											Aggiungi Utente
+						<Row style={{ width: '100%' }} className="justify-content-center">
+								{ menu.map(({ route, label }, index) =>
+									<Col lg={1} md={2} key={index}>
+										<NavItem active={pathname === route}>
+											<Link component={NavLink} to={route}>{label}</Link>
+										</NavItem>
+									</Col>
+								)}
+								{isAdmin && (
+									<Col lg={{ size: 2, offset: 1 }} md={{ size: 3, offset: 1 }}>
+										<NavItem active={pathname === ADMIN}>
+											<Link component={NavLink} to={ADMIN}>
+												Aggiungi Utente
+											</Link>
+										</NavItem>
+									</Col>)}
+								<Col align="center" lg={{ size: 1, offset: isAdmin ? 0 : 1 }} md={{ size: 1, offset: isAdmin ? 0 : 3 }}>
+									<NavItem active={pathname === PROFILE}>
+										<Link component={NavLink} to={PROFILE}>
+											<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />
 										</Link>
 									</NavItem>
-								</Col>)}
-							<Col md={{ size: 1, offset: isAdmin ? 0 : 2 }}>
-								<NavItem active={pathname === PROFILE}>
-									<Link component={NavLink} to={PROFILE}>
-										<FontAwesomeIcon icon={faUser} color="inherit" size="lg" />
-									</Link>
-								</NavItem>
-							</Col>
-							{user.data && <Col md={{ size: 1 }}>
-								<NavItem active={pathname === SIGNOUT}>
-									<Link component={NavLink} to={SIGNOUT}>
-										<FontAwesomeIcon icon={faSignOutAlt} color="inherit" size="lg" />
-									</Link>
-								</NavItem>
-							</Col>}
+								</Col>
+								<Col align="center" lg={1} md={1}>
+									<NavItem active={pathname === SIGNOUT}>
+										<Link component={NavLink} to={SIGNOUT}>
+											<FontAwesomeIcon icon={faSignOutAlt} color="inherit" size="lg" />
+										</Link>
+									</NavItem>
+								</Col>
 						</Row>
 					</Container>
 				</Nav>
-			</StyledNavbar>
+			</StyledNavbar>)}
 		</header>
 	)
 }

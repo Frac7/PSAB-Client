@@ -50,7 +50,7 @@ const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) 
         return (
             <Container fluid>
                 <Row className="justify-content-center align-content-center align-items-center">
-                    <Col md={1}>
+                    <Col md={1} sm={1}>
                         <StyledSpinner size="large"/>
                     </Col>
                 </Row>
@@ -59,8 +59,8 @@ const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) 
     }
 
     return (
-        <Row>
-            <Col md={{ size: 6, offset: 3 }}>
+        <Row className="justify-content-center">
+            <Col md={6} sm={10}>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}

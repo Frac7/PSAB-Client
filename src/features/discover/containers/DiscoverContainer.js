@@ -38,7 +38,7 @@ const DiscoverContainer = () => {
 				<Col>
 					<h1>Esplora {currentElement}</h1>
 				</Col>
-				<Col md={5} className="justify-content-center">
+				<Col md={5} sm={12} className="justify-content-center">
 					<ElementSelector
 						elements={[
 							LAND,
