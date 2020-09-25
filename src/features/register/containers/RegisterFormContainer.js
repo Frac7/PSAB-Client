@@ -47,7 +47,7 @@ const RegisterFormContainer = () => {
 		}
 
 		if(!hasErrors) {
-			handleSubmit(values, setHasErrors, handleFeedback);
+			handleSubmit(values, handleFeedback);
 		} else {
 			handleFeedback(hasErrors);
 		}
