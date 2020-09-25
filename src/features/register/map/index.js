@@ -4,14 +4,16 @@ import { object, string, array, number, mixed } from 'yup';
 import {
 	LandForm,
 	PortionForm,
-	ProductActivitiesForm
+	ProductActivitiesForm,
+	ContractTermsForm
 } from '../components';
 import {
 	LAND,
 	PORTION,
 	PRODUCT,
 	PROD_ACTIVITIES,
-	MAINTENANCE_ACTIVITIES
+	MAINTENANCE_ACTIVITIES,
+	CONTRACT_TERMS
 } from '../../../shared/values';
 
 import contracts from '../../../shared/contracts';
@@ -49,35 +51,20 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			price: '',
-			duration: '',
-			expectedProduction: '',
-			expMainActivityCost: '',
-			expProdActivityCost: '',
-			buyer: '',
 			documents: []
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
 			description: string().required('Il campo descrizione è obbligatorio'),
-			price: number().required('Il costo relativo al contratto è obbligatorio'),
-			duration: string().required('Le informazioni sulla durata del contratto sono obbligatorie'),
-			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
-			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
-			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori'),
-			buyer: string()
-				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
-				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
-				.required('L\'indirizzo dell\'acquirente è obbligatorio'),
 			documents: array().of(object().shape({
 				value: string(),
 				file: mixed()
 			}))
 		}),
-		handleSubmit: ({ id, description, documents }, handleFeedback) => {
+		handleSubmit: ({ land, description, documents }, handleFeedback) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(id, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
+			landInstance.methods.divide(land, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
 				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
 				.then((result) => {
 					console.log(result);
@@ -87,6 +74,53 @@ const forms = {
 				handleFeedback(true);
 			});
 		}
+	},
+	[CONTRACT_TERMS]: {
+		component: (props) => <ContractTermsForm {...props} />,
+		initialValues: {
+			portion: '',
+			price: '',
+			duration: '',
+			periodicity: '',
+			expectedProduction: '',
+			expMainActivityCost: '',
+			expProdActivityCost: '',
+			buyer: ''
+		},
+		validationSchema: object().shape({
+			portion: number().required('Selezionare la porzione relativa'),
+			price: number().required('Il costo relativo al contratto è obbligatorio'),
+			duration: string().required('Le informazioni sulla durata del contratto sono obbligatorie'),
+			periodicity: string().required('Inserire la periodicità della produzione attesa'),
+			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
+			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
+			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori'),
+			buyer: string()
+				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
+				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
+				.required('L\'indirizzo dell\'acquirente è obbligatorio')
+		}),
+		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback) => {
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
+			portionInstance.methods.defineTerms(
+				portion,
+				price,
+				window.web3.utils.fromAscii(duration),
+				window.web3.utils.fromAscii(expectedProduction),
+				window.web3.utils.fromAscii(periodicity),
+				expMainActivityCost,
+				expProdActivityCost,
+				contracts[PORTION].address)
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+			});
+		}
+
 	},
 	[PRODUCT]: {
 		component: (props) => <ProductActivitiesForm {...props} />,

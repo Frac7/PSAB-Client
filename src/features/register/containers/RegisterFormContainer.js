@@ -12,7 +12,8 @@ import {
 	PORTION,
 	PRODUCT,
 	PROD_ACTIVITIES,
-	MAINTENANCE_ACTIVITIES
+	MAINTENANCE_ACTIVITIES,
+	CONTRACT_TERMS
 } from '../../../shared/values';
 import { forms } from '../map';
 
@@ -68,7 +69,8 @@ const RegisterFormContainer = () => {
 								PORTION,
 								PRODUCT,
 								PROD_ACTIVITIES,
-								MAINTENANCE_ACTIVITIES
+								MAINTENANCE_ACTIVITIES,
+								CONTRACT_TERMS
 							]}
 							currentElement={currentForm}
 							setCurrentElement={setCurrentForm}

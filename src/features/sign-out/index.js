@@ -9,9 +9,10 @@ import { SIGNIN } from '../../config/routes';
 
 const SignOut = ({ loggedOut }) => {
     useEffect(() => {
-        Auth.signOut();
-        loggedOut();
-    }, []);
+        Auth.signOut().then(() => {
+            loggedOut();
+        });
+    }, [loggedOut]);
 
     return <Redirect to={SIGNIN} />
 }
