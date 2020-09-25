@@ -25,23 +25,23 @@ import {
 const contracts = {
 	[LAND]: {
 		ABI: Land,
-		address: '0xF58010644C4FdD342955392D8b04bA1fC57b49Ba'
+		address: '0xbc35822023d94eB1A47F6EE701cf2028366F64a5'
 	},
 	[PORTION]: {
 		ABI: Portion,
-		address: '0x0F67f617974299E40aaB44311d190a82666B0CE7'
+		address: '0x588Fb29dfE475aC957B90e2ee565f31498a1Fa8b'
 	},
 	[PRODUCT]: {
 		ABI: Product,
-		address: ''
+		address: '0xbc35822023d94eB1A47F6EE701cf2028366F64a5'
 	},
 	[MAINTENANCE_ACTIVITIES]: {
 		ABI: Maintenance,
-		address: ''
+		address: '0x15e80c90047a6e857B33D321b0b5A826d44Eb97B'
 	},
 	[PROD_ACTIVITIES]: {
 		ABI: ProductionActivity,
-		address: ''
+		address: '0x341C54D1626698241354E184EE67ED44a8B1d721'
 	}
 };
 
@@ -57,20 +57,20 @@ const forms = {
 			documents: array().of(object().shape({
 				value: string(),
 				file: mixed()
-			})).min(1, 'Inserire almeno un documento')
+			}))
 		}),
-		handleSubmit: ({ description, documents }, setHasErrors) => {
-			const landABI = JSON.parse(Land);
-			const landInstance = window.web3.contract(landABI).at(contracts[LAND].address);
+		handleSubmit: ({ description, documents }, handleFeedback) => {
+			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.register.call(description, documents, (error, result) => {
-				console.log(error, result);
-				if (error) {
-					setHasErrors(true);
-				} else {
-					setHasErrors(false);
-				}
-			});
+			landInstance.methods.register(description, window.web3.utils.fromAscii(documents))
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+				});
 		}
 	},
 	[PORTION]: {
@@ -103,17 +103,17 @@ const forms = {
 				file: mixed()
 			})).min(1, 'Inserire almeno un documento')
 		}),
-		handleSubmit: ({ id, description, documents }, setHasErrors) => {
-			const landABI = JSON.parse(Land);
-			const landInstance = window.web3.contract(landABI).at(contracts[PORTION].address);
+		handleSubmit: ({ id, description, documents }, handleFeedback) => {
+			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.divide.call(id, description, documents, (error, result) => {
-				console.log(error, result);
-				if (error) {
-					setHasErrors(true);
-				} else {
-					setHasErrors(false);
-				}
+			landInstance.methods.divide(id, description, window.web3.utils.fromAscii(documents))
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+				console.log(error);
+				handleFeedback(true);
 			});
 		}
 	},
@@ -126,7 +126,20 @@ const forms = {
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene il prodotto'),
 			description: string().required('Il campo descrizione è obbligatorio')
-		})
+		}),
+		handleSubmit: ({ portion, description }, handleFeedback) => {
+			const productInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
+
+			productInstance.methods.register(portion, description)
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+				console.log(error);
+				handleFeedback(true);
+			});
+		}
 	},
 	[PROD_ACTIVITIES]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
@@ -137,7 +150,20 @@ const forms = {
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di produzione'),
 			description: string().required('Il campo descrizione è obbligatorio')
-		})
+		}),
+		handleSubmit: ({ portion, description }, handleFeedback) => {
+			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
+
+			prodActivitiesInstance.methods.register(portion, description)
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+				console.log(error);
+				handleFeedback(true);
+			});
+		}
 	},
 	[MAINTENANCE_ACTIVITIES]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
@@ -148,7 +174,20 @@ const forms = {
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di manutenzione'),
 			description: string().required('Il campo descrizione è obbligatorio')
-		})
+		}),
+		handleSubmit: ({ portion, description }, handleFeedback) => {
+			const maintenanceActivityInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
+
+			maintenanceActivityInstance.methods.register(portion, description)
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				}).catch((error) => {
+				console.log(error);
+				handleFeedback(true);
+			});
+		}
 	}
 }
 
