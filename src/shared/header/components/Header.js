@@ -12,15 +12,18 @@ import { StyledNavbar } from '../../styled';
 import { menu } from '../data';
 import { ADMIN, PROFILE, SIGNOUT } from '../../../config/routes';
 import { Selector } from '../../../store/user/reducer';
+import { CERTIFIER } from '../../values';
 
 const Header = ({ user }) => {
 	const { pathname } = useLocation();
 
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [isCertifier, setIsCertifier] = useState(false);
 	useEffect(() => {
 		if (user.data) {
 			const { attributes } = user.data;
 			setIsAdmin(Boolean(parseInt(attributes['custom:is_admin'])));
+			setIsCertifier(parseInt(attributes['custom:role']) === CERTIFIER);
 		}
 	}, [user]);
 
@@ -31,13 +34,16 @@ const Header = ({ user }) => {
 				<Nav navbar style={{ width: '100%' }}>
 					<Container fluid>
 						<Row style={{ width: '100%' }} className="justify-content-center">
-								{ menu.map(({ route, label }, index) =>
-									<Col lg={1} md={2} key={index}>
-										<NavItem active={pathname === route}>
-											<Link component={NavLink} to={route}>{label}</Link>
-										</NavItem>
-									</Col>
-								)}
+								{ menu.map(({ route, label }, index) => {
+									if ((index === 1 && isCertifier) || index !== 1) {
+										return <Col lg={1} md={2} key={index}>
+											<NavItem active={pathname === route}>
+												<Link component={NavLink} to={route}>{label}</Link>
+											</NavItem>
+										</Col>
+									}
+									return null;
+								})}
 								{isAdmin && (
 									<Col lg={{ size: 2, offset: 1 }} md={{ size: 3, offset: 1 }}>
 										<NavItem active={pathname === ADMIN}>
