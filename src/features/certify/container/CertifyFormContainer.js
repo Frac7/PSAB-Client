@@ -49,7 +49,7 @@ const CertifyFormContainer = () => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <CertifyForm {...props}/>}
+							{props => <CertifyForm currentForm={currentForm} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>
