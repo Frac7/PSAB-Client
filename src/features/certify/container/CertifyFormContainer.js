@@ -20,7 +20,7 @@ const CertifyFormContainer = ({ user }) => {
 	useEffect(() => {
 		if(user.data) {
 			const { attributes } = user.data;
-			if (attributes['custom:role'] !== roles.indexOf(CERTIFIER)) {
+			if (attributes['custom:role'] !== roles.indexOf(CERTIFIER).toString()) {
 				history.push(PROFILE);
 			}
 		}

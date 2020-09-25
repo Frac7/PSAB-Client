@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 import { StyledFilledButton } from '../../../shared/styled';
-import contracts from '../../../shared/contracts';
+
+import { handleFetching } from '../map';
 
 const ProductActivitiesForm = ({
 	values,
@@ -13,24 +14,18 @@ const ProductActivitiesForm = ({
 	handleChange,
 	currentForm
 }) => {
+	const [elements, setElements] = useState([]);
 	useEffect(() => {
-		const contractInstance = new window.web3.eth.Contract(contracts[currentForm].ABI, contracts[currentForm].address);
-		// TODO: add fetch feedback
-		contractInstance.methods.getAll()
-			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
-			.then((result) => {
-				console.log(result);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [currentForm]);
+		handleFetching[currentForm]('0x99018CdDAe586De875E8B5c9a3069D387902651d', setElements) // TODO: change with user address
+	}, [currentForm, setElements]);
 
 	return (
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Oggetto della certificazione</Label>
-				<Input valid={touched.object && !errors.object} type="number" name="object" id="object" onChange={handleChange} value={values.object}/>
+				<Input valid={touched.object && !errors.object} type="select" name="object" id="object" onChange={handleChange} value={values.object}>
+					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
+				</Input>
 				{ errors.object && <FormText color="danger">{errors.object}</FormText>}
 			</FormGroup>
 			<FormGroup>
