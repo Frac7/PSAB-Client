@@ -50,12 +50,12 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 				setSubmitting(false);
 				setRegistered(true);
 				resetForm();
-			}).catch((error) => {
-			console.log(error);
-			setSubmitting(false);
-			setErrors({ role: error.message });
-
-		})
+				})
+			.catch((error) => {
+				console.log(error);
+				setSubmitting(false);
+				setErrors({ role: error.message });
+			})
 	}, []);
 
 	return (

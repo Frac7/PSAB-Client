@@ -23,7 +23,8 @@ const PortionForm = ({
 			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
 			.then((result) => {
 				console.log(result);
-			}).catch((error) => {
+			})
+			.catch((error) => {
 				console.log(error);
 			});
 	}, []);

@@ -5,7 +5,8 @@ import {
 	LandForm,
 	PortionForm,
 	ProductActivitiesForm,
-	ContractTermsForm
+	ContractTermsForm,
+	TransferOwnershipForm
 } from '../components';
 import {
 	LAND,
@@ -13,7 +14,7 @@ import {
 	PRODUCT,
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
-	CONTRACT_TERMS
+	CONTRACT_TERMS, TRANSFER_OWNERSHIP
 } from '../../../shared/values';
 
 import contracts from '../../../shared/contracts';
@@ -40,7 +41,8 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
+				})
+				.catch((error) => {
 					console.log(error);
 					handleFeedback(true);
 				});
@@ -69,10 +71,11 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
-				console.log(error);
-				handleFeedback(true);
-			});
+				})
+				.catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+				});
 		}
 	},
 	[CONTRACT_TERMS]: {
@@ -115,12 +118,41 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
+				})
+				.catch((error) => {
 					console.log(error);
 					handleFeedback(true);
-			});
+				});
 		}
-
+	},
+	[TRANSFER_OWNERSHIP]: {
+		component: (props) => <TransferOwnershipForm {...props} />,
+		initialValues: {
+			portion: '',
+			address: ''
+		},
+		validationSchema: object().shape({
+			portion: number().required('Selezionare la porzione di terra relativa'),
+			address: string()
+				.required('Inserire l\'indirizzo')
+				.length(42, 'L\'address è lungo esattamente 42 caratteri'),
+		}),
+		handleSubmit: ({ portion, address }, handleFeedback) => {
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
+			portionInstance.methods.sell(
+				portion,
+				address,
+				contracts[PORTION].address)
+				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.then((result) => {
+					console.log(result);
+					handleFeedback(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+				});
+		}
 	},
 	[PRODUCT]: {
 		component: (props) => <ProductActivitiesForm {...props} />,
@@ -140,7 +172,8 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
+				})
+				.catch((error) => {
 					console.log(error);
 					handleFeedback(true);
 			});
@@ -164,10 +197,11 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
-				console.log(error);
-				handleFeedback(true);
-			});
+				})
+				.catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+				});
 		}
 	},
 	[MAINTENANCE_ACTIVITIES]: {
@@ -188,10 +222,11 @@ const forms = {
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
-				}).catch((error) => {
-				console.log(error);
-				handleFeedback(true);
-			});
+				})
+				.catch((error) => {
+					console.log(error);
+					handleFeedback(true);
+				});
 		}
 	}
 }

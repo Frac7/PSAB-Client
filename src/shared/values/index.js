@@ -10,6 +10,7 @@ const OPERATOR = 'Operatore';
 const USER = 'Utente';
 
 const CONTRACT_TERMS = 'Termini del contratto';
+const TRANSFER_OWNERSHIP = 'Trasferimento proprietà'
 
 const roles = [
 	USER,
@@ -28,5 +29,6 @@ export {
 	OPERATOR,
 	USER,
 	CONTRACT_TERMS,
+	TRANSFER_OWNERSHIP,
 	roles
 };
