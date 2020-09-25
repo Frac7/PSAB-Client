@@ -17,9 +17,9 @@ import {
 import { forms } from '../map';
 
 const RegisterFormContainer = () => {
+	// TODO: register product, prod activity and main activity can be performed only by operators
 	const [currentForm, setCurrentForm] = useState(LAND);
-
-	const { component: Form, initialValues, validationSchema } = useMemo(() => forms[currentForm], [currentForm]);
+	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
@@ -40,10 +40,19 @@ const RegisterFormContainer = () => {
 			});
 		}
 
-		setIsOpen(true);
-		resetForm(initialValues);
-		setSubmitting(false);
-	}, [initialValues, hasErrors]);
+		const handleFeedback = (hasErrors) => {
+			setHasErrors(hasErrors);
+			setIsOpen(true);
+			resetForm(initialValues);
+			setSubmitting(false);
+		}
+
+		if(!hasErrors) {
+			handleSubmit(values, handleFeedback);
+		} else {
+			handleFeedback(hasErrors);
+		}
+	}, [initialValues, handleSubmit, hasErrors]);
 
 	return (
 		<>

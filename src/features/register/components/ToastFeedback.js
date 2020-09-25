@@ -7,8 +7,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 
 const ToastFeedback = ({ isOpen, setIsOpen, hasErrors }) => {
 	useEffect(() => {
-		setTimeout(() => setIsOpen(false), 5000);
-	}, [setIsOpen]);
+		setTimeout(() => {
+			if (isOpen) {
+				setIsOpen(false);
+			}
+		}, 5000);
+	}, [isOpen, setIsOpen]);
 
 	const ToastSuccess = useCallback(() => (
 		<Toast style={{ position: 'fixed', bottom: '10%', right: '10%' }} color="primary" isOpen={isOpen}>
