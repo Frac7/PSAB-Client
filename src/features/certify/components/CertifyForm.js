@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+import { Alert, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 import { StyledFilledButton } from '../../../shared/styled';
 
@@ -18,6 +18,12 @@ const ProductActivitiesForm = ({
 	useEffect(() => {
 		handleFetching[currentForm]('0x99018CdDAe586De875E8B5c9a3069D387902651d', setElements) // TODO: change with user address
 	}, [currentForm, setElements]);
+
+	if (elements.length === 0) {
+		return (
+			<Alert color="danger" className="my-3">Nessuna elemento disponibile per la certificazione</Alert>
+		);
+	}
 
 	return (
 		<Form onSubmit={handleSubmit} noValidate>
