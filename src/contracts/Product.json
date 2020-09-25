@@ -5,27 +5,14 @@
 				"internalType": "uint256",
 				"name": "_id",
 				"type": "uint256"
-			}
-		],
-		"name": "certify",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+			},
 			{
 				"internalType": "string",
 				"name": "_description",
 				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
 			}
 		],
-		"name": "register",
+		"name": "certify",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -58,9 +45,21 @@
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "certifiedBy",
-						"type": "address"
+						"components": [
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "certifier",
+								"type": "address"
+							}
+						],
+						"internalType": "struct Product.Certification",
+						"name": "certification",
+						"type": "tuple"
 					}
 				],
 				"internalType": "struct Product.Data",
@@ -121,6 +120,37 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalProducts",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "register",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

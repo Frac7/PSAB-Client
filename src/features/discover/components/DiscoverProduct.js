@@ -23,7 +23,7 @@ const DiscoverProduct = ({ id, portion, description }) => {
 	return (
 		<Container fluid>
 			<Row className="align-items-center justify-content-end my-3">
-				<Col md={9} align="end">
+				<Col md={9} sm={12} align="end">
 					<StyledFilledButton onClick={handleHistoryClick}>
 						Sfoglia cronologia
 					</StyledFilledButton>
@@ -41,7 +41,7 @@ const DiscoverProduct = ({ id, portion, description }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Porzione</Title>
 				</Col>
 				<Col>
@@ -58,7 +58,7 @@ const DiscoverProduct = ({ id, portion, description }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
 				<Col>

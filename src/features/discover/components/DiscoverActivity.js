@@ -18,7 +18,7 @@ const DiscoverActivity = ({ portion, description }) => {
 	return (
 		<Container fluid>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Porzione</Title>
 				</Col>
 				<Col>
@@ -35,7 +35,7 @@ const DiscoverActivity = ({ portion, description }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3}>
+				<Col md={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
 				<Col>

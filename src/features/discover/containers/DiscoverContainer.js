@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import ElementListContainer from './ElementListContainer';
 import { ElementSelector } from '../../../shared/element-dropdown';
@@ -17,20 +18,22 @@ import {
 import { elementWrappers } from '../map';
 import contracts from '../../../shared/contracts';
 
-const DiscoverContainer = () => {
+import { Selector } from '../../../store/user/reducer';
+
+const DiscoverContainer = ({ user }) => {
 	const [currentElement, setCurrentElement] = useState(LAND);
 	useEffect(() => {
 		const contractInstance = new window.web3.eth.Contract(contracts[currentElement].ABI, contracts[currentElement].address);
 		// TODO: add fetch feedback
 		contractInstance.methods.getAll()
-			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+			.call({ from : user.data.attributes['custom:eth_address'] })
 			.then((result) => {
 				console.log(result);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	}, [currentElement]);
+	}, [currentElement, user]);
 
 	return (
 		<Container fluid>
@@ -38,14 +41,24 @@ const DiscoverContainer = () => {
 				<Col>
 					<h1>Esplora {currentElement}</h1>
 				</Col>
-				<Col md={5} className="justify-content-center">
+				<Col md={5} sm={12} className="justify-content-center">
 					<ElementSelector
 						elements={[
-							LAND,
-							PORTION,
-							PROD_ACTIVITIES,
-							PRODUCT,
-							MAINTENANCE_ACTIVITIES
+							{
+								type: LAND
+							},
+							{
+								type: PORTION
+							},
+							{
+								type: PROD_ACTIVITIES
+							},
+							{
+								type: PRODUCT
+							},
+							{
+								type: MAINTENANCE_ACTIVITIES
+							}
 						]}
 						currentElement={currentElement}
 						setCurrentElement={setCurrentElement}
@@ -61,4 +74,8 @@ const DiscoverContainer = () => {
 
 };
 
-export default DiscoverContainer;
+const mapStateToProps = (state) => ({
+	user: Selector.getUser(state)
+});
+
+export default connect(mapStateToProps)(DiscoverContainer);

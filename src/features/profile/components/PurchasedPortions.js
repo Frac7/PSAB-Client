@@ -14,7 +14,7 @@ const PurchasedPortions = () => {
 					Buyer
 				</StyledBadge>
 			</Col>
-			<Col md={12}>
+			<Col md={12} sm={12}>
 				<ListGroup flush>
 					<ListGroupItem>Item #1</ListGroupItem>
 					<ListGroupItem>Item #2</ListGroupItem>
