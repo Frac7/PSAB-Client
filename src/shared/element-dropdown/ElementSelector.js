@@ -11,8 +11,8 @@ const ElementSelector = ({ elements, currentElement, setCurrentElement }) => {
 	}, [setCurrentElement]);
 
 	const choices = useMemo(() => {
-		return Object.keys(elements).map((value, index) =>
-			<DropdownItem onClick={onClick(elements[value])} key={index}>{elements[value]}</DropdownItem>
+		return elements.map((value, index) =>
+			<DropdownItem disabled={value.disabled} onClick={onClick(value.type)} key={index}>{value.type}</DropdownItem>
 		)
 	}, [onClick, elements]);
 

@@ -12,7 +12,7 @@ import { StyledNavbar } from '../../styled';
 import { menu } from '../data';
 import { ADMIN, PROFILE, SIGNOUT } from '../../../config/routes';
 import { Selector } from '../../../store/user/reducer';
-import { CERTIFIER } from '../../values';
+import { CERTIFIER, roles } from '../../values';
 
 const Header = ({ user }) => {
 	const { pathname } = useLocation();
@@ -23,7 +23,7 @@ const Header = ({ user }) => {
 		if (user.data) {
 			const { attributes } = user.data;
 			setIsAdmin(Boolean(parseInt(attributes['custom:is_admin'])));
-			setIsCertifier(parseInt(attributes['custom:role']) === CERTIFIER);
+			setIsCertifier(attributes['custom:role'] === roles.indexOf(CERTIFIER).toString());
 		}
 	}, [user]);
 

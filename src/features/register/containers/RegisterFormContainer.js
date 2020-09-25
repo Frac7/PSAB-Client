@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
+import { connect } from 'react-redux'
 
 import Storage from '@aws-amplify/storage';
 
@@ -14,12 +15,12 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
-	TRANSFER_OWNERSHIP
+	TRANSFER_OWNERSHIP, OPERATOR, roles
 } from '../../../shared/values';
 import { forms } from '../map';
+import { Selector } from '../../../store/user/reducer';
 
-const RegisterFormContainer = () => {
-	// TODO: register product, prod activity and main activity can be performed only by operators
+const RegisterFormContainer = ({ user }) => {
 	const [currentForm, setCurrentForm] = useState(LAND);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
@@ -50,11 +51,11 @@ const RegisterFormContainer = () => {
 		}
 
 		if(!hasErrors) {
-			handleSubmit(values, handleFeedback);
+			handleSubmit(values, handleFeedback, user.data.attributes['custom:eth_address']);
 		} else {
 			handleFeedback(hasErrors);
 		}
-	}, [initialValues, handleSubmit, hasErrors]);
+	}, [initialValues, handleSubmit, hasErrors, user]);
 
 	return (
 		<>
@@ -66,13 +67,30 @@ const RegisterFormContainer = () => {
 					<Col md={5} sm={12} className="justify-content-center">
 						<ElementSelector
 							elements={[
-								LAND,
-								PORTION,
-								CONTRACT_TERMS,
-								TRANSFER_OWNERSHIP,
-								PRODUCT,
-								PROD_ACTIVITIES,
-								MAINTENANCE_ACTIVITIES
+								{
+									type: LAND
+								},
+								{
+									type: PORTION
+								},
+								{
+									type: CONTRACT_TERMS
+								},
+								{
+									type: TRANSFER_OWNERSHIP
+								},
+								{
+									type: PRODUCT,
+									disabled: user.data.attributes['custom:role'] !== roles.indexOf(OPERATOR).toString()
+								},
+								{
+									type: PROD_ACTIVITIES,
+									disabled: user.data.attributes['custom:role'] !== roles.indexOf(OPERATOR).toString()
+								},
+								{
+									type: MAINTENANCE_ACTIVITIES,
+									disabled: user.data.attributes['custom:role'] !== roles.indexOf(OPERATOR).toString()
+								}
 							]}
 							currentElement={currentForm}
 							setCurrentElement={setCurrentForm}
@@ -96,4 +114,8 @@ const RegisterFormContainer = () => {
 	);
 }
 
-export default RegisterFormContainer;
+const mapStateToProps = (state) => ({
+	user: Selector.getUser(state)
+})
+
+export default connect(mapStateToProps)(RegisterFormContainer);

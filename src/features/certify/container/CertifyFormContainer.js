@@ -9,7 +9,7 @@ import { ToastFeedback } from '../../register/components';
 import { ElementSelector } from '../../../shared/element-dropdown';
 
 import { initialValues, validationSchema, handleSubmit } from '../map';
-import { CERTIFIER, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
+import { CERTIFIER, PROD_ACTIVITIES, PRODUCT, roles } from '../../../shared/values';
 import { Selector } from '../../../store/user/reducer';
 
 import { PROFILE } from '../../../config/routes';
@@ -20,7 +20,7 @@ const CertifyFormContainer = ({ user }) => {
 	useEffect(() => {
 		if(user.data) {
 			const { attributes } = user.data;
-			if (attributes['custom:role'] !== CERTIFIER) {
+			if (attributes['custom:role'] !== roles.indexOf(CERTIFIER)) {
 				history.push(PROFILE);
 			}
 		}
@@ -37,8 +37,8 @@ const CertifyFormContainer = ({ user }) => {
 			resetForm(initialValues);
 			setSubmitting(false);
 		}
-		handleSubmit(values, handleFeedback, currentForm);
-	}, [setHasErrors, setIsOpen, currentForm]);
+		handleSubmit(values, handleFeedback, currentForm, user.data.attributes['custom:eth_address']);
+	}, [setHasErrors, setIsOpen, currentForm, user]);
 
 	return (
 		<>
@@ -50,8 +50,12 @@ const CertifyFormContainer = ({ user }) => {
 					<Col md={5} sm={12} className="justify-content-center">
 						<ElementSelector
 							elements={[
-								PRODUCT,
-								PROD_ACTIVITIES
+								{
+									type: PRODUCT
+								},
+								{
+									type: PROD_ACTIVITIES
+								}
 							]}
 							currentElement={currentForm}
 							setCurrentElement={setCurrentForm}
@@ -75,8 +79,8 @@ const CertifyFormContainer = ({ user }) => {
 	);
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => ({
 	user: Selector.getUser(state)
-}
+});
 
 export default connect(mapStateToProps)(CertifyFormContainer);

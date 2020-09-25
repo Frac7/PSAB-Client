@@ -33,11 +33,11 @@ const forms = {
 				file: mixed()
 			}))
 		}),
-		handleSubmit: ({ description, documents }, handleFeedback) => {
+		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents)) // TODO: fix documents
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -63,11 +63,11 @@ const forms = {
 				file: mixed()
 			}))
 		}),
-		handleSubmit: ({ land, description, documents }, handleFeedback) => {
+		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.divide(land, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -103,7 +103,7 @@ const forms = {
 				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
 				.required('L\'indirizzo dell\'acquirente è obbligatorio')
 		}),
-		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback) => {
+		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
 				portion,
@@ -114,7 +114,7 @@ const forms = {
 				expMainActivityCost,
 				expProdActivityCost,
 				contracts[PORTION].address)
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -137,13 +137,13 @@ const forms = {
 				.required('Inserire l\'indirizzo')
 				.length(42, 'L\'address è lungo esattamente 42 caratteri'),
 		}),
-		handleSubmit: ({ portion, address }, handleFeedback) => {
+		handleSubmit: ({ portion, address }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.sell(
 				portion,
 				address,
 				contracts[PORTION].address)
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -164,11 +164,11 @@ const forms = {
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene il prodotto'),
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
-		handleSubmit: ({ portion, description }, handleFeedback) => {
+		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const productInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
 
 			productInstance.methods.register(portion, window.web3.utils.fromAscii(description))
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -189,11 +189,11 @@ const forms = {
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di produzione'),
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
-		handleSubmit: ({ portion, description }, handleFeedback) => {
+		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 
 			prodActivitiesInstance.methods.register(portion, window.web3.utils.fromAscii(description))
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -214,11 +214,11 @@ const forms = {
 			portion: number().required('Selezionare la porzione di terreno alla quale appartiene l\'attività di manutenzione'),
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
-		handleSubmit: ({ portion, description }, handleFeedback) => {
+		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const maintenanceActivityInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
 
 			maintenanceActivityInstance.methods.register(portion, window.web3.utils.fromAscii(description))
-				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
