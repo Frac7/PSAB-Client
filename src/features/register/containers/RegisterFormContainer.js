@@ -17,6 +17,7 @@ import {
 import { forms } from '../map';
 
 const RegisterFormContainer = () => {
+	// TODO: register product, prod activity and main activity can be performed only by operators
 	const [currentForm, setCurrentForm] = useState(LAND);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 

@@ -33,7 +33,7 @@ const forms = {
 		handleSubmit: ({ description, documents }, handleFeedback) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents))
+			landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents)) // TODO: fix documents
 				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
 				.then((result) => {
 					console.log(result);
@@ -72,12 +72,12 @@ const forms = {
 			documents: array().of(object().shape({
 				value: string(),
 				file: mixed()
-			})).min(1, 'Inserire almeno un documento')
+			}))
 		}),
 		handleSubmit: ({ id, description, documents }, handleFeedback) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(id, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents))
+			landInstance.methods.divide(id, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
 				.send({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
 				.then((result) => {
 					console.log(result);
