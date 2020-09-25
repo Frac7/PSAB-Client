@@ -14,7 +14,7 @@ const DocumentField = ({
 			value: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0].name : '',
 			file: event.currentTarget.files && event.currentTarget.files.length > 0 ? event.currentTarget.files[0] : null
 		});
-	}, [setFieldValue, values.documents]);
+	}, [setFieldValue]);
 
 	const fields = useMemo(() => {
 		const fields = [];
@@ -28,7 +28,7 @@ const DocumentField = ({
 			)
 		}
 		return fields;
-	}, [touched, errors, handleFileChange]);
+	}, [touched, errors, handleFileChange, values.documents.length]);
 
 	return (
 		<>

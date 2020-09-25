@@ -9,6 +9,8 @@ const CERTIFIER = 'Certificatore';
 const OPERATOR = 'Operatore';
 const USER = 'Utente';
 
+const CONTRACT_TERMS = 'Termini del contratto';
+
 const roles = [
 	USER,
 	CERTIFIER,
@@ -25,5 +27,6 @@ export {
 	CERTIFIER,
 	OPERATOR,
 	USER,
+	CONTRACT_TERMS,
 	roles
 };
