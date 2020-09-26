@@ -147,11 +147,6 @@
 				"internalType": "bytes32[]",
 				"name": "_documents",
 				"type": "bytes32[]"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "_data",
-				"type": "bytes32"
 			}
 		],
 		"name": "register",
@@ -347,6 +342,11 @@
 						"internalType": "bytes32[]",
 						"name": "documents",
 						"type": "bytes32[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "hashId",
+						"type": "uint256"
 					}
 				],
 				"internalType": "struct Portion.Data",
