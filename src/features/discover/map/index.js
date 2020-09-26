@@ -4,7 +4,7 @@ import {
 	DiscoverPortion,
 	DiscoverProduct,
 	DiscoverActivity
-} from '../components';
+} from '../../../shared/view';
 
 import {
 	LAND,

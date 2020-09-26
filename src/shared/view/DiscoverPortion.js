@@ -7,10 +7,10 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 
 import DiscoverLand from './DiscoverLand';
 import { StyledFilledButton, StyledLinkButton,
-	StyledTitle } from '../../../shared/styled';
+	StyledTitle } from '../styled';
 
-import { mock } from '../mock';
-import { LAND } from '../../../shared/values';
+import { mock } from '../../features/discover/mock';
+import { LAND } from '../values';
 
 const DiscoverPortion = ({
 	id,
