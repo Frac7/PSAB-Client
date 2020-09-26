@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
@@ -7,6 +8,14 @@ import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
 import { MAINTENANCE_ACTIVITIES, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleOperatorFetch } from '../map';
 
+/**
+ * Activities related to operator user.
+ *
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const OperatorActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);
 	const [products, setProducts] = useState([]);
@@ -57,6 +66,13 @@ const OperatorActivities = ({ userAddress }) => {
 			</Col>
 		</Row>
 	)
-}
+};
+
+OperatorActivities.propTypes = {
+	/**
+	 * Ethereum address for the current user
+	 */
+	userAddress: PropTypes.string
+};
 
 export default OperatorActivities;

@@ -1,10 +1,21 @@
 import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 
+/**
+ * Toast feedback for registration process.
+ *
+ * @param isOpen
+ * @param setIsOpen
+ * @param hasErrors
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const ToastFeedback = ({ isOpen, setIsOpen, hasErrors }) => {
 	useEffect(() => {
 		setTimeout(() => {
@@ -29,6 +40,21 @@ const ToastFeedback = ({ isOpen, setIsOpen, hasErrors }) => {
 	), [isOpen]);
 
 	return hasErrors ? <ToastError /> : <ToastSuccess />;
+};
+
+ToastFeedback.propTypes = {
+	/**
+	 * Is toast open?
+	 */
+	isOpen: PropTypes.bool,
+	/**
+	 * Change open status
+	 */
+	setIsOpen: PropTypes.func,
+	/**
+	 * Change severity feedback
+	 */
+	hasErrors: PropTypes.func
 };
 
 export default ToastFeedback;

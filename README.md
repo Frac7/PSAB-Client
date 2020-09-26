@@ -12,7 +12,7 @@ This project was created with:
 - Web3 for interacting with the blockchain
 - Amazon Cognito for user management
 - Amazon S3 for storage
-- Jsdoc for the code documentation
+- Jsdoc and Better Docs for the code documentation
 
 [This is the live version.](https://frac7.github.io/PSAB-Client)
 

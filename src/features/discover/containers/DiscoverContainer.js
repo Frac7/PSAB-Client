@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Container, Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -18,6 +19,14 @@ import { elementWrappers, handleFetching } from '../map';
 import { Selector } from '../../../store/user/reducer';
 import { StyledSpinner } from '../../../shared/styled';
 
+/**
+ * Discover section, container for elements details.
+ *
+ * @param user
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const DiscoverContainer = ({ user }) => {
 	const [currentElement, setCurrentElement] = useState(LAND);
 
@@ -89,6 +98,13 @@ const DiscoverContainer = ({ user }) => {
 		</Container>
 	)
 
+};
+
+DiscoverContainer.propTypes = {
+	/**
+	 * Logged in user
+	 */
+	user: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({

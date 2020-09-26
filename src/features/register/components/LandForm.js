@@ -1,9 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 
 import { StyledFilledButton } from '../../../shared/styled';
 import DocumentField from './DocumentField';
 
+/**
+ * Land registration form.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @param setFieldValue
+ * @returns {JSX.Element}
+ * @constructor
+ *  * @component
+ */
 const LandForm = ({
 	values,
 	touched,
@@ -35,5 +50,32 @@ const LandForm = ({
 		</StyledFilledButton>
 	</Form>
 );
+
+LandForm.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func
+}
 
 export default LandForm;

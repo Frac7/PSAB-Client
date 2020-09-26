@@ -1,6 +1,18 @@
 import React, { useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { FormText, Input, Row, Col } from 'reactstrap';
 
+/**
+ * Custom field for handling document upload.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param setFieldValue
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const DocumentField = ({
 	values,
 	touched,
@@ -36,6 +48,25 @@ const DocumentField = ({
 			{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
 		</>
 	);
-}
+};
+
+DocumentField.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Field changes handling
+	 */
+	setFieldValue: PropTypes.func
+};
 
 export default DocumentField;

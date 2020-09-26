@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
@@ -7,6 +8,14 @@ import { DiscoverLand } from '../../../shared/view';
 import contracts from '../../../shared/contracts';
 import { LAND } from '../../../shared/values';
 
+/**
+ * Details for user's lands.
+ *
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const OwnedLands = ({ userAddress }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
@@ -82,6 +91,13 @@ const OwnedLands = ({ userAddress }) => {
 			</Col>
 		</Row>
 	)
+};
+
+OwnedLands.propTypes = {
+	/**
+	 * Ethereum address
+	 */
+	userAddress: PropTypes.string
 }
 
 export default OwnedLands;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
@@ -7,6 +8,14 @@ import { DiscoverPortion } from '../../../shared/view';
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
 
+/**
+ * Details for portions purchased by the current user.
+ *
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const PurchasedPortions = ({ userAddress }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
@@ -82,6 +91,13 @@ const PurchasedPortions = ({ userAddress }) => {
 			</Col>
 		</Row>
 	)
-}
+};
+
+PurchasedPortions.propTypes = {
+	/**
+	 * Current user address
+	 */
+	userAddress: PropTypes.string
+};
 
 export default PurchasedPortions;

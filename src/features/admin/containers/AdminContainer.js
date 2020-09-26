@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -17,6 +18,14 @@ import { Selector } from '../../../store/user/reducer';
 
 import { PROFILE } from '../../../config/routes';
 
+/**
+ * Admin section that contains the register user form.
+ *
+ * @param isAdmin
+ * @returns {JSX.Element}
+ * @constructor
+ * @component
+ */
 const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdmin }} } }) => {
 	const [registered, setRegistered] = useState(false);
 	useEffect(() => {
@@ -84,10 +93,17 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 		</Toast>
 		</>
 	)
-}
+};
+
+AdminContainer.propTypes = {
+	/**
+	 * Current user
+	 */
+	user: PropTypes.object
+};
 
 const mapStateToProps = (state) => ({
 	user: Selector.getUser(state)
-})
+});
 
 export default connect(mapStateToProps)(AdminContainer);
