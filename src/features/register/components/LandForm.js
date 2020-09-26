@@ -17,7 +17,7 @@ import DocumentField from './DocumentField';
  * @param setFieldValue
  * @returns {JSX.Element}
  * @constructor
- *  * @component
+ * @component
  */
 const LandForm = ({
 	values,
