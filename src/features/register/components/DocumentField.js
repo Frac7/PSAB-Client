@@ -11,6 +11,7 @@ import { FormText, Input, Row, Col } from 'reactstrap';
  * @param setFieldValue
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const DocumentField = ({
 	values,

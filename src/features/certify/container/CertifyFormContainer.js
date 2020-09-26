@@ -21,6 +21,7 @@ import { PROFILE } from '../../../config/routes';
  * @param user
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const CertifyFormContainer = ({ user }) => {
 	const history = useHistory();

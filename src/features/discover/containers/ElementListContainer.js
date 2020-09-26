@@ -9,6 +9,7 @@ import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
  * @param elements
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const ElementListContainer = ({ ElementWrapper, elements }) => (
 	<Row className="my-3">

@@ -14,6 +14,7 @@ import { handleOperatorFetch } from '../map';
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const OperatorActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);

@@ -16,6 +16,7 @@ import { StyledFilledButton } from '../../../shared/styled';
  * @param handleChange
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const SignInForm = ({
     values,

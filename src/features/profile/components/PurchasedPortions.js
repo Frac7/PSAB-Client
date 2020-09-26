@@ -14,6 +14,7 @@ import { PORTION } from '../../../shared/values';
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const PurchasedPortions = ({ userAddress }) => {
 	const [elements, setElements] = useState([]);

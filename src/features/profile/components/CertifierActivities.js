@@ -14,6 +14,7 @@ import { handleCertifierFetch } from '../map';
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const CertifierActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);

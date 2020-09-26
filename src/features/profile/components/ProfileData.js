@@ -12,6 +12,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
  * @param name
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const ProfileData = ({ user: { email, name } }) => {
 	return (

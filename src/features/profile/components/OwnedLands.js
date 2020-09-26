@@ -14,6 +14,7 @@ import { LAND } from '../../../shared/values';
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const OwnedLands = ({ userAddress }) => {
 	const [elements, setElements] = useState([]);

@@ -14,6 +14,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
  * @param hasErrors
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const ToastFeedback = ({ isOpen, setIsOpen, hasErrors }) => {
 	useEffect(() => {

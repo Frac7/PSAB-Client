@@ -17,6 +17,7 @@ import { Selector } from '../../store/user/reducer';
  * @param data
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const SignOut = ({ requestLogout, user: { data } }) => {
     useEffect(() => {

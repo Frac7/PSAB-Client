@@ -17,6 +17,7 @@ import { roles } from '../../../shared/values';
  * @param handleChange
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const RegisterUserForm = ({
 	values,

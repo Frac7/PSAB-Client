@@ -25,6 +25,7 @@ import { StyledSpinner } from '../../../shared/styled';
  * @param user
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const DiscoverContainer = ({ user }) => {
 	const [currentElement, setCurrentElement] = useState(LAND);

@@ -14,6 +14,7 @@ import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
  * @param data
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const ProfileContainer = ({ user: { data } }) => {
 	const { attributes: { email, name } } = data;

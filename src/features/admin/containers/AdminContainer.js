@@ -20,10 +20,11 @@ import { PROFILE } from '../../../config/routes';
 
 /**
  * Admin section that contains the register user form.
- * 
+ *
  * @param isAdmin
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdmin }} } }) => {
 	const [registered, setRegistered] = useState(false);
@@ -95,6 +96,9 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 };
 
 AdminContainer.propTypes = {
+	/**
+	 * Current user
+	 */
 	user: PropTypes.object
 };
 

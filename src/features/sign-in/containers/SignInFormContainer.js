@@ -26,6 +26,7 @@ import { Selector } from '../../../store/user/reducer';
  * @param error
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const SignIn = ({
     requestLogin,

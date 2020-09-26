@@ -27,6 +27,7 @@ import { Selector } from '../../../store/user/reducer';
  * @param user
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const RegisterFormContainer = ({ user }) => {
 	const [currentForm, setCurrentForm] = useState(LAND);

@@ -19,6 +19,7 @@ import { handleFetching } from '../map';
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
+ * @component
  */
 const ProductActivitiesForm = ({
 	values,
