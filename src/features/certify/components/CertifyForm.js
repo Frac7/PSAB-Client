@@ -57,7 +57,7 @@ const ProductActivitiesForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
 			<Alert color="info" className="my-3">Nessun elemento disponibile per la certificazione</Alert>
 		);
@@ -68,6 +68,7 @@ const ProductActivitiesForm = ({
 			<FormGroup>
 				<Label for="portion">Oggetto della certificazione</Label>
 				<Input valid={touched.object && !errors.object} type="select" name="object" id="object" onChange={handleChange} value={values.object}>
+					<option value=""/>
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
 				{ errors.object && <FormText color="danger">{errors.object}</FormText>}
