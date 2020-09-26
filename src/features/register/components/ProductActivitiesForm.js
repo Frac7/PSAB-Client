@@ -49,7 +49,7 @@ const ProductActivitiesForm = ({
 				}
 
 				for (let i = 0; i < total; i++) {
-					portionInstance.methods.getById(i)
+					portionInstance.methods.get(i)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
