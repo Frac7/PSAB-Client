@@ -116,6 +116,7 @@ const ContractTermsForm = ({
 			<FormGroup>
 				<Label for="portion">Porzione relativa</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
 				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
