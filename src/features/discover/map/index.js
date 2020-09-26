@@ -35,6 +35,7 @@ const handleFetching = {
 				result = parseInt(result);
 				if (!result) {
 					setElements(elements);
+					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
@@ -48,6 +49,7 @@ const handleFetching = {
 
 							if (i === result - 1) {
 								setElements(elements);
+								setFetchErrors(false);
 								setIsLoading(false);
 							}
 						})
@@ -76,6 +78,7 @@ const handleFetching = {
 				result = parseInt(result);
 				if (!result) {
 					setElements(elements);
+					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
@@ -89,6 +92,7 @@ const handleFetching = {
 
 							if (i === result - 1) {
 								setElements(elements);
+								setFetchErrors(false);
 								setIsLoading(false);
 							}
 						})
@@ -117,6 +121,7 @@ const handleFetching = {
 				result = parseInt(result);
 				if (!result) {
 					setElements(elements);
+					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
@@ -130,6 +135,7 @@ const handleFetching = {
 
 							if (i === result - 1) {
 								setElements(elements);
+								setFetchErrors(false);
 								setIsLoading(false);
 							}
 						})
@@ -158,6 +164,7 @@ const handleFetching = {
 				result = parseInt(result);
 				if (!result) {
 					setElements(elements);
+					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
@@ -171,6 +178,7 @@ const handleFetching = {
 
 							if (i === result - 1) {
 								setElements(elements);
+								setFetchErrors(false);
 								setIsLoading(false);
 							}
 						})
@@ -199,6 +207,7 @@ const handleFetching = {
 				result = parseInt(result);
 				if (!result) {
 					setElements(elements);
+					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
@@ -212,6 +221,7 @@ const handleFetching = {
 
 							if (i === result - 1) {
 								setElements(elements);
+								setFetchErrors(false);
 								setIsLoading(false);
 							}
 						})
