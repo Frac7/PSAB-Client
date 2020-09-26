@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } from 'reactstrap';
 
 import DocumentField from './DocumentField';
@@ -7,6 +8,20 @@ import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 import contracts from '../../../shared/contracts';
 import { LAND } from '../../../shared/values';
 
+/**
+ * Portion registration form.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @param setFieldValue
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const PortionForm = ({
     values,
     touched,
@@ -115,6 +130,33 @@ const PortionForm = ({
 			</StyledFilledButton>
 		</Form>
 	);
-}
+};
+
+PortionForm.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func
+};
 
 export default PortionForm;

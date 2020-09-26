@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Alert, Col, Container, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
 import { handleFetching } from '../map';
 
+/**
+ * Form for certifying products and production activities.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @param currentForm
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ProductActivitiesForm = ({
 	values,
 	touched,
@@ -67,6 +82,41 @@ const ProductActivitiesForm = ({
 			</StyledFilledButton>
 		</Form>
 	);
-}
+};
+
+ProductActivitiesForm.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func,
+	/**
+	 * Current form, product or production activity
+	 */
+	currentForm: PropTypes.string,
+	/**
+	 * Current user Ethereum address
+	 */
+	userAddress: PropTypes.string
+};
 
 export default ProductActivitiesForm;

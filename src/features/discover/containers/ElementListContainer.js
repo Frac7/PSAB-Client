@@ -1,6 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
+/**
+ * Container for the list of element (products, lands, ...).
+ *
+ * @param ElementWrapper
+ * @param elements
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ElementListContainer = ({ ElementWrapper, elements }) => (
 	<Row className="my-3">
 		<Col md={12} sm={12}>
@@ -14,5 +23,16 @@ const ElementListContainer = ({ ElementWrapper, elements }) => (
 		</Col>
 	</Row>
 );
+
+ElementListContainer.propTypes = {
+	/**
+	 * Wrapper that shows element information
+	 */
+	ElementWrapper: PropTypes.object,
+	/**
+	 * List of elements to show
+	 */
+	elements: PropTypes.array
+}
 
 export default ElementListContainer;

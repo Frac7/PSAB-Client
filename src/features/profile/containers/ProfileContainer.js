@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Container } from 'reactstrap';
@@ -7,6 +8,13 @@ import { ProfileData, OwnedLands, PurchasedPortions, OperatorActivities, Certifi
 import { Selector } from '../../../store/user/reducer';
 import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
 
+/**
+ * User information container.
+ *
+ * @param data
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ProfileContainer = ({ user: { data } }) => {
 	const { attributes: { email, name } } = data;
 	const role = parseInt(data.attributes['custom:role']);
@@ -24,7 +32,14 @@ const ProfileContainer = ({ user: { data } }) => {
 			{role === roles.indexOf(CERTIFIER) && <CertifierActivities userAddress={address} />}
 		</Container>
 	)
-}
+};
+
+ProfileContainer.propTypes = {
+	/**
+	 * Logged in user
+	 */
+	user: PropTypes.object
+};
 
 const mapStateToProps = (state) => ({
 	user: Selector.getUser(state)

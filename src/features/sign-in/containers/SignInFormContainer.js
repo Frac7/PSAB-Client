@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -14,6 +15,18 @@ import { PROFILE } from '../../../config/routes';
 import { requestLogin, requestUser } from '../../../store/user/action';
 import { Selector } from '../../../store/user/reducer';
 
+/**
+ * Login handling.
+ *
+ * @param requestLogin
+ * @param requestUser
+ * @param data
+ * @param isLoading
+ * @param isError
+ * @param error
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const SignIn = ({
     requestLogin,
     requestUser,
@@ -74,7 +87,22 @@ const SignIn = ({
             </Col>
         </Row>
     );
-}
+};
+
+SignIn.propTypes = {
+    /**
+     * REQUEST_USER action dispatching
+     */
+    requestUser: PropTypes.func,
+    /**
+     * REQUEST_LOGIN action dispatching
+     */
+    requestLogin: PropTypes.func,
+    /**
+     * Current user data
+     */
+    user: PropTypes.object
+};
 
 const mapStateToProps = (state) => ({
     user: Selector.getUser(state)
@@ -83,6 +111,6 @@ const mapStateToProps = (state) => ({
 const dispatchToProps = {
     requestLogin,
     requestUser
-}
+};
 
 export default connect(mapStateToProps, dispatchToProps)(SignIn);

@@ -1,8 +1,9 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
+import { Container, Row, Col } from 'reactstrap';
+import { Formik } from 'formik';
 import Storage from '@aws-amplify/storage';
 
 import { ToastFeedback } from '../components';
@@ -20,6 +21,13 @@ import {
 import { forms } from '../map';
 import { Selector } from '../../../store/user/reducer';
 
+/**
+ * Container for elements registration.
+ *
+ * @param user
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const RegisterFormContainer = ({ user }) => {
 	const [currentForm, setCurrentForm] = useState(LAND);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
@@ -116,6 +124,13 @@ const RegisterFormContainer = ({ user }) => {
 
 const mapStateToProps = (state) => ({
 	user: Selector.getUser(state)
-})
+});
+
+RegisterFormContainer.propTypes = {
+	/**
+	 * Current user details
+	 */
+	user: PropTypes.object
+}
 
 export default connect(mapStateToProps)(RegisterFormContainer);

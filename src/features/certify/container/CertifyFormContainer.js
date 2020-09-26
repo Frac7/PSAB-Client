@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
@@ -14,6 +15,13 @@ import { Selector } from '../../../store/user/reducer';
 
 import { PROFILE } from '../../../config/routes';
 
+/**
+ * Certify section for certifying elements.
+ *
+ * @param user
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CertifyFormContainer = ({ user }) => {
 	const history = useHistory();
 
@@ -34,7 +42,7 @@ const CertifyFormContainer = ({ user }) => {
 		const handleFeedback = (hasErrors) => {
 			resetForm(initialValues);
 			setSubmitting(false);
-			
+
 			setHasErrors(hasErrors);
 			setIsOpen(true);
 		}
@@ -81,6 +89,13 @@ const CertifyFormContainer = ({ user }) => {
 			<ToastFeedback isOpen={isOpen} setIsOpen={setIsOpen} hasErrors={hasErrors} />
 		</>
 	);
+};
+
+CertifyFormContainer.propTypes = {
+	/**
+	 * Logged in user
+	 */
+	user: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({

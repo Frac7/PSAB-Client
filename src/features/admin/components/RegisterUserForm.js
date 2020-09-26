@@ -1,10 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import { StyledFilledButton } from '../../../shared/styled';
 
 import { roles } from '../../../shared/values';
 
+/**
+ * Form for registering a new user in the platform.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const RegisterUserForm = ({
 	values,
 	touched,
@@ -52,5 +65,32 @@ const RegisterUserForm = ({
 		</StyledFilledButton>
 	</Form>
 );
+
+RegisterUserForm.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func
+}
 
 export default RegisterUserForm;

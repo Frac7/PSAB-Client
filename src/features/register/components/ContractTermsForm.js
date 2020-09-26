@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
 	Form,
 	FormGroup,
@@ -21,6 +22,19 @@ import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
 
+/**
+ * Form for registering portion contract terms.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ContractTermsForm = ({
     values,
     touched,
@@ -158,6 +172,37 @@ const ContractTermsForm = ({
 			</StyledFilledButton>
 		</Form>
 	);
+};
+
+ContractTermsForm.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func,
+	/**
+	 * Current user's address
+	 */
+	userAddress: PropTypes.string
 }
 
 export default ContractTermsForm;

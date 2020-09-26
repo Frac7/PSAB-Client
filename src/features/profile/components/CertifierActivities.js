@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
@@ -7,6 +8,13 @@ import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
 import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleCertifierFetch } from '../map';
 
+/**
+ * Activity related to the certification process for the current user.
+ *
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const CertifierActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);
 	const [products, setProducts] = useState([]);
@@ -56,6 +64,13 @@ const CertifierActivities = ({ userAddress }) => {
 			</Col>
 		</Row>
 	)
+};
+
+CertifierActivities.propTypes = {
+	/**
+	 * Current user Ethereum address
+	 */
+	userAddress: PropTypes.string
 }
 
 export default CertifierActivities;

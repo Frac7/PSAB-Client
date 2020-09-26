@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Alert, Col, Container, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
@@ -6,7 +7,20 @@ import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
 
-const ContractTermsForm = ({
+/**
+ * Form for selling portion or transfer its ownership.
+ *
+ * @param values
+ * @param touched
+ * @param errors
+ * @param isSubmitting
+ * @param handleSubmit
+ * @param handleChange
+ * @param userAddress
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const TransferOwnership = ({
     values,
     touched,
     errors,
@@ -101,6 +115,37 @@ const ContractTermsForm = ({
 			</StyledFilledButton>
 		</Form>
 	);
-}
+};
 
-export default ContractTermsForm;
+TransferOwnership.propTypes = {
+	/**
+	 * Form values
+	 */
+	values: PropTypes.object,
+	/**
+	 * Touched fields
+	 */
+	touched: PropTypes.object,
+	/**
+	 * Errors in fields
+	 */
+	errors: PropTypes.object,
+	/**
+	 * Form submission
+	 */
+	isSubmitting: PropTypes.bool,
+	/**
+	 * Form submission handling
+	 */
+	handleSubmit: PropTypes.func,
+	/**
+	 * Field changes handling
+	 */
+	handleChange: PropTypes.func,
+	/**
+	 * Ethereum address
+	 */
+	userAddress: PropTypes.string
+};
+
+export default TransferOwnership;
