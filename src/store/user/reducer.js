@@ -18,30 +18,36 @@ const defaultState = {
 
 const user = handleActions({
 	[requestLogin]: (state) => Object.assign({}, state, {
+		isError: false,
 		isLoading: true
 	}),
 	[requestLogout]: (state) => Object.assign({}, state, {
+		isError: false,
 		isLoading: true
 	}),
 	[requestUser]: (state) => Object.assign({}, state, {
+		isError: false,
 		isLoading: true
 	}),
 	[loggedIn]: (state, { payload: { data }}) => Object.assign({}, state, {
 		data,
+		isError: false,
 		isLoading: false
 	}),
 	[loggedOut]: (state) => Object.assign({}, state, {
 		data: null,
+		isError: false,
 		isLoading: false
 	}),
 	[userReceived]: (state, { payload: { data }}) => Object.assign({}, state, {
 		data,
+		isError: false,
 		isLoading: false
 	}),
 	[userError]: (state, { payload: { error }}) => Object.assign({}, state, {
+		error,
 		isError: true,
-		isLoading: false,
-		error
+		isLoading: false
 	})
 }, defaultState);
 

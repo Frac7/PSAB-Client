@@ -10,15 +10,22 @@ import { Auth } from '@aws-amplify/auth';
 function* handleLogin ({ payload: { data }}) {
 	try {
 		const { email, password } = data;
-		const result = yield call(
+
+		const { result, error } = yield call(
 			() => Auth.signIn(email, password)
-			.then((result) => {
-				console.log(result);
-				return result;
-			}));
-		yield put(loggedIn({ data: result }));
+				.then((result) => {
+					return { result };
+				})
+				.catch((error) => {
+					return { error };
+				}));
+
+		if (result) {
+			yield put(loggedIn({ data: result }));
+		} else {
+			yield put(userError({ error }));
+		}
 	} catch (error) {
-		console.error(error);
 		yield put(userError({ error }));
 	}
 }
@@ -28,21 +35,26 @@ function* handleLogout () {
 		yield call(() => Auth.signOut());
 		yield put(loggedOut());
 	} catch (error) {
-		console.error(error);
 		yield put(userError({ error }));
 	}
 }
 
 function* getUser () {
 	try {
-		const result = yield call(() => Auth.currentUserInfo()
+		const { result, error } = yield call(() => Auth.currentUserInfo()
 			.then((result) => {
-				console.log(result);
-				return result;
+				return { result };
+			})
+			.catch((error) => {
+				return { error };
 			}));
-		yield put(userReceived({ data: result }));
+
+		if (result) {
+			yield put(userReceived({ data: result }));
+		} else {
+			yield put(userError({ error }));
+		}
 	} catch (error) {
-		console.error(error);
 		yield put(userError({ error }));
 	}
 }
@@ -54,3 +66,8 @@ const userSaga = [
 ];
 
 export default userSaga;
+export {
+	handleLogin,
+	handleLogout,
+	getUser
+}
