@@ -2,6 +2,6 @@ import React from 'react';
 
 import SignInFormContainer from './containers'
 
-const SignIn = ({ history }) => <SignInFormContainer history={history} />
+const SignIn = () => <SignInFormContainer />
 
 export default SignIn;

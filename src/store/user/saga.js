@@ -49,12 +49,13 @@ function* getUser () {
 				return { error };
 			}));
 
-		if (result) {
-			yield put(userReceived({ data: result }));
-		} else {
+		if (error) {
 			yield put(userError({ error }));
+		} else {
+			yield put(userReceived({ data: result }));
 		}
 	} catch (error) {
+		console.log(error);
 		yield put(userError({ error }));
 	}
 }

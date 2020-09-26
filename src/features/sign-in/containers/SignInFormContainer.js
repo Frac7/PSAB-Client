@@ -15,7 +15,6 @@ import { requestLogin, requestUser } from '../../../store/user/action';
 import { Selector } from '../../../store/user/reducer';
 
 const SignIn = ({
-    history,
     requestLogin,
     requestUser,
     user: {
@@ -38,8 +37,8 @@ const SignIn = ({
         return (
             <Container fluid>
                 <Row className="justify-content-center align-content-center align-items-center">
-                    <Col md={6} sm={10}>
-                        <Alert color="danger">{error.message}</Alert>
+                    <Col md={10} sm={10}>
+                        <Alert color="danger">{(error && error.message) || 'Si è verificato un errore'}</Alert>
                     </Col>
                 </Row>
             </Container>
