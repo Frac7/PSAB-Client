@@ -41,6 +41,7 @@ const handleFetching = {
 
 				for (let i = 0; i < result; i++) {
 					contractInstance.methods.getById(i)
+						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
@@ -81,6 +82,7 @@ const handleFetching = {
 
 				for (let i = 0; i < result; i++) {
 					contractInstance.methods.getById(i)
+						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);

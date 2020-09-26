@@ -42,28 +42,27 @@ const TransferOwnership = ({
 			.call({ from : userAddress })
 			.then((result) => {
 				console.log(result);
-				result.forEach((item) => {
-					if (item.portionsOwned.length === 0) {
-						setElements([]);
-						setIsLoading(false);
-						return;
-					}
+				if (result.portionsOwned.length === 0) {
+					setElements([]);
+					setIsLoading(false);
+					return;
+				}
 
-					item.portionsOwned.forEach((id, index) => {
-						portionInstance.methods.getById(id)
-							.then((portion) => {
-								elements.push(portion);
-								if (index === item.portionsOwned.length - 1) {
-									setElements(elements);
-									setIsLoading(false);
-								}
-							})
-							.catch((error) => {
-								console.log(error);
-								setFetchErrors(true);
+				result.portionsOwned.forEach((id, index) => {
+					portionInstance.methods.getById(id)
+						.call({ from : userAddress })
+						.then((portion) => {
+							elements.push(portion);
+							if (index === result.portionsOwned.length - 1) {
+								setElements(elements);
 								setIsLoading(false);
-							});
-					});
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+							setFetchErrors(true);
+							setIsLoading(false);
+						});
 				});
 			})
 			.catch((error) => {
