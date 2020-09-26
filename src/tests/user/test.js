@@ -4,12 +4,16 @@ import {
 	requestLogin,
 	requestLogout,
 	requestUser,
-	TYPES,
-	userReceived
+	userError,
+	userReceived,
+	TYPES
 } from '../../store/user/action';
 import { getUser, handleLogin, handleLogout } from '../../store/user/saga';
 
 import configureMockStore from 'redux-mock-store';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
+import { throwError } from 'redux-saga-test-plan/providers';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import createSagaMiddleware from 'redux-saga';
 
 import { Auth } from '@aws-amplify/auth';
@@ -253,6 +257,152 @@ describe('User actions test: asynchronous', () => {
 		store.subscribe(() => {
 			expect(store.getActions()).toEqual(expectedActions);
 		});
+	});
+});
+
+describe('User sagas test: "testSaga"', () => {
+	// TODO: fix these tests in call effect
+	it('Logs in', () => {
+		testSaga(handleLogin, {
+			payload: {
+				data: {
+					email: 'user@email.com', password: '12345678'
+				}}})
+			.next()
+			.call(() => Auth.signIn('user@email.com', '12345678'))
+			.next({ result: 'Some user data' })
+			.put(loggedIn({ data: 'Some user data' }))
+			.next()
+			.isDone();
+	});
+
+
+	it('Doesn\'t log in', () => {
+		testSaga(handleLogin, {
+			payload: {
+				data: {
+					email: 'user@email.com', password: '12345678'
+				}}})
+			.next()
+			.call(() => Auth.signIn('user@email.com', '12345678'))
+			.throw(new Error('User error'))
+			.put(userError({ error: new Error('User error') }))
+			.next()
+			.isDone();
+	});
+
+
+	it('Logs out', () => {
+		testSaga(handleLogout)
+			.next()
+			.call(() => Auth.signOut())
+			.next()
+			.put(loggedOut())
+			.next()
+			.isDone();
+	});
+
+
+	it('Doesn\'t log out', () => {
+		testSaga(handleLogout)
+			.next()
+			.call(() => Auth.signOut())
+			.throw(new Error('User error'))
+			.put(userError({ error: new Error('User error') }))
+			.next()
+			.isDone();
+	});
+
+	it('Receives user', () => {
+		testSaga(getUser)
+			.next()
+			.call(() => Auth.currentUserInfo())
+			.next({ result: 'Some user data' })
+			.put(userReceived({ data: 'Some user data' }))
+			.next()
+			.isDone();
+	});
+
+
+	it('Doesn\'t log in', () => {
+		testSaga(getUser)
+			.next()
+			.call(() => Auth.currentUserInfo())
+			.throw(new Error('User error'))
+			.put(userError({ error: new Error('User error') }))
+			.next()
+			.isDone();
+	});
+});
+
+describe('User sagas test: "expectSaga"', () => {
+	it('Logs in', () => { // TODO: fix this test
+		expectSaga(handleLogin, {
+			payload: { data: { email: 'user@email.com', password: '12345678'} }
+		})
+			.provide([
+				[matchers.call.fn(
+					() => Auth.signIn('user@email.com', '12345678')), {
+					result: 'Some user data'
+				}]
+			])
+			.put(loggedIn({ data: 'Some user data' }))
+			.run();
+	});
+
+
+	it('Doesn\'t log in', () => {
+		expectSaga(handleLogin, {
+			payload: { data: { email: 'user@email.com', password: '12345678'} }
+		})
+			.provide([
+				[matchers.call.fn(() => Auth.signIn('user@email.com', '12345678')), throwError(new Error('User error'))]
+			])
+			.put(userError({ error: new Error('User error') }))
+			.run();
+	});
+
+
+	it('Logs out', () => { // TODO: fix this
+		expectSaga(handleLogout)
+			.provide([
+				[matchers.call.fn(() => Auth.signOut())]
+			])
+			.put(loggedOut())
+			.run();
+	});
+
+
+	it('Doesn\'t log out', () => {
+		expectSaga(handleLogout)
+			.provide([
+				[matchers.call.fn(() => Auth.signOut()), throwError(new Error('User error'))]
+			])
+			.put(userError({ error: new Error('User error') }))
+			.run();
+	});
+
+
+	it('Receives user', () => { // TODO: fix this test
+		expectSaga(getUser)
+			.provide([
+				[matchers.call.fn(
+					() => Auth.currentUserInfo()), {
+					result: 'Some user data'
+				}]
+			])
+			.put(userReceived({ data: 'Some user data' }))
+			.run();
+	});
+
+
+	it('Doesn\'t log in', () => {
+		expectSaga(getUser)
+			.provide([
+				[matchers.call.fn(() => Auth.currentUserInfo()), throwError(new Error('User error'))]
+			])
+			.put(userError({ error: new Error('User error') }))
+			.run();
 	});
 });
 
