@@ -11,6 +11,7 @@ import {
 
 const defaultState = {
 	data: null,
+	error: null,
 	isLoading: false,
 	isError: false
 };
@@ -39,7 +40,8 @@ const user = handleActions({
 	}),
 	[userError]: (state, { payload: { error }}) => Object.assign({}, state, {
 		isError: true,
-		isLoading: false
+		isLoading: false,
+		error
 	})
 }, defaultState);
 
