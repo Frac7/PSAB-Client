@@ -1,11 +1,11 @@
+import DiscoverActivity from './DiscoverActivity';
 import DiscoverLand from './DiscoverLand';
 import DiscoverPortion from './DiscoverPortion';
 import DiscoverProduct from './DiscoverProduct';
-import DiscoverActivity from './DiscoverActivity';
 
 export {
-	DiscoverLand,
 	DiscoverPortion,
 	DiscoverProduct,
+	DiscoverLand,
 	DiscoverActivity
 }

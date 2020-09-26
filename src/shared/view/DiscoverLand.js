@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 
-import { StyledTitle } from '../../../shared/styled';
+import { StyledTitle } from '../styled';
 
 const DiscoverLand = ({ description, documents }) => {
 	const Title = StyledTitle('h5');

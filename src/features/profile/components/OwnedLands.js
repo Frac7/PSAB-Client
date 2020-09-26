@@ -1,13 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
-import { StyledBadge } from '../../../shared/styled';
+import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
+import { StyledBadge, StyledSpinner } from '../../../shared/styled';
+import { DiscoverLand } from '../../../shared/view';
 
-const OwnedLands = () => {
+import contracts from '../../../shared/contracts';
+import { LAND } from '../../../shared/values';
+
+const OwnedLands = ({ userAddress }) => {
+	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const elements = [];
+
+		const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
+		landInstance.methods.getByOwner(userAddress)
+			.call({ from : userAddress })
+			.then((lands) => {
+				console.log(lands);
+				if (!lands.landsOwned.length) {
+					setElements(elements);
+					setIsLoading(false);
+					return;
+				}
+
+				lands.landsOwned.forEach((id, index) => {
+					landInstance.methods.getById(id)
+						.call({ from: userAddress })
+						.then((result) => {
+							console.log(result);
+							elements.push(result);
+
+							if (index === lands.landsOwned.length - 1) {
+								setElements(elements);
+								setIsLoading(false);
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+							setFetchErrors(true);
+							setIsLoading(false);
+						});
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				setFetchErrors(true);
+				setIsLoading(false);
+			});
+	}, [userAddress]);
+
 	return (
 		<Row className="align-items-center">
 			<Col md="auto">
-				<h2>Lands</h2>
+				<h2>Terreni posseduti</h2>
 			</Col>
 			<Col>
 				<StyledBadge>
@@ -15,9 +63,21 @@ const OwnedLands = () => {
 				</StyledBadge>
 			</Col>
 			<Col md={12} sm={12}>
+				{isLoading && (
+					<StyledSpinner size="large"/>
+				)}
+				{fetchErrors && (
+					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
+				)}
+				{!elements.length && (
+					<Alert color="danger" className="my-3">Nessun terreno posseduto</Alert>
+				)}
 				<ListGroup flush>
-					<ListGroupItem>Item #1</ListGroupItem>
-					<ListGroupItem>Item #2</ListGroupItem>
+				{elements.map((element, index) => (
+					<ListGroupItem key={index}>
+						<DiscoverLand {...{ element }} />
+					</ListGroupItem>
+				))}
 				</ListGroup>
 			</Col>
 		</Row>

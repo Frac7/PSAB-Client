@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import ElementListContainer from './ElementListContainer';
 import { ElementSelector } from '../../../shared/element-dropdown';
 
-import { mock } from '../mock';
-
 import {
 	LAND,
 	PORTION,

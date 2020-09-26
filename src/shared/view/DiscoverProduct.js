@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { Col, Container, Row, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem } from 'reactstrap';
 
 import DiscoverPortion from './DiscoverPortion';
-import { StyledFilledButton, StyledLinkButton, StyledTitle } from '../../../shared/styled';
+import { StyledFilledButton, StyledLinkButton, StyledTitle } from '../styled';
 
-import { mock } from '../mock';
-import { PORTION } from '../../../shared/values';
+import { mock } from '../../features/discover/mock';
+import { PORTION } from '../values';
 
 const DiscoverProduct = ({ id, portion, description }) => {
 	const Title = StyledTitle('h5');
