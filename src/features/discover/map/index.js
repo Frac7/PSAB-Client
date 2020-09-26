@@ -163,7 +163,6 @@ const handleFetching = {
 				}
 
 				for (let i = 0; i < result; i++) {
-					console.log(contractInstance.methods)
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {

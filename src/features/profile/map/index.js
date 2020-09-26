@@ -46,7 +46,7 @@ const handleOperatorFetch = {
 
 		const contractInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 		contractInstance.methods.getByOperator(userAddress)
-			.call({from: userAddress})
+			.call({ from: userAddress })
 			.then((activities) => {
 				console.log(activities);
 				if (!activities.activitiesRegistered.length) {
@@ -57,7 +57,7 @@ const handleOperatorFetch = {
 
 				activities.activitiesRegistered.forEach((id, index) => {
 					contractInstance.methods.getById(id)
-						.call({from: userAddress})
+						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);
@@ -166,7 +166,7 @@ const handleCertifierFetch = {
 
 		const contractInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 		contractInstance.methods.getByCertifier(userAddress)
-			.call({from: userAddress})
+			.call({ from: userAddress })
 			.then((activities) => {
 				console.log(activities);
 				if (!activities.activitiesCertified.length) {
@@ -177,7 +177,7 @@ const handleCertifierFetch = {
 
 				activities.activitiesCertified.forEach((id, index) => {
 					contractInstance.methods.getById(id)
-						.call({from: userAddress})
+						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);

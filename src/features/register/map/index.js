@@ -193,7 +193,7 @@ const forms = {
 			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 
 			prodActivitiesInstance.methods.register(portion, window.web3.utils.fromAscii(description))
-				.send({ from : senderAddress })
+				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
