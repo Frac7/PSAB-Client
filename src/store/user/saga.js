@@ -7,10 +7,11 @@ import {
 
 import { Auth } from '@aws-amplify/auth';
 
-function* handleLogin ({ data }) {
+function* handleLogin ({ payload: { data }}) {
 	try {
 		const { email, password } = data;
-		const result = yield call(Auth.signIn(email, password)
+		const result = yield call(
+			() => Auth.signIn(email, password)
 			.then((result) => {
 				console.log(result);
 				return result;
@@ -24,7 +25,7 @@ function* handleLogin ({ data }) {
 
 function* handleLogout () {
 	try {
-		yield call(Auth.signOut());
+		yield call(() => Auth.signOut());
 		yield put(loggedOut());
 	} catch (error) {
 		console.error(error);
@@ -34,7 +35,7 @@ function* handleLogout () {
 
 function* getUser () {
 	try {
-		const result = yield call(Auth.currentUserInfo()
+		const result = yield call(() => Auth.currentUserInfo()
 			.then((result) => {
 				console.log(result);
 				return result;

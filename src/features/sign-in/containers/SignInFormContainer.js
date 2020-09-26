@@ -32,7 +32,7 @@ const SignIn = ({
 
     const onSubmit = useCallback((values) => {
         requestLogin({ data: values });
-    }, [history, requestLogin]);
+    }, [requestLogin]);
 
     if (isError) {
         return (
