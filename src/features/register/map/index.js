@@ -36,7 +36,8 @@ const forms = {
 		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents)) // TODO: fix documents
+			// landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents))
+			landInstance.methods.register(window.web3.utils.fromAscii(description), []) // TODO: fix documents
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -66,7 +67,8 @@ const forms = {
 		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
+			// landInstance.methods.divide(land, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
+			landInstance.methods.divide(land, window.web3.utils.fromAscii(description), [], contracts[PORTION].address) // TODO: fix documents
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);

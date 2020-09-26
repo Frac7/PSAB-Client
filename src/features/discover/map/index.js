@@ -40,14 +40,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < result; i++) {
+				for (let i = 0; i <= result; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
 
-							if (i === result - 1) {
+							if (i === result) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -83,14 +83,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < result; i++) {
+				for (let i = 0; i <= result; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
 
-							if (i === result - 1) {
+							if (i === result) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -126,14 +126,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < result; i++) {
+				for (let i = 0; i <= result; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
 
-							if (i === result - 1) {
+							if (i === result) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -169,14 +169,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < result; i++) {
+				for (let i = 0; i <= result; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
 
-							if (i === result - 1) {
+							if (i === result) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -212,14 +212,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < result; i++) {
+				for (let i = 0; i <= result; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
 						.then((land) => {
 							console.log(land);
 							elements.push(land);
 
-							if (i === result - 1) {
+							if (i === result) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);

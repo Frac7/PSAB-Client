@@ -48,14 +48,14 @@ const ProductActivitiesForm = ({
 					setIsLoading(false);
 				}
 
-				for (let i = 0; i < total; i++) {
+				for (let i = 0; i <= total; i++) {
 					portionInstance.methods.get(i)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);
 
-							if (i === total - 1) {
+							if (i === total) {
 								setElements(elements);
 								setIsLoading(false);
 							}

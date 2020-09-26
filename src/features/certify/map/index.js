@@ -44,14 +44,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < total; i++) {
+				for (let i = 0; i <= total; i++) {
 					if (!fetchErrors) {
 						contractInstance.methods.getById(i)
 							.call({ from: userAddress })
 							.then((result) => {
 								elements.push(result);
 
-								if (i === total - 1) {
+								if (i === total) {
 									setElements(elements);
 									setIsLoading(false);
 								}
@@ -84,14 +84,14 @@ const handleFetching = {
 					return;
 				}
 
-				for (let i = 0; i < total; i++) {
+				for (let i = 0; i <= total; i++) {
 					if (!fetchErrors) {
 						contractInstance.methods.getById(i)
 							.call({ from: userAddress })
 							.then((result) => {
 								elements.push(result);
 
-								if (i === total - 1) {
+								if (i === total) {
 									setElements(elements);
 									setIsLoading(false);
 								}
