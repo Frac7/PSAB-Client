@@ -2,25 +2,46 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Auth from '@aws-amplify/auth';
+import { Col, Container, Row, Alert } from 'reactstrap';
+import { StyledSpinner } from '../styled';
 
 import { SIGNIN } from '../../config/routes';
 
-import { loggedIn } from '../../store/user/action';
+import { requestUser } from '../../store/user/action';
 import { Selector } from '../../store/user/reducer';
 
 const withAuthentication = (AuthComponent) =>
-    connect((state) => ({ user: Selector.getUser(state) }), { loggedIn })(
-        ({ loggedIn, user: { data }}) => {
+    connect((state) => ({ user: Selector.getUser(state) }), { requestUser })(
+        ({ requestUser, user: { data, isLoading, isError }}) => {
             useEffect(() => {
                 if (!data) {
-                    Auth.currentUserInfo()
-                        .then((user) => {
-                            loggedIn({ data: user });
-                        })
-                        .catch((error) => console.error(error));
+                    requestUser();
                 }
-            }, [loggedIn, data]);
+            }, [requestUser, data]);
+
+            if (isLoading) {
+                return (
+                    <Container fluid>
+                        <Row className="justify-content-center align-content-center align-items-center">
+                            <Col md={1} sm={1}>
+                                <StyledSpinner size="large"/>
+                            </Col>
+                        </Row>
+                    </Container>
+                )
+            }
+
+            if (isError) {
+                return (
+                    <Container fluid>
+                        <Row className="justify-content-center align-content-center align-items-center">
+                            <Col md={12} sm={12}>
+                                <Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dell'account</Alert>
+                            </Col>
+                        </Row>
+                    </Container>
+                )
+            }
 
             if (data) {
                 return <AuthComponent />;
