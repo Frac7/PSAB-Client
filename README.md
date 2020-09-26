@@ -7,7 +7,7 @@ This project was created with:
 - Create React App
 - Redux and Redux-Saga for global state management
 - Jest, Redux Mock Store and Redux Saga Test Plan for testing
-- Reactstrap and Styled Components for the UI
+- Reactstrap, Styled Components and Font Awesome for the UI
 - Formik and Yup for handling forms
 - Web3 for interacting with the blockchain
 - Amazon Cognito for user management
