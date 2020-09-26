@@ -19,8 +19,6 @@ const OperatorActivities = ({ userAddress }) => {
 		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
 	}, [userAddress]);
 
-	console.log(activities, products)
-
 	return (
 		<Row className="align-items-center">
 			<Col md="auto">

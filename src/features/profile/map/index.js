@@ -121,8 +121,85 @@ const handleOperatorFetch = {
 	}
 };
 
-const handleCertifierFetch = (contract) => {
+const handleCertifierFetch = {
+	[PRODUCT]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
+		const elements = [];
 
+		const contractInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
+		contractInstance.methods.getByCertifier(userAddress)
+			.call({ from : userAddress })
+			.then((products) => {
+				console.log(products);
+				if (!products.productsCertified.length) {
+					setElements(elements);
+					setIsLoading(false);
+					return;
+				}
+
+				products.productsCertified.forEach((id, index) => {
+					contractInstance.methods.getById(id)
+						.call({ from: userAddress })
+						.then((result) => {
+							console.log(result);
+							elements.push(result);
+
+							if (index === products.productsCertified.length - 1) {
+								setElements(elements);
+								setIsLoading(false);
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+							setFetchErrors(true);
+							setIsLoading(false);
+						});
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				setFetchErrors(true);
+				setIsLoading(false);
+			});
+	},
+	[PROD_ACTIVITIES]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
+		const elements = [];
+
+		const contractInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
+		contractInstance.methods.getByCertifier(userAddress)
+			.call({from: userAddress})
+			.then((activities) => {
+				console.log(activities);
+				if (!activities.activitiesCertified.length) {
+					setElements((el) => [...el, ...elements]);
+					setIsLoading(false);
+					return;
+				}
+
+				activities.activitiesCertified.forEach((id, index) => {
+					contractInstance.methods.getById(id)
+						.call({from: userAddress})
+						.then((result) => {
+							console.log(result);
+							elements.push(result);
+
+							if (index === activities.activitiesCertified.length - 1) {
+								setElements((el) => [...el, ...elements]);
+								setIsLoading(false);
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+							setFetchErrors(true);
+							setIsLoading(false);
+						});
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				setFetchErrors(true);
+				setIsLoading(false);
+			});
+	}
 };
 
 export {
