@@ -35,15 +35,15 @@ const ProductActivitiesForm = ({
 		)
 	}
 
-	if (elements.length === 0) {
-		return (
-			<Alert color="danger" className="my-3">Nessuna elemento disponibile per la certificazione</Alert>
-		);
-	}
-
 	if (fetchErrors) {
 		return (
 			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi certificabili</Alert>
+		);
+	}
+
+	if (elements.length === 0) {
+		return (
+			<Alert color="danger" className="my-3">Nessun elemento disponibile per la certificazione</Alert>
 		);
 	}
 

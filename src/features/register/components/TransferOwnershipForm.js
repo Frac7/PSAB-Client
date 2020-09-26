@@ -28,10 +28,28 @@ const ContractTermsForm = ({
 			.then((result) => {
 				console.log(result);
 				result.forEach((item) => {
-					elements.push(item);
+					if (item.portionsOwned.length === 0) {
+						setElements([]);
+						setIsLoading(false);
+						return;
+					}
+
+					item.portionsOwned.forEach((id, index) => {
+						portionInstance.methods.getById(id)
+							.then((portion) => {
+								elements.push(portion);
+								if (index === item.portionsOwned.length - 1) {
+									setElements(elements);
+									setIsLoading(false);
+								}
+							})
+							.catch((error) => {
+								console.log(error);
+								setFetchErrors(true);
+								setIsLoading(false);
+							});
+					});
 				});
-				setElements(elements);
-				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -52,15 +70,15 @@ const ContractTermsForm = ({
 		)
 	}
 
-	if (elements.length === 0) {
+	if (fetchErrors) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna porzione disponibile per il trasferimento di proprietà o per la vendita</Alert>
+			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
 		);
 	}
 
-	if (fetchErrors) {
+	if (elements.length === 0) {
 		return (
-			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
+			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
 		);
 	}
 
