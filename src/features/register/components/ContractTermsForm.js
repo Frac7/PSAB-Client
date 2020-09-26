@@ -1,10 +1,22 @@
-import React, { useEffect } from 'react';
-import { Form, FormGroup, FormText, Input, Label, InputGroup, InputGroupAddon } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import {
+	Form,
+	FormGroup,
+	FormText,
+	Input,
+	Label,
+	InputGroup,
+	InputGroupAddon,
+	Container,
+	Row,
+	Col,
+	Alert
+} from 'reactstrap';
 
 import { faEuroSign } from '@fortawesome/free-solid-svg-icons/faEuroSign';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { StyledFilledButton } from '../../../shared/styled';
+import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
@@ -15,27 +27,83 @@ const ContractTermsForm = ({
     errors,
     isSubmitting,
     handleSubmit,
-    handleChange
+    handleChange,
+	userAddress
 }) => {
+	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
+		const elements = [];
+
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		// TODO: add fetch feedback
-		portionInstance.methods.getByOwner('0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5')
-			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+		portionInstance.methods.getByOwner(userAddress)
+			.call({ from : userAddress })
 			.then((result) => {
 				console.log(result);
+				result.forEach((item) => {
+					if (item.portionsOwned.length === 0) {
+						setElements([]);
+						setIsLoading(false);
+						return;
+					}
+
+					item.portionsOwned.forEach((id, index) => {
+						portionInstance.methods.getById(id)
+							.then((portion) => {
+								elements.push(portion);
+								if (index === item.portionsOwned.length - 1) {
+									setElements(elements);
+									setIsLoading(false);
+								}
+							})
+							.catch((error) => {
+								console.log(error);
+								setFetchErrors(true);
+								setIsLoading(false);
+							});
+					});
+				});
 			})
 			.catch((error) => {
 				console.log(error);
+				setIsLoading(false);
+				setFetchErrors(true);
 			});
-	}, []);
+	}, [userAddress]);
+
+	if (isLoading) {
+		return (
+			<Container fluid>
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={1} sm={1}>
+						<StyledSpinner size="large"/>
+					</Col>
+				</Row>
+			</Container>
+		)
+	}
+
+	if (fetchErrors) {
+		return (
+			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
+		);
+	}
+
+	if (elements.length === 0) {
+		return (
+			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
+		);
+	}
 
 	return (
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Porzione relativa</Label>
-				{/* TODO: change with dropdown */}
-				<Input valid={touched.portion && !errors.portion} type="number" name="portion" id="portion" onChange={handleChange} value={values.portion}/>
+				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
+				</Input>
 				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>
 			<FormGroup>

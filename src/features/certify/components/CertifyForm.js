@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+import { Alert, Col, Container, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 
-import { StyledFilledButton } from '../../../shared/styled';
+import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
 import { handleFetching } from '../map';
 
@@ -12,16 +12,38 @@ const ProductActivitiesForm = ({
 	isSubmitting,
 	handleSubmit,
 	handleChange,
-	currentForm
+	currentForm,
+	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
-		handleFetching[currentForm]('0x99018CdDAe586De875E8B5c9a3069D387902651d', setElements) // TODO: change with user address
-	}, [currentForm, setElements]);
+		handleFetching[currentForm](userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading);
+	}, [currentForm, userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading]);
+
+	if (isLoading) {
+		return (
+			<Container fluid>
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={1} sm={1}>
+						<StyledSpinner size="large"/>
+					</Col>
+				</Row>
+			</Container>
+		)
+	}
+
+	if (fetchErrors) {
+		return (
+			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi certificabili</Alert>
+		);
+	}
 
 	if (elements.length === 0) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna elemento disponibile per la certificazione</Alert>
+			<Alert color="danger" className="my-3">Nessun elemento disponibile per la certificazione</Alert>
 		);
 	}
 

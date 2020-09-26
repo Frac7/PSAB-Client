@@ -2,9 +2,8 @@ import React, { useCallback, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Auth from '@aws-amplify/auth';
 import { Formik } from 'formik';
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container, Alert } from 'reactstrap';
 
 import SignInForm from '../components';
 import { StyledSpinner } from '../../../shared/styled';
@@ -12,35 +11,39 @@ import { StyledSpinner } from '../../../shared/styled';
 import { initialValues, validationSchema } from '../values';
 import { PROFILE } from '../../../config/routes';
 
-import { requestLogin, loggedIn } from '../../../store/user/action';
+import { requestLogin, requestUser } from '../../../store/user/action';
 import { Selector } from '../../../store/user/reducer';
 
-const SignIn = ({ history, requestLogin, loggedIn, user: { data, isLoading } }) => {
+const SignIn = ({
+    requestLogin,
+    requestUser,
+    user: {
+        data,
+        isLoading,
+        isError,
+        error
+}}) => {
     useEffect(() => {
         if (!data) {
-            Auth.currentUserInfo()
-                .then((user) => {
-                    loggedIn({data: user});
-                })
-                .catch((error) => console.error(error));
+            requestUser();
         }
-        // eslint-disable-next-line
-    }, [data, loggedIn]);
+    }, [data, requestUser]);
 
-    const onSubmit = useCallback(({ email, password }, { setSubmitting, setErrors }) => {
-        Auth.signIn(email, password)
-            .then((result) => {
-                console.log(result);
-                requestLogin();
-                setSubmitting(false);
-                history.push(PROFILE);
-            })
-            .catch((error) => {
-                console.error(error);
-                setSubmitting(false);
-                setErrors({ password: error.message });
-            });
-    }, [history, requestLogin]);
+    const onSubmit = useCallback((values) => {
+        requestLogin({ data: values });
+    }, [requestLogin]);
+
+    if (isError) {
+        return (
+            <Container fluid>
+                <Row className="justify-content-center align-content-center align-items-center">
+                    <Col md={10} sm={10}>
+                        <Alert color="danger">{(error && error.message) || 'Si è verificato un errore'}</Alert>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    }
 
     if (data) {
         return <Redirect to={PROFILE} />
@@ -79,7 +82,7 @@ const mapStateToProps = (state) => ({
 
 const dispatchToProps = {
     requestLogin,
-    loggedIn
+    requestUser
 }
 
 export default connect(mapStateToProps, dispatchToProps)(SignIn);

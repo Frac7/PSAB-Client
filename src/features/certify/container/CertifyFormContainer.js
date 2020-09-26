@@ -32,10 +32,11 @@ const CertifyFormContainer = ({ user }) => {
 	const [hasErrors, setHasErrors] = useState(false);
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		const handleFeedback = (hasErrors) => {
-			setHasErrors(hasErrors);
-			setIsOpen(true);
 			resetForm(initialValues);
 			setSubmitting(false);
+			
+			setHasErrors(hasErrors);
+			setIsOpen(true);
 		}
 		handleSubmit(values, handleFeedback, currentForm, user.data.attributes['custom:eth_address']);
 	}, [setHasErrors, setIsOpen, currentForm, user]);
@@ -69,7 +70,10 @@ const CertifyFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <CertifyForm currentForm={currentForm} {...props}/>}
+							{props => <CertifyForm
+								currentForm={currentForm}
+								userAddress={user.data.attributes['custom:eth_address']}
+								{...props}/>}
 						</Formik>
 					</Col>
 				</Row>

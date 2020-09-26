@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Form, FormGroup, FormText, Input, Label, Alert } from 'reactstrap';
+import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } from 'reactstrap';
 
 import DocumentField from './DocumentField';
-import { StyledFilledButton } from '../../../shared/styled';
+import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
 import contracts from '../../../shared/contracts';
 import { LAND } from '../../../shared/values';
@@ -14,42 +14,74 @@ const PortionForm = ({
     isSubmitting,
     handleSubmit,
     handleChange,
-	setFieldValue
+	setFieldValue,
+	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
 		const elements = [];
 
 		const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
-		// TODO: add fetch feedback
-		landInstance.methods.getByOwner('0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5')
-			.call({ from : '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' }) // TODO: replace with user address
+		landInstance.methods.getByOwner(userAddress)
+			.call({ from : userAddress })
 			.then((lands) => {
 				console.log(lands);
-				lands.forEach((land, index, lands) => {
-					landInstance.methods.getById(index)
-						.call({ from: '0xf41592AbcC6FB42EF24d2Cf2e74D4a6a1Ba0C4a5' })
+				if (!lands.landsOwned.length) {
+					setElements(elements);
+					setIsLoading(false);
+					return;
+				}
+
+				lands.landsOwned.forEach((id, index) => {
+					landInstance.methods.getById(id)
+						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);
 
-							if (index === lands.length - 1) {
+							if (index === lands.landsOwned.length - 1) {
 								setElements(elements);
+								setIsLoading(false);
 							}
 						})
 						.catch((error) => {
 							console.log(error);
+							setFetchErrors(true);
+							setIsLoading(false);
 						});
 				});
 			})
 			.catch((error) => {
 				console.log(error);
+				setFetchErrors(true);
+				setIsLoading(false);
 			});
-	}, []);
+	}, [userAddress]);
+
+	if (isLoading) {
+		return (
+			<Container fluid>
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={1} sm={1}>
+						<StyledSpinner size="large"/>
+					</Col>
+				</Row>
+			</Container>
+		)
+	}
+
+	if (fetchErrors) {
+		return (
+			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
+		);
+	}
 
 	if (elements.length === 0) {
 		return (
-			<Alert color="danger" className="my-3 text">Nessun terreno disponibile per la suddivisione</Alert>
+			<Alert color="danger" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
 		);
 	}
 

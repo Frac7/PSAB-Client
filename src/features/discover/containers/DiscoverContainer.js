@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import ElementListContainer from './ElementListContainer';
@@ -15,25 +15,23 @@ import {
 	MAINTENANCE_ACTIVITIES
 } from '../../../shared/values';
 
-import { elementWrappers } from '../map';
-import contracts from '../../../shared/contracts';
+import { elementWrappers, handleFetching } from '../map';
 
 import { Selector } from '../../../store/user/reducer';
+import { StyledSpinner } from '../../../shared/styled';
 
 const DiscoverContainer = ({ user }) => {
 	const [currentElement, setCurrentElement] = useState(LAND);
+
+	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
 	useEffect(() => {
-		const contractInstance = new window.web3.eth.Contract(contracts[currentElement].ABI, contracts[currentElement].address);
-		// TODO: add fetch feedback
-		contractInstance.methods.getAll()
-			.call({ from : user.data.attributes['custom:eth_address'] })
-			.then((result) => {
-				console.log(result);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		handleFetching[currentElement](user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading);
 	}, [currentElement, user]);
+
+	console.log(elements);
 
 	return (
 		<Container fluid>
@@ -65,8 +63,29 @@ const DiscoverContainer = ({ user }) => {
 					/>
 				</Col>
 			</Row>
+			{isLoading && (
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={1} sm={1}>
+						<StyledSpinner size="large"/>
+					</Col>
+				</Row>
+			)}
+			{fetchErrors && (
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={12} sm={12}>
+						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
+					</Col>
+				</Row>
+			)}
+			{!elements.length && (
+				<Row className="justify-content-center align-content-center align-items-center">
+					<Col md={12} sm={12}>
+						<Alert color="danger" className="my-3">Nessun elemento disponibile</Alert>
+					</Col>
+				</Row>
+			)}
 			<ElementListContainer
-				elements={mock[currentElement]}
+				elements={elements}
 				ElementWrapper={elementWrappers[currentElement]}
 			/>
 		</Container>
