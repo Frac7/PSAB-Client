@@ -95,9 +95,9 @@ const PortionForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
+			<Alert color="info" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
 		);
 	}
 

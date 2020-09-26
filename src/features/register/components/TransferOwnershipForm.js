@@ -91,9 +91,9 @@ const TransferOwnership = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
+			<Alert color="info" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
 		);
 	}
 

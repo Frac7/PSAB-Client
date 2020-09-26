@@ -46,10 +46,10 @@ const OperatorActivities = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 				)}
 				{!activities.length && (
-					<Alert color="danger" className="my-3">Nessuna attività registrata</Alert>
+					<Alert color="info" className="my-3">Nessuna attività registrata</Alert>
 				)}
 				{!products.length && (
-					<Alert color="danger" className="my-3">Nessun prodotto registrato</Alert>
+					<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>
 				)}
 				<ListGroup flush>
 					{activities.map((element, index) => (

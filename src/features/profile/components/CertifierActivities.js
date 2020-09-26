@@ -45,10 +45,10 @@ const CertifierActivities = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 				)}
 				{!activities.length && (
-					<Alert color="danger" className="my-3">Nessuna attività certificata</Alert>
+					<Alert color="info" className="my-3">Nessuna attività certificata</Alert>
 				)}
 				{!products.length && (
-					<Alert color="danger" className="my-3">Nessun prodotto certificato</Alert>
+					<Alert color="info" className="my-3">Nessun prodotto certificato</Alert>
 				)}
 				<ListGroup flush>
 					{activities.map((element, index) => (

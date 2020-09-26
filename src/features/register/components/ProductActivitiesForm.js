@@ -92,9 +92,9 @@ const ProductActivitiesForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per registrare l'elemento</Alert>
+			<Alert color="info" className="my-3">Nessuna porzione di terreno disponibile per registrare l'elemento</Alert>
 		);
 	}
 

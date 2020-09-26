@@ -59,7 +59,7 @@ const ProductActivitiesForm = ({
 
 	if (elements.length === 0) {
 		return (
-			<Alert color="danger" className="my-3">Nessun elemento disponibile per la certificazione</Alert>
+			<Alert color="info" className="my-3">Nessun elemento disponibile per la certificazione</Alert>
 		);
 	}
 

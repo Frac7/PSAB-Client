@@ -79,7 +79,7 @@ const OwnedLands = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
 				)}
 				{!elements.length && (
-					<Alert color="danger" className="my-3">Nessun terreno posseduto</Alert>
+					<Alert color="info" className="my-3">Nessun terreno posseduto</Alert>
 				)}
 				<ListGroup flush>
 				{elements.map((element, index) => (

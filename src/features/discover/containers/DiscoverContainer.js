@@ -38,8 +38,6 @@ const DiscoverContainer = ({ user }) => {
 		handleFetching[currentElement](user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading);
 	}, [currentElement, user]);
 
-	console.log(elements);
-
 	return (
 		<Container fluid>
 			<Row className="justify-content-between align-items-center">
@@ -87,7 +85,7 @@ const DiscoverContainer = ({ user }) => {
 			{!elements.length && (
 				<Row className="justify-content-center align-content-center align-items-center">
 					<Col md={12} sm={12}>
-						<Alert color="danger" className="my-3">Nessun elemento disponibile</Alert>
+						<Alert color="info" className="my-3">Nessun elemento disponibile</Alert>
 					</Col>
 				</Row>
 			)}

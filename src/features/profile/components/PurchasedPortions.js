@@ -79,7 +79,7 @@ const PurchasedPortions = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
 				)}
 				{!elements.length && (
-					<Alert color="danger" className="my-3">Nessuna porzione di terreno acquistata</Alert>
+					<Alert color="info" className="my-3">Nessuna porzione di terreno acquistata</Alert>
 				)}
 				<ListGroup flush>
 					{elements.map((element, index) => (
