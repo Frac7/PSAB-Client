@@ -33,7 +33,7 @@ const contracts = {
 	},
 	[PROD_ACTIVITIES]: {
 		ABI: ProductionActivity,
-		address: '0x680435D9EE947B3aD1f478d9522f55Ab318106b9'
+		address: '0x63646cF7dd10aca044f393c33EeA41e08C9479B8'
 	}
 };
 
