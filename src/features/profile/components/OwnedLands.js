@@ -75,7 +75,7 @@ const OwnedLands = ({ userAddress }) => {
 				<ListGroup flush>
 				{elements.map((element, index) => (
 					<ListGroupItem key={index}>
-						<DiscoverLand {...{ element }} />
+						<DiscoverLand {...element} />
 					</ListGroupItem>
 				))}
 				</ListGroup>

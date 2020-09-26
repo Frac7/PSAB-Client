@@ -75,7 +75,7 @@ const PurchasedPortions = ({ userAddress }) => {
 				<ListGroup flush>
 					{elements.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverPortion {...{ element }} />
+							<DiscoverPortion {...element} />
 						</ListGroupItem>
 					))}
 				</ListGroup>

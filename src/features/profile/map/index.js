@@ -50,7 +50,7 @@ const handleOperatorFetch = {
 			.then((activities) => {
 				console.log(activities);
 				if (!activities.activitiesRegistered.length) {
-					setElements(elements);
+					setElements((el) => [...el, ...elements]);
 					setIsLoading(false);
 					return;
 				}
@@ -63,7 +63,7 @@ const handleOperatorFetch = {
 							elements.push(result);
 
 							if (index === activities.activitiesRegistered.length - 1) {
-								setElements(elements);
+								setElements((el) => [...el, ...elements]);
 								setIsLoading(false);
 							}
 						})
@@ -89,7 +89,7 @@ const handleOperatorFetch = {
 			.then((maintenances) => {
 				console.log(maintenances);
 				if (!maintenances.maintenancesRegistered.length) {
-					setElements(elements);
+					setElements((el) => [...el, ...elements]);
 					setIsLoading(false);
 					return;
 				}
@@ -102,7 +102,7 @@ const handleOperatorFetch = {
 							elements.push(result);
 
 							if (index === maintenances.maintenancesRegistered.length - 1) {
-								setElements(elements);
+								setElements((el) => [...el, ...elements]);
 								setIsLoading(false);
 							}
 						})

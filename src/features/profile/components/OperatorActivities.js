@@ -4,7 +4,6 @@ import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
 import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
 
-import contracts from '../../../shared/contracts';
 import { MAINTENANCE_ACTIVITIES, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleOperatorFetch } from '../map';
 
@@ -15,10 +14,12 @@ const OperatorActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleOperatorFetch[PRODUCT](userAddress, setActivities, setFetchErrors, setIsLoading);
+		handleOperatorFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
 		handleOperatorFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
-		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setProducts, setFetchErrors, setIsLoading);
+		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
 	}, [userAddress]);
+
+	console.log(activities, products)
 
 	return (
 		<Row className="align-items-center">
@@ -46,12 +47,12 @@ const OperatorActivities = ({ userAddress }) => {
 				<ListGroup flush>
 					{activities.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverActivity {...{ element }} />
+							<DiscoverActivity {...element} />
 						</ListGroupItem>
 					))}
 					{products.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverProduct {...{ element }} />
+							<DiscoverProduct {...element} />
 						</ListGroupItem>
 					))}
 				</ListGroup>
