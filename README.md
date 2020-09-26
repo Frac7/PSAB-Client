@@ -1,7 +1,7 @@
 # Overview
 This is the final project for "Design and Development of Blockchain Applications".
 
-This is a spike solution for for the management of agricultural resources, goods and activities.
+This is a spike solution for the management of agricultural resources, goods and activities.
 
 This project was created with:
 - Create React App
