@@ -104,7 +104,7 @@ const RegisterFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <Form {...props}/>}
+							{props => <Form userAddress={user.data.attributes['custom:eth_address']} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>
