@@ -77,7 +77,7 @@ const handleFetching = {
 			.call({ from : userAddress })
 			.then((total) => {
 				console.log(total);
-				result = parseInt(total);
+				total = parseInt(total);
 				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
@@ -86,7 +86,8 @@ const handleFetching = {
 				}
 
 				for (let i = 0; i <= total; i++) {
-					contractInstance.methods.getById(i)
+					// contractInstance.methods.getById(i)
+					contractInstance.methods.get(i)
 						.call({ from : userAddress })
 						.then((result) => {
 							console.log(result);
@@ -169,7 +170,7 @@ const handleFetching = {
 			.call({ from : userAddress })
 			.then((total) => {
 				console.log(total);
-				result = parseInt(total);
+				total = parseInt(total);
 				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
