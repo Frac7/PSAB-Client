@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { connect } from 'react-redux';
 import { Alert, Col, Container, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
 import DiscoverLand from './DiscoverLand';
@@ -8,12 +9,16 @@ import { StyledLinkButton, StyledSpinner } from '../styled';
 import contracts from '../contracts';
 import { LAND, PORTION } from '../values';
 
+import { Selector } from '../../store/user/reducer';
+
 const viewToRender = (props) => ({
 	[LAND]: <DiscoverLand {...props} />,
 	[PORTION]: <DiscoverPortion {...props} />
 });
 
-const LandPortionHandling = ({ id, isOpen, setIsOpen, element }) => {
+const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
+	const userAddress = attributes['custom:eth_address'];
+
 	const [data, setData] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
@@ -25,24 +30,25 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element }) => {
 		const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 		// contractInstance.methods.getById(id)
 		contractInstance.methods.get(id)
-			.call({ from: '0xE71b12B55eCd2990CFEEcC582c5E1E8e9A33d0b5' })
+			.call({ from: userAddress })
 			.then((result) => {
 				console.log(result);
 				setData(result);
 				setIsLoading(false);
 			})
 			.catch((error) => {
+				console.log(error);
 				setHasErrors(true);
 				setIsLoading(false);
 			})
 
-	}, [element, setIsOpen, setIsLoading, setData]);
+	}, [userAddress, element, setIsOpen, setIsLoading, setData]);
 
 	return (
 		<>
 			<StyledLinkButton color="link" onClick={handleClick}>
 				{element} #{id}
-		</StyledLinkButton>
+			</StyledLinkButton>
 			<Modal className="modal-lg" isOpen={isOpen} toggle={handleClick}>
 				<ModalHeader toggle={handleClick}>
 					Dettagli {element} #{id}</ModalHeader>
@@ -72,4 +78,4 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element }) => {
 	)
 };
 
-export default LandPortionHandling;
+export default connect((state) => ({ user: Selector.getUser(state) }))(LandPortionHandling);
