@@ -59,6 +59,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 							Dettagli Porzione #{id}</ModalHeader>
 						<ModalBody>
 							<ListGroup flush>
+								{/* TODO: add history: products, activities, sell/transfer ownership */}
 								{[].map((item, index) => (
 									<ListGroupItem key={index}>{item}</ListGroupItem>
 								))}

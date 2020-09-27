@@ -23,9 +23,8 @@ const DiscoverLand = ({ description, documents }) => {
 				</Col>
 				<Col>
 					<ListGroup flush>
-						{/* TODO: change with name s3 */}
 						{documents.map((document, index) => (
-							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">Documento #{index}</ListGroupItem>
+							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">{window.web3.utils.toAscii(document)}</ListGroupItem>
 						))}
 					</ListGroup>
 				</Col>
