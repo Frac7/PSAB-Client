@@ -5,8 +5,7 @@ import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } f
 import DocumentField from './DocumentField';
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import contracts from '../../../shared/contracts';
-import { LAND } from '../../../shared/values';
+import { fetchLandsByOwner } from '../../../shared/utils';
 
 /**
  * Portion registration form.
@@ -38,43 +37,7 @@ const PortionForm = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const elements = [];
-
-		const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
-		landInstance.methods.getByOwner(userAddress)
-			.call({ from : userAddress })
-			.then((lands) => {
-				console.log(lands);
-				if (!lands.landsOwned.length) {
-					setElements(elements);
-					setIsLoading(false);
-					return;
-				}
-
-				lands.landsOwned.forEach((id, index) => {
-					landInstance.methods.getById(id)
-						.call({ from: userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push(result);
-
-							if (index === lands.landsOwned.length - 1) {
-								setElements(elements);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
+		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
 	}, [userAddress]);
 
 	if (isLoading) {
@@ -95,9 +58,9 @@ const PortionForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
+			<Alert color="info" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
 		);
 	}
 
@@ -106,6 +69,7 @@ const PortionForm = ({
 			<FormGroup>
 				<Label for="land">Terreno da dividere</Label>
 				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land}>
+					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
 				{ errors.land && <FormText color="danger">{errors.land}</FormText>}

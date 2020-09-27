@@ -19,8 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import contracts from '../../../shared/contracts';
-import { PORTION } from '../../../shared/values';
+import { fetchPortionsByOwner } from '../../../shared/utils';
 
 /**
  * Form for registering portion contract terms.
@@ -50,43 +49,8 @@ const ContractTermsForm = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const elements = [];
-
-		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		portionInstance.methods.getByOwner(userAddress)
-			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result.forEach((item) => {
-					if (item.portionsOwned.length === 0) {
-						setElements([]);
-						setIsLoading(false);
-						return;
-					}
-
-					item.portionsOwned.forEach((id, index) => {
-						portionInstance.methods.getById(id)
-							.then((portion) => {
-								elements.push(portion);
-								if (index === item.portionsOwned.length - 1) {
-									setElements(elements);
-									setIsLoading(false);
-								}
-							})
-							.catch((error) => {
-								console.log(error);
-								setFetchErrors(true);
-								setIsLoading(false);
-							});
-					});
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				setIsLoading(false);
-				setFetchErrors(true);
-			});
-	}, [userAddress]);
+		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 
 	if (isLoading) {
 		return (
@@ -106,9 +70,9 @@ const ContractTermsForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
+			<Alert color="info" className="my-3">Nessuna porzione di terreno disponibile per il trasferimento di proprietà o per la vendita</Alert>
 		);
 	}
 
@@ -117,6 +81,7 @@ const ContractTermsForm = ({
 			<FormGroup>
 				<Label for="portion">Porzione relativa</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
 				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}

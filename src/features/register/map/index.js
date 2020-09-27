@@ -36,7 +36,7 @@ const forms = {
 		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents)) // TODO: fix documents
+			landInstance.methods.register(description, documents)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -66,7 +66,7 @@ const forms = {
 		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, window.web3.utils.fromAscii(description), window.web3.utils.fromAscii(documents), contracts[PORTION].address)
+			landInstance.methods.divide(land, description, documents, contracts[PORTION].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -108,9 +108,9 @@ const forms = {
 			portionInstance.methods.defineTerms(
 				portion,
 				price,
-				window.web3.utils.fromAscii(duration),
-				window.web3.utils.fromAscii(expectedProduction),
-				window.web3.utils.fromAscii(periodicity),
+				duration,
+				expectedProduction,
+				periodicity,
 				expMainActivityCost,
 				expProdActivityCost,
 				contracts[PORTION].address)
@@ -165,9 +165,9 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const productInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			productInstance.methods.register(portion, window.web3.utils.fromAscii(description))
+			portionInstance.methods.registerProduct(description, portion, contracts[PRODUCT].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -190,10 +190,10 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			prodActivitiesInstance.methods.register(portion, window.web3.utils.fromAscii(description))
-				.send({ from : senderAddress })
+			portionInstance.methods.registerProductionActivity(description, portion, contracts[PROD_ACTIVITIES].address)
+				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -215,9 +215,9 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const maintenanceActivityInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			maintenanceActivityInstance.methods.register(portion, window.web3.utils.fromAscii(description))
+			portionInstance.methods.register(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);

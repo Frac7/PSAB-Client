@@ -52,9 +52,9 @@ ToastFeedback.propTypes = {
 	 */
 	setIsOpen: PropTypes.func,
 	/**
-	 * Change severity feedback
+	 * Severity feedback
 	 */
-	hasErrors: PropTypes.func
+	hasErrors: PropTypes.bool
 };
 
 export default ToastFeedback;

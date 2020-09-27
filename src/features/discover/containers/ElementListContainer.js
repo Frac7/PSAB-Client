@@ -29,7 +29,7 @@ ElementListContainer.propTypes = {
 	/**
 	 * Wrapper that shows element information
 	 */
-	ElementWrapper: PropTypes.object,
+	ElementWrapper: PropTypes.func,
 	/**
 	 * List of elements to show
 	 */

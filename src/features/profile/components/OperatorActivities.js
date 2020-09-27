@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
+import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { MAINTENANCE_ACTIVITIES, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
-import { handleOperatorFetch } from '../map';
+import { handleFetch } from '../utils';
 
 /**
  * Activities related to operator user.
@@ -18,14 +18,15 @@ import { handleOperatorFetch } from '../map';
  */
 const OperatorActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);
+	const [maintenance, setMaintenance] = useState([]);
 	const [products, setProducts] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleOperatorFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
-		handleOperatorFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
-		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
+		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Operator');
+		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, MAINTENANCE_ACTIVITIES, 'Operator');
+		handleFetch(userAddress, setMaintenance, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Operator');
 	}, [userAddress]);
 
 	return (
@@ -46,20 +47,25 @@ const OperatorActivities = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 				)}
 				{!activities.length && (
-					<Alert color="danger" className="my-3">Nessuna attività registrata</Alert>
+					<Alert color="info" className="my-3">Nessuna attività registrata</Alert>
 				)}
 				{!products.length && (
-					<Alert color="danger" className="my-3">Nessun prodotto registrato</Alert>
+					<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>
 				)}
 				<ListGroup flush>
 					{activities.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverActivity {...element} />
+							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
+						</ListGroupItem>
+					))}
+					{maintenance.map((element, index) => (
+						<ListGroupItem key={index}>
+							<DiscoverActivityProduct {...element} element={MAINTENANCE_ACTIVITIES} />
 						</ListGroupItem>
 					))}
 					{products.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverProduct {...element} />
+							<DiscoverActivityProduct {...element} element={PRODUCT} />
 						</ListGroupItem>
 					))}
 				</ListGroup>

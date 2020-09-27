@@ -38,7 +38,7 @@ const ProductActivitiesForm = ({
 		const elements = [];
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		portionInstance.methods.getTotalPortions()
+		portionInstance.methods.getTotal()
 			.call({ from : userAddress })
 			.then((total) => {
 				console.log(total);
@@ -53,7 +53,10 @@ const ProductActivitiesForm = ({
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
 							if (i === total - 1) {
 								setElements(elements);
@@ -92,9 +95,9 @@ const ProductActivitiesForm = ({
 		);
 	}
 
-	if (elements.length === 0) {
+	if (!elements.length) {
 		return (
-			<Alert color="danger" className="my-3">Nessuna porzione di terreno disponibile per registrare l'elemento</Alert>
+			<Alert color="info" className="my-3">Nessuna porzione di terreno disponibile per registrare l'elemento</Alert>
 		);
 	}
 
@@ -103,7 +106,8 @@ const ProductActivitiesForm = ({
 			<FormGroup>
 				<Label for="portion">Porzione relativa all'oggetto della registrazione</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
-					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
+					<option value="" />
+					{elements.map((element, index) => <option key={index} value={index}>{element[0].description}</option>)}
 				</Input>
 				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>

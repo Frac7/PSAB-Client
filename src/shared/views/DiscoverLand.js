@@ -16,19 +16,19 @@ const DiscoverLand = ({ description, documents }) => {
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
+			{documents && (
 			<Row className="align-items-center my-3">
 				<Col md={3} sm={12}>
 					<Title>Documenti</Title>
 				</Col>
 				<Col>
 					<ListGroup flush>
-						{/* TODO: change with name s3 */}
 						{documents.map((document, index) => (
-							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">Documento #{index}</ListGroupItem>
+							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">{window.web3.utils.toAscii(document)}</ListGroupItem>
 						))}
 					</ListGroup>
 				</Col>
-			</Row>
+			</Row>)}
 		</Container>
 	);
 };

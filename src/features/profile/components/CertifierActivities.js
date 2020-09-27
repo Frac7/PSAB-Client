@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
+import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
-import { handleCertifierFetch } from '../map';
+import { handleFetch } from '../utils';
 
 /**
  * Activity related to the certification process for the current user.
@@ -23,8 +23,8 @@ const CertifierActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleCertifierFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
-		handleCertifierFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
+		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Certifier');
+		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Certifier');
 	}, [userAddress]);
 
 	return (
@@ -45,20 +45,20 @@ const CertifierActivities = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 				)}
 				{!activities.length && (
-					<Alert color="danger" className="my-3">Nessuna attività certificata</Alert>
+					<Alert color="info" className="my-3">Nessuna attività certificata</Alert>
 				)}
 				{!products.length && (
-					<Alert color="danger" className="my-3">Nessun prodotto certificato</Alert>
+					<Alert color="info" className="my-3">Nessun prodotto certificato</Alert>
 				)}
 				<ListGroup flush>
 					{activities.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverActivity {...element} />
+							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
 						</ListGroupItem>
 					))}
 					{products.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverProduct {...element} />
+							<DiscoverActivityProduct {...element} element={PRODUCT} />
 						</ListGroupItem>
 					))}
 				</ListGroup>

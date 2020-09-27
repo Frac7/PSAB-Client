@@ -5,30 +5,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 
-import DiscoverLand from './DiscoverLand';
 import { StyledFilledButton, StyledLinkButton,
 	StyledTitle } from '../styled';
 
-import { mock } from '../../features/discover/mock';
 import { LAND } from '../values';
+import LandPortionHandling from './LandPortionHandling';
 
-const DiscoverPortion = ({
-	id,
-	land,
-	description,
-	documents,
-	price,
-	duration,
-	expectedProduction,
-	expMainActivityCost,
-	expProdActivityCost
-}) => {
+const DiscoverPortion = ({ id, ...rest }) => {
+	const {
+		land,
+		description,
+		documents,
+		price,
+		duration,
+		expectedProduction,
+		expMainActivityCost,
+		expProdActivityCost
+	} = useMemo(() => {
+		if (rest[0] && rest[1]) {
+			return {
+				...rest[0],
+				...rest[1]
+			};
+		} else {
+			return {};
+		}
+	}, [rest]);
+
 	const Title = StyledTitle('h5');
 
 	const [isLandOpen, setIsLandOpen] = useState(false);
-	const handleLandClick = useCallback(() => {
-		setIsLandOpen((isOpen) => !isOpen);
-	}, [setIsLandOpen]);
 
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const handleHistoryClick = useCallback(() => {
@@ -53,6 +59,7 @@ const DiscoverPortion = ({
 							Dettagli Porzione #{id}</ModalHeader>
 						<ModalBody>
 							<ListGroup flush>
+								{/* TODO: add history: products, activities, sell/transfer ownership */}
 								{[].map((item, index) => (
 									<ListGroupItem key={index}>{item}</ListGroupItem>
 								))}
@@ -66,16 +73,12 @@ const DiscoverPortion = ({
 					<Title>Terreno</Title>
 				</Col>
 				<Col>
-					<StyledLinkButton color="link" onClick={handleLandClick}>
-						Terreno #{land}
-					</StyledLinkButton>
-					<Modal className="modal-lg" isOpen={isLandOpen} toggle={handleLandClick}>
-						<ModalHeader toggle={handleLandClick}>
-							Dettagli Terreno #{land}</ModalHeader>
-						<ModalBody>
-							<DiscoverLand {...mock[LAND][0]} />
-						</ModalBody>
-					</Modal>
+					<LandPortionHandling
+						id={land}
+						isOpen={isLandOpen}
+						setIsOpen={setIsLandOpen}
+						element={LAND}
+					/>
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
@@ -86,6 +89,7 @@ const DiscoverPortion = ({
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
+			{documents && (
 			<Row className="align-items-center my-3">
 				<Col md={3} sm={12}>
 					<Title>Documenti</Title>
@@ -98,7 +102,7 @@ const DiscoverPortion = ({
 						))}
 					</ListGroup>
 				</Col>
-			</Row>
+			</Row>)}
 			<Row className="align-items-center my-3">
 				<Col align="center">
 					<StyledLinkButton color="link" onClick={handleDetailsClick}>
@@ -112,7 +116,7 @@ const DiscoverPortion = ({
 						<Title>Canone</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {price.toFixed(2)}</p>
+						<p align="justify">€ {price && (parseInt(price)/10).toFixed(2)}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
@@ -136,7 +140,7 @@ const DiscoverPortion = ({
 						<Title>Costi di manutenzione attesi</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {expMainActivityCost.toFixed(2)}</p>
+						<p align="justify">€ {expMainActivityCost && (parseInt(expMainActivityCost)/10).toFixed(2)}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
@@ -144,7 +148,7 @@ const DiscoverPortion = ({
 						<Title>Costi di produzione attesi</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {expProdActivityCost.toFixed(2)}</p>
+						<p align="justify">€ {expProdActivityCost && (parseInt(expProdActivityCost)/10).toFixed(2)}</p>
 					</Col>
 				</Row>
 			</Collapse>

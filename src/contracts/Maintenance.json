@@ -27,7 +27,7 @@
 						"type": "address"
 					}
 				],
-				"internalType": "struct Maintenance.Data",
+				"internalType": "struct Recordable.Data",
 				"name": "",
 				"type": "tuple"
 			}
@@ -46,16 +46,9 @@
 		"name": "getByOperator",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "maintenancesRegistered",
-						"type": "uint256[]"
-					}
-				],
-				"internalType": "struct Maintenance.Operator",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "tuple"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -72,16 +65,9 @@
 		"name": "getByPortion",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "maintenancesPerformed",
-						"type": "uint256[]"
-					}
-				],
-				"internalType": "struct Maintenance.Portion",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "tuple"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -89,7 +75,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getTotalMaintenances",
+		"name": "getTotal",
 		"outputs": [
 			{
 				"internalType": "uint256",

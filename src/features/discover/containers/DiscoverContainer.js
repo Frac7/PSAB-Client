@@ -35,10 +35,8 @@ const DiscoverContainer = ({ user }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleFetching[currentElement](user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading);
+		handleFetching(user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading, currentElement);
 	}, [currentElement, user]);
-
-	console.log(elements);
 
 	return (
 		<Container fluid>
@@ -87,7 +85,7 @@ const DiscoverContainer = ({ user }) => {
 			{!elements.length && (
 				<Row className="justify-content-center align-content-center align-items-center">
 					<Col md={12} sm={12}>
-						<Alert color="danger" className="my-3">Nessun elemento disponibile</Alert>
+						<Alert color="info" className="my-3">Nessun elemento disponibile</Alert>
 					</Col>
 				</Row>
 			)}

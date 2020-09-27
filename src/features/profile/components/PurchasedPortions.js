@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverPortion } from '../../../shared/view';
+import { DiscoverPortion } from '../../../shared/views';
 
 import contracts from '../../../shared/contracts';
 import { PORTION } from '../../../shared/values';
@@ -29,20 +29,20 @@ const PurchasedPortions = ({ userAddress }) => {
 			.call({ from : userAddress })
 			.then((portions) => {
 				console.log(portions);
-				if (!portions.portionsBought.length) {
+				if (!portions.length) {
 					setElements(elements);
 					setIsLoading(false);
 					return;
 				}
 
-				portions.portionsBought.forEach((id, index) => {
+				portions.forEach((id, index) => {
 					portionInstance.methods.getById(id)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);
 
-							if (index === portions.portionsBought.length - 1) {
+							if (index === portions.length) {
 								setElements(elements);
 								setIsLoading(false);
 							}
@@ -79,7 +79,7 @@ const PurchasedPortions = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
 				)}
 				{!elements.length && (
-					<Alert color="danger" className="my-3">Nessuna porzione di terreno acquistata</Alert>
+					<Alert color="info" className="my-3">Nessuna porzione di terreno acquistata</Alert>
 				)}
 				<ListGroup flush>
 					{elements.map((element, index) => (
