@@ -11,21 +11,27 @@ import { StyledFilledButton, StyledLinkButton,
 import { LAND } from '../values';
 import LandPortionHandling from './LandPortionHandling';
 
-const DiscoverPortion = ({
-	id,
-	0: {
+const DiscoverPortion = ({ id, ...rest }) => {
+	const {
 		land,
 		description,
 		documents,
-	},
-	1: {
 		price,
 		duration,
 		expectedProduction,
 		expMainActivityCost,
 		expProdActivityCost
-	}
-}) => {
+	} = useMemo(() => {
+		if (rest[0] && rest[1]) {
+			return {
+				...rest[0],
+				...rest[1]
+			};
+		} else {
+			return {};
+		}
+	}, [rest]);
+
 	const Title = StyledTitle('h5');
 
 	const [isLandOpen, setIsLandOpen] = useState(false);
