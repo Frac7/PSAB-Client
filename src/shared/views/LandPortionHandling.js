@@ -14,7 +14,6 @@ const viewToRender = (props) => ({
 });
 
 const LandPortionHandling = ({ id, isOpen, setIsOpen, element }) => {
-
 	const [data, setData] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
@@ -26,7 +25,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element }) => {
 		const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 		// contractInstance.methods.getById(id)
 		contractInstance.methods.get(id)
-			.call()
+			.call({ from: '0xE71b12B55eCd2990CFEEcC582c5E1E8e9A33d0b5' })
 			.then((result) => {
 				console.log(result);
 				setData(result);

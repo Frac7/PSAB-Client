@@ -49,11 +49,12 @@ const TransferOwnership = ({
 				}
 
 				result.portionsOwned.forEach((id, index) => {
-					portionInstance.methods.getById(id)
+					// portionInstance.methods.getById(id)
+					portionInstance.methods.get(id)
 						.call({ from : userAddress })
 						.then((portion) => {
 							elements.push(portion);
-							if (index === result.portionsOwned.length - 1) {
+							if (index === result.portionsOwned.length) {
 								setElements(elements);
 								setIsLoading(false);
 							}

@@ -36,7 +36,8 @@ const PurchasedPortions = ({ userAddress }) => {
 				}
 
 				portions.portionsBought.forEach((id, index) => {
-					portionInstance.methods.getById(id)
+					// portionInstance.methods.getById(id)
+					portionInstance.methods.get(id)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);

@@ -49,7 +49,10 @@ const handleFetching = {
 						contractInstance.methods.getById(i)
 							.call({ from: userAddress })
 							.then((result) => {
-								elements.push(result);
+								elements.push({
+									...result,
+									id: i
+								});
 
 								if (i === total) {
 									setElements(elements);
@@ -89,7 +92,10 @@ const handleFetching = {
 						contractInstance.methods.getById(i)
 							.call({ from: userAddress })
 							.then((result) => {
-								elements.push(result);
+								elements.push({
+									...result,
+									id: i
+								});
 
 								if (i === total) {
 									setElements(elements);

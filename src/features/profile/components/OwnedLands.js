@@ -40,7 +40,10 @@ const OwnedLands = ({ userAddress }) => {
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === lands.landsOwned.length - 1) {
 								setElements(elements);

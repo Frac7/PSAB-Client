@@ -78,6 +78,7 @@ const DiscoverPortion = ({
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
+			{documents && (
 			<Row className="align-items-center my-3">
 				<Col md={3} sm={12}>
 					<Title>Documenti</Title>
@@ -85,12 +86,12 @@ const DiscoverPortion = ({
 				<Col>
 					<ListGroup flush>
 						{/* TODO: change with name s3 */}
-						{documents && documents.map((document, index) => (
+						{documents.map((document, index) => (
 							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">Documento #{index}</ListGroupItem>
 						))}
 					</ListGroup>
 				</Col>
-			</Row>
+			</Row>)}
 			<Row className="align-items-center my-3">
 				<Col align="center">
 					<StyledLinkButton color="link" onClick={handleDetailsClick}>

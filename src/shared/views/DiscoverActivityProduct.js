@@ -10,6 +10,8 @@ import { PORTION } from '../values';
 const DiscoverActivityProduct = ({ id, portion, description, certifications, registeredBy, element }) => {
 	const Title = StyledTitle('h5');
 
+	console.log(id, portion);
+
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
 
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);

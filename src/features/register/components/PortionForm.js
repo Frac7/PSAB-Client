@@ -58,7 +58,7 @@ const PortionForm = ({
 							console.log(result);
 							elements.push(result);
 
-							if (index === lands.landsOwned.length - 1) {
+							if (index === lands.landsOwned.length) {
 								setElements(elements);
 								setIsLoading(false);
 							}

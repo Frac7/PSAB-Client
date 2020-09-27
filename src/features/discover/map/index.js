@@ -29,24 +29,27 @@ const handleFetching = {
 		const contractInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 		contractInstance.methods.getTotalLands()
 			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result = parseInt(result);
-				if (!result) {
+			.then((total) => {
+				console.log(total);
+				total = parseInt(total);
+				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
 
-				for (let i = 0; i <= result; i++) {
+				for (let i = 0; i <= total; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
-						.then((land) => {
-							console.log(land);
-							elements.push(land);
+						.then((result) => {
+							console.log(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
-							if (i === result) {
+							if (i === total) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -72,24 +75,27 @@ const handleFetching = {
 		const contractInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 		contractInstance.methods.getTotalPortions()
 			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result = parseInt(result);
-				if (!result) {
+			.then((total) => {
+				console.log(total);
+				result = parseInt(total);
+				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
 
-				for (let i = 0; i <= result; i++) {
+				for (let i = 0; i <= total; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
-						.then((land) => {
-							console.log(land);
-							elements.push(land);
+						.then((result) => {
+							console.log(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
-							if (i === result) {
+							if (i === total) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -115,24 +121,27 @@ const handleFetching = {
 		const contractInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
 		contractInstance.methods.getTotalProducts()
 			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result = parseInt(result);
-				if (!result) {
+			.then((total) => {
+				console.log(total);
+				total = parseInt(total);
+				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
 
-				for (let i = 0; i <= result; i++) {
+				for (let i = 0; i <= total; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
-						.then((land) => {
-							console.log(land);
-							elements.push(land);
+						.then((result) => {
+							console.log(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
-							if (i === result) {
+							if (i === total) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -158,24 +167,27 @@ const handleFetching = {
 		const contractInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 		contractInstance.methods.getTotalProdActivities()
 			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result = parseInt(result);
-				if (!result) {
+			.then((total) => {
+				console.log(total);
+				result = parseInt(total);
+				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
 
-				for (let i = 0; i <= result; i++) {
+				for (let i = 0; i <= total; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
-						.then((land) => {
-							console.log(land);
-							elements.push(land);
+						.then((result) => {
+							console.log(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
-							if (i === result) {
+							if (i === total) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);
@@ -201,24 +213,27 @@ const handleFetching = {
 		const contractInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
 		contractInstance.methods.getTotalMaintenances()
 			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				result = parseInt(result);
-				if (!result) {
+			.then((total) => {
+				console.log(total);
+				total = parseInt(total);
+				if (!total) {
 					setElements(elements);
 					setFetchErrors(false);
 					setIsLoading(false);
 					return;
 				}
 
-				for (let i = 0; i <= result; i++) {
+				for (let i = 0; i <= total; i++) {
 					contractInstance.methods.getById(i)
 						.call({ from : userAddress })
-						.then((land) => {
-							console.log(land);
-							elements.push(land);
+						.then((result) => {
+							console.log(result);
+							elements.push({
+								...result,
+								id: i
+							});
 
-							if (i === result) {
+							if (i === total) {
 								setElements(elements);
 								setFetchErrors(false);
 								setIsLoading(false);

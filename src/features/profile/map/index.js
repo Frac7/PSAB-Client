@@ -21,7 +21,10 @@ const handleOperatorFetch = {
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === products.productsRegistered.length - 1) {
 								setElements(elements);
@@ -60,7 +63,10 @@ const handleOperatorFetch = {
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === activities.activitiesRegistered.length - 1) {
 								setElements((el) => [...el, ...elements]);
@@ -99,7 +105,10 @@ const handleOperatorFetch = {
 						.call({from: userAddress})
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === maintenances.maintenancesRegistered.length - 1) {
 								setElements((el) => [...el, ...elements]);
@@ -141,7 +150,10 @@ const handleCertifierFetch = {
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === products.productsCertified.length - 1) {
 								setElements(elements);
@@ -180,7 +192,10 @@ const handleCertifierFetch = {
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === activities.activitiesCertified.length - 1) {
 								setElements((el) => [...el, ...elements]);
