@@ -41,7 +41,7 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 				return;
 			}
 
-			for (let i = 0; i <= total; i++) {
+			for (let i = 0; i < total; i++) {
 				if (!fetchErrors) {
 					contractInstance.methods.getById(i)
 						.call({ from: userAddress })
@@ -51,7 +51,7 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 								id: i
 							});
 
-							if (i === total) {
+							if (i === total - 1) {
 								setElements(elements);
 								setIsLoading(false);
 							}
