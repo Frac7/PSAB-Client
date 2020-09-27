@@ -5,12 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 
-import DiscoverLand from './DiscoverLand';
 import { StyledFilledButton, StyledLinkButton,
 	StyledTitle } from '../styled';
 
-import { mock } from '../../features/discover/mock';
 import { LAND } from '../values';
+import LandPortionHandling from './LandPortionHandling';
 
 const DiscoverPortion = ({
 	id,
@@ -26,9 +25,6 @@ const DiscoverPortion = ({
 	const Title = StyledTitle('h5');
 
 	const [isLandOpen, setIsLandOpen] = useState(false);
-	const handleLandClick = useCallback(() => {
-		setIsLandOpen((isOpen) => !isOpen);
-	}, [setIsLandOpen]);
 
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const handleHistoryClick = useCallback(() => {
@@ -66,16 +62,12 @@ const DiscoverPortion = ({
 					<Title>Terreno</Title>
 				</Col>
 				<Col>
-					<StyledLinkButton color="link" onClick={handleLandClick}>
-						Terreno #{land}
-					</StyledLinkButton>
-					<Modal className="modal-lg" isOpen={isLandOpen} toggle={handleLandClick}>
-						<ModalHeader toggle={handleLandClick}>
-							Dettagli Terreno #{land}</ModalHeader>
-						<ModalBody>
-							<DiscoverLand {...mock[LAND][0]} />
-						</ModalBody>
-					</Modal>
+					<LandPortionHandling
+						id={land}
+						isOpen={isLandOpen}
+						setIsOpen={setIsLandOpen}
+						element={LAND}
+					/>
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
@@ -93,7 +85,7 @@ const DiscoverPortion = ({
 				<Col>
 					<ListGroup flush>
 						{/* TODO: change with name s3 */}
-						{documents.map((document, index) => (
+						{documents && documents.map((document, index) => (
 							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">Documento #{index}</ListGroupItem>
 						))}
 					</ListGroup>
@@ -106,48 +98,48 @@ const DiscoverPortion = ({
 					</StyledLinkButton>
 				</Col>
 			</Row>
-			<Collapse isOpen={isDetailsOpen}>
-				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
-						<Title>Canone</Title>
-					</Col>
-					<Col>
-						<p align="justify">€ {price.toFixed(2)}</p>
-					</Col>
-				</Row>
-				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
-						<Title>Durata</Title>
-					</Col>
-					<Col>
-						<p align="justify">{duration}</p>
-					</Col>
-				</Row>
-				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
-						<Title>Produzione attesa</Title>
-					</Col>
-					<Col>
-						<p align="justify">{expectedProduction}</p>
-					</Col>
-				</Row>
-				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
-						<Title>Costi di manutenzione attesi</Title>
-					</Col>
-					<Col>
-						<p align="justify">€ {expMainActivityCost.toFixed(2)}</p>
-					</Col>
-				</Row>
-				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
-						<Title>Costi di produzione attesi</Title>
-					</Col>
-					<Col>
-						<p align="justify">€ {expProdActivityCost.toFixed(2)}</p>
-					</Col>
-				</Row>
-			</Collapse>
+			{/*<Collapse isOpen={isDetailsOpen}>*/}
+			{/*	<Row className="align-items-center my-3">*/}
+			{/*		<Col md={3} sm={12}>*/}
+			{/*			<Title>Canone</Title>*/}
+			{/*		</Col>*/}
+			{/*		<Col>*/}
+			{/*			<p align="justify">€ {price.toFixed(2)}</p>*/}
+			{/*		</Col>*/}
+			{/*	</Row>*/}
+			{/*	<Row className="align-items-center my-3">*/}
+			{/*		<Col md={3} sm={12}>*/}
+			{/*			<Title>Durata</Title>*/}
+			{/*		</Col>*/}
+			{/*		<Col>*/}
+			{/*			<p align="justify">{duration}</p>*/}
+			{/*		</Col>*/}
+			{/*	</Row>*/}
+			{/*	<Row className="align-items-center my-3">*/}
+			{/*		<Col md={3} sm={12}>*/}
+			{/*			<Title>Produzione attesa</Title>*/}
+			{/*		</Col>*/}
+			{/*		<Col>*/}
+			{/*			<p align="justify">{expectedProduction}</p>*/}
+			{/*		</Col>*/}
+			{/*	</Row>*/}
+			{/*	<Row className="align-items-center my-3">*/}
+			{/*		<Col md={3} sm={12}>*/}
+			{/*			<Title>Costi di manutenzione attesi</Title>*/}
+			{/*		</Col>*/}
+			{/*		<Col>*/}
+			{/*			<p align="justify">€ {expMainActivityCost.toFixed(2)}</p>*/}
+			{/*		</Col>*/}
+			{/*	</Row>*/}
+			{/*	<Row className="align-items-center my-3">*/}
+			{/*		<Col md={3} sm={12}>*/}
+			{/*			<Title>Costi di produzione attesi</Title>*/}
+			{/*		</Col>*/}
+			{/*		<Col>*/}
+			{/*			<p align="justify">€ {expProdActivityCost.toFixed(2)}</p>*/}
+			{/*		</Col>*/}
+			{/*	</Row>*/}
+			{/*</Collapse>*/}
 		</Container>
 	);
 };

@@ -17,8 +17,8 @@ const validationSchema = object().shape({
 const handleSubmit = ({ object, description }, handleFeedback, subject, senderAddress) => {
 	const contractInstance = new window.web3.eth.Contract(contracts[subject].ABI, contracts[subject].address);
 
-	contractInstance.methods.certify(object, window.web3.utils.fromAscii(description))
-		.send({ from : senderAddress })
+	contractInstance.methods.certify(object, description)
+		.send({ from: senderAddress })
 		.then((result) => {
 			console.log(result);
 			handleFeedback(false);

@@ -1,19 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { Col, Container, Row, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem } from 'reactstrap';
 
-import DiscoverPortion from './DiscoverPortion';
-import { StyledFilledButton, StyledLinkButton, StyledTitle } from '../styled';
+import { StyledFilledButton, StyledTitle } from '../styled';
 
-import { mock } from '../../features/discover/mock';
+import LandPortionHandling from './LandPortionHandling';
+
 import { PORTION } from '../values';
 
-const DiscoverProduct = ({ id, portion, description }) => {
+const DiscoverProduct = ({ id, portion, description, certifications, registeredBy }) => {
 	const Title = StyledTitle('h5');
 
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
-	const handlePortionClick = useCallback(() => {
-		setIsPortionOpen((isOpen) => !isOpen);
-	}, [setIsPortionOpen]);
 
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const handleHistoryClick = useCallback(() => {
@@ -32,8 +29,27 @@ const DiscoverProduct = ({ id, portion, description }) => {
 							Dettagli Prodotto #{id}</ModalHeader>
 						<ModalBody>
 							<ListGroup flush>
-								{[].map((item, index) => (
-									<ListGroupItem key={index}>{item}</ListGroupItem>
+								{certifications && certifications.map(({ description, certifier }, index) => (
+									<ListGroupItem key={index}>
+										<Container fluid>
+											<Row className="align-items-center my-3">
+												<Col md={3} sm={12}>
+													<Title>Descrizione</Title>
+												</Col>
+												<Col>
+													<p align="justify">{description}</p>
+												</Col>
+											</Row>
+											<Row className="align-items-center my-3">
+												<Col md={3} sm={12}>
+													<Title>Certificato da</Title>
+												</Col>
+												<Col>
+													<p align="justify">{certifier}</p>
+												</Col>
+											</Row>
+										</Container>
+									</ListGroupItem>
 								))}
 							</ListGroup>
 						</ModalBody>
@@ -45,16 +61,12 @@ const DiscoverProduct = ({ id, portion, description }) => {
 					<Title>Porzione</Title>
 				</Col>
 				<Col>
-					<StyledLinkButton color="link" onClick={handlePortionClick}>
-						Porzione #{portion}
-					</StyledLinkButton>
-					<Modal className="modal-lg" isOpen={isPortionOpen} toggle={handlePortionClick}>
-						<ModalHeader toggle={handlePortionClick}>
-							Dettagli Porzione #{portion}</ModalHeader>
-						<ModalBody>
-							<DiscoverPortion {...mock[PORTION][0]}/>
-						</ModalBody>
-					</Modal>
+					<LandPortionHandling
+						id={portion}
+						isOpen={isPortionOpen}
+						setIsOpen={setIsPortionOpen}
+						element={PORTION}
+					/>
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
@@ -63,6 +75,14 @@ const DiscoverProduct = ({ id, portion, description }) => {
 				</Col>
 				<Col>
 					<p align="justify">{description}</p>
+				</Col>
+			</Row>
+			<Row className="align-items-center my-3">
+				<Col md={3} sm={12}>
+					<Title>Registrato da</Title>
+				</Col>
+				<Col>
+					<p align="justify">{registeredBy}</p>
 				</Col>
 			</Row>
 		</Container>
