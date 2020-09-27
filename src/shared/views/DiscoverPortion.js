@@ -13,14 +13,18 @@ import LandPortionHandling from './LandPortionHandling';
 
 const DiscoverPortion = ({
 	id,
-	land,
-	description,
-	documents,
-	price,
-	duration,
-	expectedProduction,
-	expMainActivityCost,
-	expProdActivityCost
+	0: {
+		land,
+		description,
+		documents,
+	},
+	1: {
+		price,
+		duration,
+		expectedProduction,
+		expMainActivityCost,
+		expProdActivityCost
+	}
 }) => {
 	const Title = StyledTitle('h5');
 
@@ -99,48 +103,48 @@ const DiscoverPortion = ({
 					</StyledLinkButton>
 				</Col>
 			</Row>
-			{/*<Collapse isOpen={isDetailsOpen}>*/}
-			{/*	<Row className="align-items-center my-3">*/}
-			{/*		<Col md={3} sm={12}>*/}
-			{/*			<Title>Canone</Title>*/}
-			{/*		</Col>*/}
-			{/*		<Col>*/}
-			{/*			<p align="justify">€ {price.toFixed(2)}</p>*/}
-			{/*		</Col>*/}
-			{/*	</Row>*/}
-			{/*	<Row className="align-items-center my-3">*/}
-			{/*		<Col md={3} sm={12}>*/}
-			{/*			<Title>Durata</Title>*/}
-			{/*		</Col>*/}
-			{/*		<Col>*/}
-			{/*			<p align="justify">{duration}</p>*/}
-			{/*		</Col>*/}
-			{/*	</Row>*/}
-			{/*	<Row className="align-items-center my-3">*/}
-			{/*		<Col md={3} sm={12}>*/}
-			{/*			<Title>Produzione attesa</Title>*/}
-			{/*		</Col>*/}
-			{/*		<Col>*/}
-			{/*			<p align="justify">{expectedProduction}</p>*/}
-			{/*		</Col>*/}
-			{/*	</Row>*/}
-			{/*	<Row className="align-items-center my-3">*/}
-			{/*		<Col md={3} sm={12}>*/}
-			{/*			<Title>Costi di manutenzione attesi</Title>*/}
-			{/*		</Col>*/}
-			{/*		<Col>*/}
-			{/*			<p align="justify">€ {expMainActivityCost.toFixed(2)}</p>*/}
-			{/*		</Col>*/}
-			{/*	</Row>*/}
-			{/*	<Row className="align-items-center my-3">*/}
-			{/*		<Col md={3} sm={12}>*/}
-			{/*			<Title>Costi di produzione attesi</Title>*/}
-			{/*		</Col>*/}
-			{/*		<Col>*/}
-			{/*			<p align="justify">€ {expProdActivityCost.toFixed(2)}</p>*/}
-			{/*		</Col>*/}
-			{/*	</Row>*/}
-			{/*</Collapse>*/}
+			<Collapse isOpen={isDetailsOpen}>
+				<Row className="align-items-center my-3">
+					<Col md={3} sm={12}>
+						<Title>Canone</Title>
+					</Col>
+					<Col>
+						<p align="justify">€ {price && (parseInt(price)/10).toFixed(2)}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-center my-3">
+					<Col md={3} sm={12}>
+						<Title>Durata</Title>
+					</Col>
+					<Col>
+						<p align="justify">{duration}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-center my-3">
+					<Col md={3} sm={12}>
+						<Title>Produzione attesa</Title>
+					</Col>
+					<Col>
+						<p align="justify">{expectedProduction}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-center my-3">
+					<Col md={3} sm={12}>
+						<Title>Costi di manutenzione attesi</Title>
+					</Col>
+					<Col>
+						<p align="justify">€ {expMainActivityCost && (parseInt(expMainActivityCost)/10).toFixed(2)}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-center my-3">
+					<Col md={3} sm={12}>
+						<Title>Costi di produzione attesi</Title>
+					</Col>
+					<Col>
+						<p align="justify">€ {expProdActivityCost && (parseInt(expProdActivityCost)/10).toFixed(2)}</p>
+					</Col>
+				</Row>
+			</Collapse>
 		</Container>
 	);
 };
