@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverActivity, DiscoverProduct } from '../../../shared/view';
+import { DiscoverActivity, DiscoverProduct } from '../../../shared/views';
 
 import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleCertifierFetch } from '../map';

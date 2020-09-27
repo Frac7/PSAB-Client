@@ -169,7 +169,7 @@ const forms = {
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const productInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
 
-			productInstance.methods.register(portion, window.web3.utils.fromAscii(description))
+			productInstance.methods.register(description, portion)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -194,7 +194,7 @@ const forms = {
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
 
-			prodActivitiesInstance.methods.register(portion, window.web3.utils.fromAscii(description))
+			prodActivitiesInstance.methods.register(description, portion)
 				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -219,7 +219,7 @@ const forms = {
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const maintenanceActivityInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
 
-			maintenanceActivityInstance.methods.register(portion, window.web3.utils.fromAscii(description))
+			maintenanceActivityInstance.methods.register(description, portion)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
