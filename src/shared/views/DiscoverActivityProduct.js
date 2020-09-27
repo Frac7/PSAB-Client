@@ -7,7 +7,7 @@ import LandPortionHandling from './LandPortionHandling';
 
 import { PORTION } from '../values';
 
-const DiscoverProduct = ({ id, portion, description, certifications, registeredBy }) => {
+const DiscoverActivityProduct = ({ id, portion, description, certifications, registeredBy, element }) => {
 	const Title = StyledTitle('h5');
 
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
@@ -19,6 +19,12 @@ const DiscoverProduct = ({ id, portion, description, certifications, registeredB
 
 	return (
 		<Container fluid>
+			<Row className="my-3">
+				<Col>
+					<h6 className="text-black-50">{element}</h6>
+				</Col>
+			</Row>
+			{certifications && (
 			<Row className="align-items-center justify-content-end my-3">
 				<Col md={9} sm={12} align="end">
 					<StyledFilledButton onClick={handleHistoryClick}>
@@ -26,12 +32,17 @@ const DiscoverProduct = ({ id, portion, description, certifications, registeredB
 					</StyledFilledButton>
 					<Modal className="modal-lg" isOpen={isHistoryOpen} toggle={handleHistoryClick}>
 						<ModalHeader toggle={handleHistoryClick}>
-							Dettagli Prodotto #{id}</ModalHeader>
+							Dettagli {element} #{id}</ModalHeader>
 						<ModalBody>
 							<ListGroup flush>
-								{certifications && certifications.map(({ description, certifier }, index) => (
+								{certifications.map(({ description, certifier }, index) => (
 									<ListGroupItem key={index}>
 										<Container fluid>
+											<Row className="my-3">
+												<Col>
+													<h6 className="text-black-50">Certificazione</h6>
+												</Col>
+											</Row>
 											<Row className="align-items-center my-3">
 												<Col md={3} sm={12}>
 													<Title>Descrizione</Title>
@@ -55,7 +66,7 @@ const DiscoverProduct = ({ id, portion, description, certifications, registeredB
 						</ModalBody>
 					</Modal>
 				</Col>
-			</Row>
+			</Row>)}
 			<Row className="align-items-center my-3">
 				<Col md={3} sm={12}>
 					<Title>Porzione</Title>
@@ -89,4 +100,4 @@ const DiscoverProduct = ({ id, portion, description, certifications, registeredB
 	);
 };
 
-export default DiscoverProduct;
+export default DiscoverActivityProduct;

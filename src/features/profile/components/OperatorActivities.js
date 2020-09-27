@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverActivity, DiscoverProduct } from '../../../shared/views';
+import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { MAINTENANCE_ACTIVITIES, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleOperatorFetch } from '../map';
@@ -18,6 +18,7 @@ import { handleOperatorFetch } from '../map';
  */
 const OperatorActivities = ({ userAddress }) => {
 	const [activities, setActivities] = useState([]);
+	const [maintenance, setMaintenance] = useState([]);
 	const [products, setProducts] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,7 @@ const OperatorActivities = ({ userAddress }) => {
 	useEffect(() => {
 		handleOperatorFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
 		handleOperatorFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
-		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
+		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setMaintenance, setFetchErrors, setIsLoading);
 	}, [userAddress]);
 
 	return (
@@ -54,12 +55,17 @@ const OperatorActivities = ({ userAddress }) => {
 				<ListGroup flush>
 					{activities.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverActivity {...element} />
+							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
+						</ListGroupItem>
+					))}
+					{maintenance.map((element, index) => (
+						<ListGroupItem key={index}>
+							<DiscoverActivityProduct {...element} element={MAINTENANCE_ACTIVITIES} />
 						</ListGroupItem>
 					))}
 					{products.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverProduct {...element} />
+							<DiscoverActivityProduct {...element} element={PRODUCT} />
 						</ListGroupItem>
 					))}
 				</ListGroup>

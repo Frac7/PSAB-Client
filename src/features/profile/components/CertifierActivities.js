@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
-import { DiscoverActivity, DiscoverProduct } from '../../../shared/views';
+import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
 import { handleCertifierFetch } from '../map';
@@ -53,12 +53,12 @@ const CertifierActivities = ({ userAddress }) => {
 				<ListGroup flush>
 					{activities.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverActivity {...element} />
+							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
 						</ListGroupItem>
 					))}
 					{products.map((element, index) => (
 						<ListGroupItem key={index}>
-							<DiscoverProduct {...element} />
+							<DiscoverActivityProduct {...element} element={PRODUCT} />
 						</ListGroupItem>
 					))}
 				</ListGroup>

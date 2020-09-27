@@ -2,8 +2,7 @@ import React from 'react';
 import {
 	DiscoverLand,
 	DiscoverPortion,
-	DiscoverProduct,
-	DiscoverActivity
+	DiscoverActivityProduct,
 } from '../../../shared/views';
 
 import {
@@ -18,9 +17,9 @@ import contracts from '../../../shared/contracts';
 const elementWrappers = {
 	[LAND]: (props) => <DiscoverLand {...props} />,
 	[PORTION]: (props) => <DiscoverPortion {...props} />,
-	[PRODUCT]: (props) => <DiscoverProduct {...props} />,
-	[PROD_ACTIVITIES]: (props) => <DiscoverActivity {...props} />,
-	[MAINTENANCE_ACTIVITIES]: (props) => <DiscoverActivity {...props} />
+	[PRODUCT]: (props) => <DiscoverActivityProduct {...props} element={PRODUCT}/>,
+	[PROD_ACTIVITIES]: (props) => <DiscoverActivityProduct {...props} element={PROD_ACTIVITIES} />,
+	[MAINTENANCE_ACTIVITIES]: (props) => <DiscoverActivityProduct {...props} element={MAINTENANCE_ACTIVITIES} />
 }
 
 const handleFetching = {
