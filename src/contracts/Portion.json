@@ -158,9 +158,9 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_duration",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",
@@ -192,11 +192,49 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getApproved",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_buyer",
+				"type": "address"
+			}
+		],
+		"name": "getByBuyer",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
 				"name": "_id",
 				"type": "uint256"
 			}
 		],
-		"name": "get",
+		"name": "getById",
 		"outputs": [
 			{
 				"components": [
@@ -214,6 +252,11 @@
 						"internalType": "uint256",
 						"name": "hashId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "hasValue",
+						"type": "bool"
 					}
 				],
 				"internalType": "struct Portion.Data",
@@ -228,9 +271,9 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "string",
 						"name": "duration",
-						"type": "uint256"
+						"type": "string"
 					},
 					{
 						"internalType": "string",
@@ -279,51 +322,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getApproved",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_buyer",
-				"type": "address"
-			}
-		],
-		"name": "getByBuyer",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "portionsBought",
-						"type": "uint256[]"
-					}
-				],
-				"internalType": "struct Portion.Buyer",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "_owner",
 				"type": "address"
@@ -332,16 +330,9 @@
 		"name": "getByOwner",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "portionsOwned",
-						"type": "uint256[]"
-					}
-				],
-				"internalType": "struct Portion.Owner",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "tuple"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -442,6 +433,75 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "registerMaintenance",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "registerProduct",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "registerProductionActivity",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "from",
 				"type": "address"
@@ -494,7 +554,7 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_portionId",
+				"name": "_id",
 				"type": "uint256"
 			},
 			{

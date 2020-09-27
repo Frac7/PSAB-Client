@@ -218,6 +218,11 @@
 						"internalType": "uint256",
 						"name": "hashId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "hasValue",
+						"type": "bool"
 					}
 				],
 				"internalType": "struct Land.Data",
@@ -239,16 +244,9 @@
 		"name": "getByOwner",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "landsOwned",
-						"type": "uint256[]"
-					}
-				],
-				"internalType": "struct Land.Owner",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "tuple"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
