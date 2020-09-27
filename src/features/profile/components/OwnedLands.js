@@ -5,8 +5,7 @@ import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
 import { DiscoverLand } from '../../../shared/views';
 
-import contracts from '../../../shared/contracts';
-import { LAND } from '../../../shared/values';
+import { fetchLandsByOwner } from '../../../shared/utils';
 
 /**
  * Details for user's lands.
@@ -22,47 +21,8 @@ const OwnedLands = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const elements = [];
-
-		const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
-		landInstance.methods.getByOwner(userAddress)
-			.call({ from : userAddress })
-			.then((lands) => {
-				console.log(lands);
-				if (!lands.landsOwned.length) {
-					setElements(elements);
-					setIsLoading(false);
-					return;
-				}
-
-				lands.landsOwned.forEach((id, index) => {
-					landInstance.methods.getById(id)
-						.call({ from: userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id
-							});
-
-							if (index === lands.landsOwned.length - 1) {
-								setElements(elements);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
-	}, [userAddress]);
+		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 
 	return (
 		<Row className="align-items-center">

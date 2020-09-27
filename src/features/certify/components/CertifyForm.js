@@ -36,7 +36,7 @@ const ProductActivitiesForm = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleFetching[currentForm](userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading);
+		handleFetching(userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading, currentForm);
 	}, [currentForm, userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading]);
 
 	if (isLoading) {

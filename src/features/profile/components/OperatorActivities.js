@@ -6,7 +6,7 @@ import { StyledBadge, StyledSpinner } from '../../../shared/styled';
 import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { MAINTENANCE_ACTIVITIES, PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
-import { handleOperatorFetch } from '../map';
+import { handleFetch } from '../utils';
 
 /**
  * Activities related to operator user.
@@ -24,9 +24,9 @@ const OperatorActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleOperatorFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
-		handleOperatorFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
-		handleOperatorFetch[MAINTENANCE_ACTIVITIES](userAddress, setMaintenance, setFetchErrors, setIsLoading);
+		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Operator');
+		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, MAINTENANCE_ACTIVITIES, 'Operator');
+		handleFetch(userAddress, setMaintenance, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Operator');
 	}, [userAddress]);
 
 	return (

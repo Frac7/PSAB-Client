@@ -19,8 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import contracts from '../../../shared/contracts';
-import { PORTION } from '../../../shared/values';
+import { fetchPortionsByOwner } from '../../../shared/utils';
 
 /**
  * Form for registering portion contract terms.
@@ -50,43 +49,8 @@ const ContractTermsForm = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const elements = [];
-
-		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		portionInstance.methods.getByOwner(userAddress)
-			.call({ from : userAddress })
-			.then((result) => {
-				console.log(result);
-				if (result.portionsOwned.length === 0) {
-					setElements([]);
-					setIsLoading(false);
-					return;
-				}
-
-				result.portionsOwned.forEach((id, index) => {
-					// portionInstance.methods.getById(id)
-					portionInstance.methods.get(id)
-						.call({ from : userAddress })
-						.then((portion) => {
-							elements.push(portion);
-							if (index === result.portionsOwned.length) {
-								setElements(elements);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-				setIsLoading(false);
-				setFetchErrors(true);
-			});
-	}, [userAddress]);
+		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 
 	if (isLoading) {
 		return (

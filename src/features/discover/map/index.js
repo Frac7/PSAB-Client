@@ -22,238 +22,51 @@ const elementWrappers = {
 	[MAINTENANCE_ACTIVITIES]: (props) => <DiscoverActivityProduct {...props} element={MAINTENANCE_ACTIVITIES} />
 }
 
-const handleFetching = {
-	[LAND]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
-		const elements = [];
+const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, element) => {
+	const elements = [];
 
-		const contractInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
-		contractInstance.methods.getTotalLands()
-			.call({ from : userAddress })
-			.then((total) => {
-				console.log(total);
-				total = parseInt(total);
-				if (!total) {
-					setElements(elements);
-					setFetchErrors(false);
-					setIsLoading(false);
-					return;
-				}
-
-				for (let i = 0; i <= total; i++) {
-					contractInstance.methods.getById(i)
-						.call({ from : userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id: i
-							});
-
-							if (i === total) {
-								setElements(elements);
-								setFetchErrors(false);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				}
-
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
+	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+	contractInstance.methods.getTotal()
+		.call({ from : userAddress })
+		.then((total) => {
+			console.log(total);
+			total = parseInt(total);
+			if (!total) {
+				setElements(elements);
+				setFetchErrors(false);
 				setIsLoading(false);
-			});
-	},
-	[PORTION]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
-		const elements = [];
+				return;
+			}
 
-		const contractInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		contractInstance.methods.getTotalPortions()
-			.call({ from : userAddress })
-			.then((total) => {
-				console.log(total);
-				total = parseInt(total);
-				if (!total) {
-					setElements(elements);
-					setFetchErrors(false);
-					setIsLoading(false);
-					return;
-				}
-
-				for (let i = 0; i <= total; i++) {
-					// contractInstance.methods.getById(i)
-					contractInstance.methods.get(i)
-						.call({ from : userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id: i
-							});
-
-							if (i === total) {
-								setElements(elements);
-								setFetchErrors(false);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
+			for (let i = 0; i <= total; i++) {
+				contractInstance.methods.getById(i)
+					.call({ from : userAddress })
+					.then((result) => {
+						console.log(result);
+						elements.push({
+							...result,
+							id: i
 						});
-				}
 
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
-	},
-	[PRODUCT]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
-		const elements = [];
-
-		const contractInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
-		contractInstance.methods.getTotalProducts()
-			.call({ from : userAddress })
-			.then((total) => {
-				console.log(total);
-				total = parseInt(total);
-				if (!total) {
-					setElements(elements);
-					setFetchErrors(false);
-					setIsLoading(false);
-					return;
-				}
-
-				for (let i = 0; i <= total; i++) {
-					contractInstance.methods.getById(i)
-						.call({ from : userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id: i
-							});
-
-							if (i === total) {
-								setElements(elements);
-								setFetchErrors(false);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
+						if (i === total) {
+							setElements(elements);
+							setFetchErrors(false);
 							setIsLoading(false);
-						});
-				}
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						setFetchErrors(true);
+						setIsLoading(false);
+					});
+			}
 
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
-	},
-	[PROD_ACTIVITIES]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
-		const elements = [];
-
-		const contractInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
-		contractInstance.methods.getTotalProdActivities()
-			.call({ from : userAddress })
-			.then((total) => {
-				console.log(total);
-				total = parseInt(total);
-				if (!total) {
-					setElements(elements);
-					setFetchErrors(false);
-					setIsLoading(false);
-					return;
-				}
-
-				for (let i = 0; i <= total; i++) {
-					contractInstance.methods.getById(i)
-						.call({ from : userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id: i
-							});
-
-							if (i === total) {
-								setElements(elements);
-								setFetchErrors(false);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				}
-
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
-	},
-	[MAINTENANCE_ACTIVITIES]: (userAddress, setElements, setFetchErrors, setIsLoading) => {
-		const elements = [];
-
-		const contractInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
-		contractInstance.methods.getTotalMaintenances()
-			.call({ from : userAddress })
-			.then((total) => {
-				console.log(total);
-				total = parseInt(total);
-				if (!total) {
-					setElements(elements);
-					setFetchErrors(false);
-					setIsLoading(false);
-					return;
-				}
-
-				for (let i = 0; i <= total; i++) {
-					contractInstance.methods.getById(i)
-						.call({ from : userAddress })
-						.then((result) => {
-							console.log(result);
-							elements.push({
-								...result,
-								id: i
-							});
-
-							if (i === total) {
-								setElements(elements);
-								setFetchErrors(false);
-								setIsLoading(false);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-							setFetchErrors(true);
-							setIsLoading(false);
-						});
-				}
-
-			})
-			.catch((error) => {
-				console.log(error);
-				setFetchErrors(true);
-				setIsLoading(false);
-			});
-	}
+		})
+		.catch((error) => {
+			console.log(error);
+			setFetchErrors(true);
+			setIsLoading(false);
+		});
 };
 
 export { elementWrappers, handleFetching };

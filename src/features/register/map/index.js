@@ -165,9 +165,9 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const productInstance = new window.web3.eth.Contract(contracts[PRODUCT].ABI, contracts[PRODUCT].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			productInstance.methods.register(description, portion)
+			portionInstance.methods.registerProduct(description, portion, contracts[PRODUCT].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -190,9 +190,9 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const prodActivitiesInstance = new window.web3.eth.Contract(contracts[PROD_ACTIVITIES].ABI, contracts[PROD_ACTIVITIES].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			prodActivitiesInstance.methods.register(description, portion)
+			portionInstance.methods.registerProductionActivity(description, portion, contracts[PROD_ACTIVITIES].address)
 				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -215,9 +215,9 @@ const forms = {
 			description: string().required('Il campo descrizione è obbligatorio')
 		}),
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
-			const maintenanceActivityInstance = new window.web3.eth.Contract(contracts[MAINTENANCE_ACTIVITIES].ABI, contracts[MAINTENANCE_ACTIVITIES].address);
+			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			maintenanceActivityInstance.methods.register(description, portion)
+			portionInstance.methods.register(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);

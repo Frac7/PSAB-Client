@@ -38,7 +38,7 @@ const ProductActivitiesForm = ({
 		const elements = [];
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		portionInstance.methods.getTotalPortions()
+		portionInstance.methods.getTotal()
 			.call({ from : userAddress })
 			.then((total) => {
 				console.log(total);
@@ -49,8 +49,7 @@ const ProductActivitiesForm = ({
 				}
 
 				for (let i = 0; i <= total; i++) {
-					// portionInstance.methods.getById(i)
-					portionInstance.methods.get(i)
+					portionInstance.methods.getById(i)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);

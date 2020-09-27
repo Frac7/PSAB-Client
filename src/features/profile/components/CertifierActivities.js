@@ -6,7 +6,7 @@ import { StyledBadge, StyledSpinner } from '../../../shared/styled';
 import { DiscoverActivityProduct } from '../../../shared/views';
 
 import { PROD_ACTIVITIES, PRODUCT } from '../../../shared/values';
-import { handleCertifierFetch } from '../map';
+import { handleFetch } from '../utils';
 
 /**
  * Activity related to the certification process for the current user.
@@ -23,8 +23,8 @@ const CertifierActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleCertifierFetch[PRODUCT](userAddress, setProducts, setFetchErrors, setIsLoading);
-		handleCertifierFetch[PROD_ACTIVITIES](userAddress, setActivities, setFetchErrors, setIsLoading);
+		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Certifier');
+		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Certifier');
 	}, [userAddress]);
 
 	return (

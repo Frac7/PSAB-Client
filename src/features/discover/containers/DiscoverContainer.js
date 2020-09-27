@@ -35,7 +35,7 @@ const DiscoverContainer = ({ user }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		handleFetching[currentElement](user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading);
+		handleFetching(user.data.attributes['custom:eth_address'], setElements, setFetchErrors, setIsLoading, currentElement);
 	}, [currentElement, user]);
 
 	return (

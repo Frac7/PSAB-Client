@@ -28,8 +28,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 		setIsOpen((isOpen) => !isOpen);
 
 		const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-		// contractInstance.methods.getById(id)
-		contractInstance.methods.get(id)
+		contractInstance.methods.getById(id)
 			.call({ from: userAddress })
 			.then((result) => {
 				console.log(result);
@@ -42,7 +41,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 				setIsLoading(false);
 			})
 
-	}, [userAddress, element, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, element, setIsOpen, setIsLoading, setData]);
 
 	return (
 		<>
