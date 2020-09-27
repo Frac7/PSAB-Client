@@ -1,21 +1,18 @@
-import React, { useState, useCallback } from 'react';
-import { Col, Container, Row, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem } from 'reactstrap';
+import React, { useState } from 'react';
+import { Col, Container, Row } from 'reactstrap';
 
-import { StyledFilledButton, StyledTitle } from '../styled';
+import { StyledTitle } from '../styled';
 
 import LandPortionHandling from './LandPortionHandling';
 
 import { PORTION } from '../values';
+import CertificationHandling from './CertificationHandling';
 
-const DiscoverActivityProduct = ({ id, portion, description, certifications, registeredBy, element }) => {
+const DiscoverActivityProduct = ({ id, portion, description, registeredBy, element }) => {
 	const Title = StyledTitle('h5');
 
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
-
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-	const handleHistoryClick = useCallback(() => {
-		setIsHistoryOpen((isOpen) => !isOpen);
-	}, [setIsHistoryOpen]);
 
 	return (
 		<Container fluid>
@@ -24,49 +21,15 @@ const DiscoverActivityProduct = ({ id, portion, description, certifications, reg
 					<h6 className="text-black-50">{element}</h6>
 				</Col>
 			</Row>
-			{certifications && (
 			<Row className="align-items-center justify-content-end my-3">
 				<Col md={9} sm={12} align="end">
-					<StyledFilledButton onClick={handleHistoryClick}>
-						Sfoglia cronologia
-					</StyledFilledButton>
-					<Modal className="modal-lg" isOpen={isHistoryOpen} toggle={handleHistoryClick}>
-						<ModalHeader toggle={handleHistoryClick}>
-							Dettagli {element} #{id}</ModalHeader>
-						<ModalBody>
-							<ListGroup flush>
-								{certifications.map(({ description, certifier }, index) => (
-									<ListGroupItem key={index}>
-										<Container fluid>
-											<Row className="my-3">
-												<Col>
-													<h6 className="text-black-50">Certificazione</h6>
-												</Col>
-											</Row>
-											<Row className="align-items-center my-3">
-												<Col md={3} sm={12}>
-													<Title>Descrizione</Title>
-												</Col>
-												<Col>
-													<p align="justify">{description}</p>
-												</Col>
-											</Row>
-											<Row className="align-items-center my-3">
-												<Col md={3} sm={12}>
-													<Title>Certificato da</Title>
-												</Col>
-												<Col>
-													<p align="justify">{certifier}</p>
-												</Col>
-											</Row>
-										</Container>
-									</ListGroupItem>
-								))}
-							</ListGroup>
-						</ModalBody>
-					</Modal>
+					<CertificationHandling
+						id={id}
+						isOpen={isHistoryOpen}
+						setIsOpen={setIsHistoryOpen}
+					/>
 				</Col>
-			</Row>)}
+			</Row>
 			<Row className="align-items-center my-3">
 				<Col md={3} sm={12}>
 					<Title>Porzione</Title>
