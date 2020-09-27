@@ -27,6 +27,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 						id={id}
 						isOpen={isHistoryOpen}
 						setIsOpen={setIsHistoryOpen}
+						element={element}
 					/>
 				</Col>
 			</Row>
