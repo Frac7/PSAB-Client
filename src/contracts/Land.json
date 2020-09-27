@@ -273,7 +273,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getTotalLands",
+		"name": "getTotal",
 		"outputs": [
 			{
 				"internalType": "uint256",

@@ -29,20 +29,20 @@ const PurchasedPortions = ({ userAddress }) => {
 			.call({ from : userAddress })
 			.then((portions) => {
 				console.log(portions);
-				if (!portions.portionsBought.length) {
+				if (!portions.length) {
 					setElements(elements);
 					setIsLoading(false);
 					return;
 				}
 
-				portions.portionsBought.forEach((id, index) => {
+				portions.forEach((id, index) => {
 					portionInstance.methods.getById(id)
 						.call({ from: userAddress })
 						.then((result) => {
 							console.log(result);
 							elements.push(result);
 
-							if (index === portions.portionsBought.length - 1) {
+							if (index === portions.length) {
 								setElements(elements);
 								setIsLoading(false);
 							}

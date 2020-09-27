@@ -17,11 +17,11 @@ import {
 const contracts = {
 	[LAND]: {
 		ABI: Land,
-		address: '0xd7BF43f79f8228aB7CE7548610e6089492737c00'
+		address: '0xfB35b632Edb76c3c270cA2Aea536C89DC75DC4f2'
 	},
 	[PORTION]: {
 		ABI: Portion,
-		address: '0xA4D19aAB10f75123AD11a31F3DDa2A26b560fF5b'
+		address: '0xd4eb9ae31FB56403Af8B8cd4cb3Ee9841485829A'
 	},
 	[PRODUCT]: {
 		ABI: Product,

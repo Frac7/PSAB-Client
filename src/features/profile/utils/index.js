@@ -24,7 +24,7 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 							id
 						});
 
-						if (index === items.length - 1) {
+						if (index === items) {
 							setElements(elements);
 							setIsLoading(false);
 						}

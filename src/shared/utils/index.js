@@ -9,13 +9,13 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 		.call({ from : userAddress })
 		.then((lands) => {
 			console.log(lands);
-			if (!lands.landsOwned.length) {
+			if (!lands.length) {
 				setElements(elements);
 				setIsLoading(false);
 				return;
 			}
 
-			lands.landsOwned.forEach((id, index) => {
+			lands.forEach((id, index) => {
 				landInstance.methods.getById(id)
 					.call({ from: userAddress })
 					.then((result) => {
@@ -25,7 +25,7 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 							id
 						});
 
-						if (index === lands.landsOwned.length - 1) {
+						if (index === lands.length) {
 							setElements(elements);
 							setIsLoading(false);
 						}

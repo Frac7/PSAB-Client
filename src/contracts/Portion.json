@@ -340,7 +340,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getTotalPortions",
+		"name": "getTotal",
 		"outputs": [
 			{
 				"internalType": "uint256",
