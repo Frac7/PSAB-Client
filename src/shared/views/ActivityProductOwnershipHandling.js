@@ -14,23 +14,21 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 	const userAddress = attributes['custom:eth_address'];
 
 	// TODO: add ownership field
-	const initialData = useMemo(() => ({
+	const [data, setData] = useState({
 		//[PORTION]: [],
 		[PRODUCT]: [],
 		[PROD_ACTIVITIES]: [],
 		[MAINTENANCE_ACTIVITIES]: []
-	}), []);
-
-	const [data, setData] = useState(initialData);
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
-		setIsLoading(true);
 		setIsOpen((isOpen) => !isOpen);
 
 		// TODO: set ownership data
 		Object.keys(data).forEach((element) => {
+			setIsLoading(true);
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 			contractInstance.methods.getByPortion(id)
 				.call({from: userAddress})
@@ -72,7 +70,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 
 		});
 
-	}, [id, userAddress, setIsOpen, setIsLoading, initialData, data, setData]);
+	}, [id, userAddress, setIsOpen, setIsLoading, data, setData]);
 
 	return (
 		<>
@@ -103,8 +101,15 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					)}
 					{Object.keys(data).forEach((element, upperIndex) => (
 						<>
-							{data[element].forEach((item, lowerIndex) => (
-								<DiscoverActivityProduct key={`${upperIndex}${lowerIndex}`} {...item} element={element} />
+							{data[element].forEach(({ id, description, portion, registeredBy }, lowerIndex) => (
+								<DiscoverActivityProduct
+									key={`${upperIndex}${lowerIndex}`}
+									element={element}
+									description={description}
+									portion={portion}
+									id={id}
+									registeredBy={registeredBy}
+								/>
 							))}
 						</>
 					))}
