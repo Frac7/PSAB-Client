@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
 
-import { Title, Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
-import { StyledFilledButton, StyledSpinner } from '../styled';
+import { Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
+import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
 import contracts from '../contracts';
 
 const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
+	const Title = StyledTitle('h5');
+
 	const userAddress = attributes['custom:eth_address'];
 
 	const [data, setData] = useState({});

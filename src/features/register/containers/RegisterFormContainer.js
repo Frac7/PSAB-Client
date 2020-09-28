@@ -64,8 +64,7 @@ const RegisterFormContainer = ({ user }) => {
 				...values,
 				documents:
 					values.documents ?
-						values.documents.map(({ value }) =>
-							window.web3.utils.fromAscii(`https://psab-documents83040-dev.s3.amazonaws.com/public/${value}`)) :
+						`https://psab-documents83040-dev.s3.amazonaws.com/public/${document.value}` :
 						undefined
 			}, handleFeedback, user.data.attributes['custom:eth_address']);
 		} else {
