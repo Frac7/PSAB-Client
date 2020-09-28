@@ -25,7 +25,7 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 							id
 						});
 
-						if (index === lands.length) {
+						if (index === lands.length - 1) {
 							setElements(elements);
 							setIsLoading(false);
 						}
@@ -63,7 +63,7 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 					.call({ from : userAddress })
 					.then((portion) => {
 						elements.push(portion);
-						if (index === result.portionsOwned.length) {
+						if (index === result.length - 1) {
 							setElements(elements);
 							setIsLoading(false);
 						}

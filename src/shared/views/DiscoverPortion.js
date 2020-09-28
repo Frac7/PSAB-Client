@@ -1,15 +1,17 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Collapse, Col, Container, Row, Modal, ModalHeader, ModalBody, ListGroup, ListGroupItem } from 'reactstrap';
+import { Collapse, Col, Container, Row, ListGroup, ListGroupItem } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 
-import { StyledFilledButton, StyledLinkButton,
-	StyledTitle } from '../styled';
+import { StyledLinkButton, StyledTitle } from '../styled';
 
 import { LAND } from '../values';
 import LandPortionHandling from './LandPortionHandling';
+import ActivityProductOwnershipHandling from './ActivityProductOwnershipHandling';
+
+const Title = StyledTitle('h5');
 
 const DiscoverPortion = ({ id, ...rest }) => {
 	const {
@@ -32,14 +34,8 @@ const DiscoverPortion = ({ id, ...rest }) => {
 		}
 	}, [rest]);
 
-	const Title = StyledTitle('h5');
-
 	const [isLandOpen, setIsLandOpen] = useState(false);
-
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-	const handleHistoryClick = useCallback(() => {
-		setIsHistoryOpen((isOpen) => !isOpen);
-	}, [setIsHistoryOpen]);
 
 	const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 	const handleDetailsClick = useCallback(() => {
@@ -51,21 +47,11 @@ const DiscoverPortion = ({ id, ...rest }) => {
 		<Container fluid>
 			<Row className="align-items-center justify-content-end my-3">
 				<Col md={9} sm={12} align="end">
-					<StyledFilledButton onClick={handleHistoryClick}>
-						Sfoglia cronologia
-					</StyledFilledButton>
-					<Modal className="modal-lg" isOpen={isHistoryOpen} toggle={handleHistoryClick}>
-						<ModalHeader toggle={handleHistoryClick}>
-							Dettagli Porzione #{id}</ModalHeader>
-						<ModalBody>
-							<ListGroup flush>
-								{/* TODO: add history: products, activities, sell/transfer ownership */}
-								{[].map((item, index) => (
-									<ListGroupItem key={index}>{item}</ListGroupItem>
-								))}
-							</ListGroup>
-						</ModalBody>
-					</Modal>
+					<ActivityProductOwnershipHandling
+						setIsOpen={setIsHistoryOpen}
+						isOpen={isHistoryOpen}
+						id={id}
+					/>
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
@@ -96,10 +82,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Col>
 				<Col>
 					<ListGroup flush>
-						{/* TODO: change with name s3 */}
-						{documents.map((document, index) => (
-							<ListGroupItem className="text-success" key={index} tag="a" href={document} target="_blank">Documento #{index}</ListGroupItem>
-						))}
+						<ListGroupItem className="text-success" tag="a" href={documents} target="_blank">Documento allegato</ListGroupItem>
 					</ListGroup>
 				</Col>
 			</Row>)}

@@ -8,9 +8,9 @@ import LandPortionHandling from './LandPortionHandling';
 import { PORTION } from '../values';
 import CertificationHandling from './CertificationHandling';
 
-const DiscoverActivityProduct = ({ id, portion, description, registeredBy, element }) => {
-	const Title = StyledTitle('h5');
+const Title = StyledTitle('h5');
 
+const DiscoverActivityProduct = ({ id, portion, description, registeredBy, element }) => {
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 

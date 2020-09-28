@@ -5,9 +5,9 @@ import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
 import contracts from '../contracts';
 
-const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
-	const Title = StyledTitle('h5');
+const Title = StyledTitle('h5');
 
+const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
 	const userAddress = attributes['custom:eth_address'];
 
 	const [data, setData] = useState({});
