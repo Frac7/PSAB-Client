@@ -210,6 +210,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getBuyersByPortion",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "_buyer",
 				"type": "address"
@@ -239,14 +258,19 @@
 			{
 				"components": [
 					{
+						"internalType": "uint256",
+						"name": "land",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "description",
 						"type": "string"
 					},
 					{
-						"internalType": "bytes32[]",
+						"internalType": "string",
 						"name": "documents",
-						"type": "bytes32[]"
+						"type": "string"
 					},
 					{
 						"internalType": "uint256",
@@ -293,11 +317,6 @@
 					{
 						"internalType": "uint256",
 						"name": "expectedProdActivityCost",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "landId",
 						"type": "uint256"
 					},
 					{
@@ -420,9 +439,14 @@
 				"type": "string"
 			},
 			{
-				"internalType": "bytes32[]",
+				"internalType": "string",
 				"name": "_documents",
-				"type": "bytes32[]"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_base64",
+				"type": "string"
 			}
 		],
 		"name": "register",

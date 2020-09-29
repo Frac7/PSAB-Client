@@ -18,6 +18,8 @@ import createSagaMiddleware from 'redux-saga';
 
 import { Auth } from '@aws-amplify/auth';
 
+import { signIn, signOut, currentUserInfo } from '../../api/user';
+
 describe('User actions test: synchronous', () => {
 	it('Requests login', () => {
 		const expectedAction = {
@@ -261,7 +263,6 @@ describe('User actions test: asynchronous', () => {
 });
 
 describe('User sagas test: "testSaga"', () => {
-	// TODO: fix these tests in call effect
 	it('Logs in', () => {
 		testSaga(handleLogin, {
 			payload: {
@@ -269,7 +270,7 @@ describe('User sagas test: "testSaga"', () => {
 					email: 'user@email.com', password: '12345678'
 				}}})
 			.next()
-			.call(() => Auth.signIn('user@email.com', '12345678'))
+			.call(signIn, 'user@email.com', '12345678')
 			.next({ result: 'Some user data' })
 			.put(loggedIn({ data: 'Some user data' }))
 			.next()
@@ -284,7 +285,7 @@ describe('User sagas test: "testSaga"', () => {
 					email: 'user@email.com', password: '12345678'
 				}}})
 			.next()
-			.call(() => Auth.signIn('user@email.com', '12345678'))
+			.call(signIn, 'user@email.com', '12345678')
 			.throw(new Error('User error'))
 			.put(userError({ error: new Error('User error') }))
 			.next()
@@ -295,7 +296,7 @@ describe('User sagas test: "testSaga"', () => {
 	it('Logs out', () => {
 		testSaga(handleLogout)
 			.next()
-			.call(() => Auth.signOut())
+			.call(signOut)
 			.next()
 			.put(loggedOut())
 			.next()
@@ -306,7 +307,7 @@ describe('User sagas test: "testSaga"', () => {
 	it('Doesn\'t log out', () => {
 		testSaga(handleLogout)
 			.next()
-			.call(() => Auth.signOut())
+			.call(signOut)
 			.throw(new Error('User error'))
 			.put(userError({ error: new Error('User error') }))
 			.next()
@@ -316,7 +317,7 @@ describe('User sagas test: "testSaga"', () => {
 	it('Receives user', () => {
 		testSaga(getUser)
 			.next()
-			.call(() => Auth.currentUserInfo())
+			.call(currentUserInfo)
 			.next({ result: 'Some user data' })
 			.put(userReceived({ data: 'Some user data' }))
 			.next()
@@ -327,7 +328,7 @@ describe('User sagas test: "testSaga"', () => {
 	it('Doesn\'t log in', () => {
 		testSaga(getUser)
 			.next()
-			.call(() => Auth.currentUserInfo())
+			.call(currentUserInfo)
 			.throw(new Error('User error'))
 			.put(userError({ error: new Error('User error') }))
 			.next()
@@ -336,13 +337,13 @@ describe('User sagas test: "testSaga"', () => {
 });
 
 describe('User sagas test: "expectSaga"', () => {
-	it('Logs in', () => { // TODO: fix this test
+	it('Logs in', () => {
 		expectSaga(handleLogin, {
 			payload: { data: { email: 'user@email.com', password: '12345678'} }
 		})
 			.provide([
 				[matchers.call.fn(
-					() => Auth.signIn('user@email.com', '12345678')), {
+					signIn, 'user@email.com', '12345678'), {
 					result: 'Some user data'
 				}]
 			])
@@ -356,17 +357,18 @@ describe('User sagas test: "expectSaga"', () => {
 			payload: { data: { email: 'user@email.com', password: '12345678'} }
 		})
 			.provide([
-				[matchers.call.fn(() => Auth.signIn('user@email.com', '12345678')), throwError(new Error('User error'))]
+				[matchers.call.fn(signIn, 'user@email.com', '12345678'),
+					throwError(new Error('User error'))]
 			])
 			.put(userError({ error: new Error('User error') }))
 			.run();
 	});
 
 
-	it('Logs out', () => { // TODO: fix this
+	it('Logs out', () => {
 		expectSaga(handleLogout)
 			.provide([
-				[matchers.call.fn(() => Auth.signOut())]
+				[matchers.call.fn(signOut)]
 			])
 			.put(loggedOut())
 			.run();
@@ -376,18 +378,17 @@ describe('User sagas test: "expectSaga"', () => {
 	it('Doesn\'t log out', () => {
 		expectSaga(handleLogout)
 			.provide([
-				[matchers.call.fn(() => Auth.signOut()), throwError(new Error('User error'))]
+				[matchers.call.fn(signOut), throwError(new Error('User error'))]
 			])
 			.put(userError({ error: new Error('User error') }))
 			.run();
 	});
 
 
-	it('Receives user', () => { // TODO: fix this test
+	it('Receives user', () => {
 		expectSaga(getUser)
 			.provide([
-				[matchers.call.fn(
-					() => Auth.currentUserInfo()), {
+				[matchers.call.fn(currentUserInfo), {
 					result: 'Some user data'
 				}]
 			])
@@ -399,7 +400,7 @@ describe('User sagas test: "expectSaga"', () => {
 	it('Doesn\'t log in', () => {
 		expectSaga(getUser)
 			.provide([
-				[matchers.call.fn(() => Auth.currentUserInfo()), throwError(new Error('User error'))]
+				[matchers.call.fn(currentUserInfo), throwError(new Error('User error'))]
 			])
 			.put(userError({ error: new Error('User error') }))
 			.run();

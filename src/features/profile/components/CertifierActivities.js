@@ -29,7 +29,7 @@ const CertifierActivities = ({ userAddress }) => {
 
 	return (
 		<Row className="align-items-center">
-			<Col md="auto">
+			<Col xl="auto">
 				<h2>Attività di produzione e prodotti certificati</h2>
 			</Col>
 			<Col>
@@ -37,7 +37,7 @@ const CertifierActivities = ({ userAddress }) => {
 					Certifier
 				</StyledBadge>
 			</Col>
-			<Col md={12} sm={12}>
+			<Col xl={12} sm={12}>
 				{isLoading && (
 					<StyledSpinner size="large"/>
 				)}

@@ -23,7 +23,7 @@
 					},
 					{
 						"internalType": "address",
-						"name": "registerdBy",
+						"name": "registeredBy",
 						"type": "address"
 					}
 				],

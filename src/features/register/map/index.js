@@ -42,13 +42,12 @@ const forms = {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.register(description, value, base64)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -77,13 +76,12 @@ const forms = {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -97,8 +95,7 @@ const forms = {
 			periodicity: '',
 			expectedProduction: '',
 			expMainActivityCost: '',
-			expProdActivityCost: '',
-			buyer: ''
+			expProdActivityCost: ''
 		},
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione relativa'),
@@ -107,30 +104,24 @@ const forms = {
 			periodicity: string().required('Inserire la periodicità della produzione attesa'),
 			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
-			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori'),
-			buyer: string()
-				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
-				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
-				.required('L\'indirizzo dell\'acquirente è obbligatorio')
+			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
 		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
 				portion,
-				price,
+				price * 100,
 				duration,
 				expectedProduction,
 				periodicity,
-				expMainActivityCost,
-				expProdActivityCost,
-				contracts[PORTION].address)
-				.send({ from : senderAddress })
+				expMainActivityCost * 100,
+				expProdActivityCost * 100)
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -151,15 +142,14 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.sell(
 				portion,
-				address,
-				contracts[PORTION].address)
-				.send({ from : senderAddress })
+				address
+			)
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -178,13 +168,12 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
 			portionInstance.methods.registerProduct(description, portion, contracts[PRODUCT].address)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 			});
 		}
@@ -203,13 +192,12 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
 			portionInstance.methods.registerProductionActivity(description, portion, contracts[PROD_ACTIVITIES].address)
-				.send({ from: senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -227,8 +215,9 @@ const forms = {
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			portionInstance.methods.register(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
-				.send({ from : senderAddress })
+			portionInstance.methods.registerMaintenance(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);

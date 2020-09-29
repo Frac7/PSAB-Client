@@ -24,13 +24,14 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
+		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
 			setIsLoading(true);
-			setIsOpen((isOpen) => !isOpen);
 
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 			contractInstance.methods.getById(id)
-				.call({ from: userAddress })
+				// .call({ from: userAddress })
+				.call({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					setData(result);
@@ -57,7 +58,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 					{isLoading && (
 						<Container fluid>
 							<Row className="justify-content-center align-content-center align-items-center">
-								<Col md={1} sm={1}>
+								<Col xl={1} sm={1}>
 									<StyledSpinner size="large"/>
 								</Col>
 							</Row>
@@ -66,7 +67,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 					{hasErrors && (
 						<Container fluid>
 							<Row className="justify-content-center align-content-center align-items-center">
-								<Col md={12} sm={12}>
+								<Col xl={12} sm={12}>
 									<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 								</Col>
 							</Row>

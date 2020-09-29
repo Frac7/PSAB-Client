@@ -5,20 +5,13 @@ import {
 	TYPES, userError, userReceived
 } from './action';
 
-import { Auth } from '@aws-amplify/auth';
+import { currentUserInfo, signIn, signOut } from '../../api/user';
 
 function* handleLogin ({ payload: { data }}) {
 	try {
 		const { email, password } = data;
 
-		const { result, error } = yield call(
-			() => Auth.signIn(email, password)
-				.then((result) => {
-					return { result };
-				})
-				.catch((error) => {
-					return { error };
-				}));
+		const { result, error } = yield call(signIn, email, password);
 
 		if (result) {
 			yield put(loggedIn({ data: result }));
@@ -32,7 +25,7 @@ function* handleLogin ({ payload: { data }}) {
 
 function* handleLogout () {
 	try {
-		yield call(() => Auth.signOut());
+		yield call(signOut);
 		yield put(loggedOut());
 	} catch (error) {
 		yield put(userError({ error }));
@@ -41,13 +34,7 @@ function* handleLogout () {
 
 function* getUser () {
 	try {
-		const { result, error } = yield call(() => Auth.currentUserInfo()
-			.then((result) => {
-				return { result };
-			})
-			.catch((error) => {
-				return { error };
-			}));
+		const { result, error } = yield call(currentUserInfo);
 
 		if (error) {
 			yield put(userError({ error }));
@@ -55,7 +42,6 @@ function* getUser () {
 			yield put(userReceived({ data: result }));
 		}
 	} catch (error) {
-		console.log(error);
 		yield put(userError({ error }));
 	}
 }

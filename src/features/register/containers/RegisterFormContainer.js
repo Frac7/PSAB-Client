@@ -37,19 +37,12 @@ const RegisterFormContainer = ({ user }) => {
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
-		if (values.documents) {
-			values.documents.forEach((document) => {
-				if (!hasErrors) {
-					Storage.put(document.value, document.file)
-						.then((result) => {
-							console.log(result);
-						})
-						.catch((error) => {
-							console.log(error);
-							setHasErrors(true);
-						});
-				}
-			});
+		if (values.documents && !hasErrors) {
+			Storage.put(values.documents.value, values.documents.file)
+				.then((result) => {})
+				.catch((error) => {
+					setHasErrors(true);
+				});
 		}
 
 		const handleFeedback = (hasErrors) => {
@@ -81,7 +74,7 @@ const RegisterFormContainer = ({ user }) => {
 					<Col>
 						<h1>Registra {currentForm}</h1>
 					</Col>
-					<Col md={5} sm={12} className="justify-content-center">
+					<Col xl={5} sm={12} className="justify-content-center">
 						<ElementSelector
 							elements={[
 								{
@@ -115,7 +108,7 @@ const RegisterFormContainer = ({ user }) => {
 					</Col>
 				</Row>
 				<Row>
-					<Col md={12} sm={12}>
+					<Col xl={12} sm={12}>
 						<Formik
 							initialValues={initialValues}
 							validationSchema={validationSchema}

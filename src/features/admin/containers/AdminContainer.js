@@ -55,13 +55,11 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 			attributes
 		})
 			.then((result) => {
-				console.log(result);
 				setSubmitting(false);
 				setRegistered(true);
 				resetForm();
 				})
 			.catch((error) => {
-				console.log(error);
 				setSubmitting(false);
 				setErrors({ role: error.message });
 			})
@@ -76,7 +74,7 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 				</Col>
 			</Row>
 			<Row>
-				<Col md={12} sm={12}>
+				<Col xl={12} sm={12}>
 					<Formik
 						initialValues={initialValues}
 						validationSchema={validationSchema}

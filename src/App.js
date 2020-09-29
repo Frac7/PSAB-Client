@@ -10,11 +10,11 @@ import routes from './config/routes';
 const App = () => (
 	<Container fluid style={{ margin: '2rem 0' }}>
 		<Row className="justify-content-center">
-			<Col md={6} sm={10}>
+			<Col xl={6} sm={10}>
 				<Suspense fallback={
 					<Container fluid>
 						<Row className="justify-content-center align-content-center align-items-center">
-							<Col md={1} sm={1}>
+							<Col xl={1} sm={1}>
 								<StyledSpinner size="large"/>
 							</Col>
 						</Row>

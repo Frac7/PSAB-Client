@@ -26,7 +26,7 @@ const OwnedLands = ({ userAddress }) => {
 
 	return (
 		<Row className="align-items-center">
-			<Col md="auto">
+			<Col xl="auto">
 				<h2>Terreni posseduti</h2>
 			</Col>
 			<Col>
@@ -34,7 +34,7 @@ const OwnedLands = ({ userAddress }) => {
 					Owner
 				</StyledBadge>
 			</Col>
-			<Col md={12} sm={12}>
+			<Col xl={12} sm={12}>
 				{isLoading && (
 					<StyledSpinner size="large"/>
 				)}

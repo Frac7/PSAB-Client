@@ -41,7 +41,6 @@ const ProductActivitiesForm = ({
 		portionInstance.methods.getTotal()
 			.call({ from : userAddress })
 			.then((total) => {
-				console.log(total);
 				total = parseInt(total);
 				if (!total) {
 					setElements(elements);
@@ -50,9 +49,9 @@ const ProductActivitiesForm = ({
 
 				for (let i = 0; i < total; i++) {
 					portionInstance.methods.getById(i)
-						.call({ from: userAddress })
+						// .call({ from: userAddress })
+						.call({ from: process.env.REACT_APP_USER_ADDRESS })
 						.then((result) => {
-							console.log(result);
 							elements.push({
 								...result,
 								id: i
@@ -64,14 +63,12 @@ const ProductActivitiesForm = ({
 							}
 						})
 						.catch((error) => {
-							console.log(error);
 							setFetchErrors(true);
 							setIsLoading(false);
 						});
 				}
 			})
 			.catch((error) => {
-				console.log(error);
 				setFetchErrors(true);
 				setIsLoading(false);
 			});
@@ -81,7 +78,7 @@ const ProductActivitiesForm = ({
 		return (
 			<Container fluid>
 				<Row className="justify-content-center align-content-center align-items-center">
-					<Col md={1} sm={1}>
+					<Col xl={1} sm={1}>
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>

@@ -1,14 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert, ListGroup, ListGroupItem } from 'reactstrap';
+import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
 
 import DiscoverActivityProduct from './DiscoverActivityProduct';
-import { StyledFilledButton, StyledSpinner } from '../styled';
+import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
 import contracts from '../contracts';
 import { MAINTENANCE_ACTIVITIES, PORTION, PROD_ACTIVITIES, PRODUCT } from '../values';
 import { Selector } from '../../store/user/reducer';
+
+const Title = StyledTitle('h5');
 
 const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data: { attributes }} }) => {
 	const userAddress = attributes['custom:eth_address'];
@@ -23,17 +25,17 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
+		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
-			setIsOpen((isOpen) => !isOpen);
 
 			Object.keys(data).forEach((element) => {
 				const method = element === PORTION ? 'getBuyersByPortion' : 'getByPortion';
 				setIsLoading(true);
 				const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 				contractInstance.methods[method](id)
-					.call({ from: userAddress })
+					// .call({ from: userAddress })
+					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
-						console.log(result);
 						if (element === PORTION) {
 							setData((data) => ({
 								...data,
@@ -45,9 +47,9 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 
 								result.forEach((id, index) => {
 									contractInstance.methods.getById(id)
-										.call({ from: userAddress })
+										// .call({ from: userAddress })
+										.call({ from: process.env.REACT_APP_USER_ADDRESS })
 										.then((item) => {
-											console.log(item);
 											items.push(item);
 
 											if (index === result.length - 1) {
@@ -59,7 +61,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 											}
 										})
 										.catch((error) => {
-											console.log(error);
 											setHasErrors(true);
 											setIsLoading(false);
 										});
@@ -69,7 +70,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 							}
 					}})
 					.catch((error) => {
-						console.log(error);
 						setHasErrors(true);
 						setIsLoading(false);
 					});
@@ -91,7 +91,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					{isLoading && (
 						<Container fluid>
 							<Row className="justify-content-center align-content-center align-items-center">
-								<Col md={1} sm={1}>
+								<Col xl={1} sm={1}>
 									<StyledSpinner size="large"/>
 								</Col>
 							</Row>
@@ -100,7 +100,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					{hasErrors && (
 						<Container fluid>
 							<Row className="justify-content-center align-content-center align-items-center">
-								<Col md={12} sm={12}>
+								<Col xl={12} sm={12}>
 									<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 								</Col>
 							</Row>
@@ -109,37 +109,35 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					{Object.keys(data).map((element, upperIndex) => {
 						if (element === PORTION) {
 							return (
-								<Container fluid>
-									<Row className="justify-content-center align-content-center align-items-center">
-										<Col md={3} sm={12}>
-											<Alert color="danger" className="my-3">Possessore</Alert>
+								<Container fluid key={upperIndex}>
+									<Row className="align-items-center my-3">
+										<Col xl={3} sm={12}>
+											<Title>Possessori</Title>
 										</Col>
 									</Row>
-									<Row className="justify-content-center align-content-center align-items-center">
-										<Col>
-											<ListGroup flush>
-												{data[element].map((item, index) => (
-													<ListGroupItem key={index}>{item}</ListGroupItem>
-												))}
-											</ListGroup>
+									<Row className="align-items-center my-3">
+										<Col xl={9} sm={12}>
+											{data[PORTION].map((address, index) => (
+												<p align="justify" key={index}>{address}</p>
+											))}
 										</Col>
 									</Row>
 								</Container>
 							);
-						} else {
-							return data[element].map(({id, description, portion, registeredBy}, lowerIndex) => {
-								return (
-									<DiscoverActivityProduct
-										key={`${upperIndex}${lowerIndex}`}
-										element={element}
-										description={description}
-										portion={portion}
-										id={id}
-										registeredBy={registeredBy}
-									/>
-								);
-							})
 						}
+
+						return data[element].map(({id, description, portion, registeredBy}, lowerIndex) => {
+							return (
+								<DiscoverActivityProduct
+									key={`${upperIndex}${lowerIndex}`}
+									element={element}
+									description={description}
+									portion={portion}
+									id={id}
+									registeredBy={registeredBy}
+								/>
+							);
+						});
 					})}
 				</ModalBody>
 			</Modal>

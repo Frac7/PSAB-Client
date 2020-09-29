@@ -44,7 +44,7 @@ const DiscoverContainer = ({ user }) => {
 				<Col>
 					<h1>Esplora {currentElement}</h1>
 				</Col>
-				<Col md={5} sm={12} className="justify-content-center">
+				<Col xl={5} sm={12} className="justify-content-center">
 					<ElementSelector
 						elements={[
 							{
@@ -70,21 +70,21 @@ const DiscoverContainer = ({ user }) => {
 			</Row>
 			{isLoading && (
 				<Row className="justify-content-center align-content-center align-items-center">
-					<Col md={1} sm={1}>
+					<Col xl={1} sm={1}>
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>
 			)}
 			{fetchErrors && (
 				<Row className="justify-content-center align-content-center align-items-center">
-					<Col md={12} sm={12}>
+					<Col xl={12} sm={12}>
 						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 					</Col>
 				</Row>
 			)}
 			{!elements.length && (
 				<Row className="justify-content-center align-content-center align-items-center">
-					<Col md={12} sm={12}>
+					<Col xl={12} sm={12}>
 						<Alert color="info" className="my-3">Nessun elemento disponibile</Alert>
 					</Col>
 				</Row>

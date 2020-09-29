@@ -158,9 +158,14 @@
 				"type": "string"
 			},
 			{
-				"internalType": "bytes32[]",
+				"internalType": "string",
 				"name": "_documents",
-				"type": "bytes32[]"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_base64",
+				"type": "string"
 			},
 			{
 				"internalType": "address",
@@ -210,9 +215,9 @@
 						"type": "string"
 					},
 					{
-						"internalType": "bytes32[]",
+						"internalType": "string",
 						"name": "documents",
-						"type": "bytes32[]"
+						"type": "string"
 					},
 					{
 						"internalType": "uint256",
@@ -348,9 +353,14 @@
 				"type": "string"
 			},
 			{
-				"internalType": "bytes32[]",
+				"internalType": "string",
 				"name": "_documents",
-				"type": "bytes32[]"
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_base64",
+				"type": "string"
 			}
 		],
 		"name": "register",
