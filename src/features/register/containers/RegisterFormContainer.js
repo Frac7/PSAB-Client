@@ -38,7 +38,7 @@ const RegisterFormContainer = ({ user }) => {
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		if (values.documents) {
-			values.documents.forEach((document, index) => {
+			values.documents.forEach((document) => {
 				if (!hasErrors) {
 					Storage.put(document.value, document.file)
 						.then((result) => {
@@ -62,10 +62,12 @@ const RegisterFormContainer = ({ user }) => {
 		if(!hasErrors) {
 			handleSubmit({
 				...values,
-				documents:
-					values.documents ?
+				documents: {
+					...values.documents,
+					value: values.documents ?
 						`https://psab-documents83040-dev.s3.amazonaws.com/public/${document.value}` :
 						undefined
+				}
 			}, handleFeedback, user.data.attributes['custom:eth_address']);
 		} else {
 			handleFeedback(hasErrors);

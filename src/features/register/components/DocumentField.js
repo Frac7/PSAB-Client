@@ -27,7 +27,7 @@ const DocumentField = ({
 
 			const reader = new FileReader();
 			reader.readAsDataURL(documents.file);
-			documents.base64 = reader.result; // TODO: pass this string for calculating hash
+			documents.base64 = reader.result;
 		}
 
 		setFieldValue('documents', documents);

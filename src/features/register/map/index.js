@@ -38,10 +38,10 @@ const forms = {
 				base64: string()
 			})
 		}),
-		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, documents)
+			landInstance.methods.register(description, value, base64)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -73,10 +73,10 @@ const forms = {
 				base64: string()
 			})
 		}),
-		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ land, description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, documents, contracts[PORTION].address)
+			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
