@@ -109,7 +109,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					{Object.keys(data).map((element, upperIndex) => {
 						if (element === PORTION) {
 							return (
-								<Container fluid>
+								<Container fluid key={upperIndex}>
 									<Row className="align-items-center my-3">
 										<Col xl={3} sm={12}>
 											<Title>Possessori</Title>
