@@ -24,24 +24,26 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
-		setIsLoading(true);
-		setIsOpen((isOpen) => !isOpen);
+		if (!isOpen) {
+			setIsLoading(true);
+			setIsOpen((isOpen) => !isOpen);
 
-		const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-		contractInstance.methods.getById(id)
-			.call({ from: userAddress })
-			.then((result) => {
-				console.log(result);
-				setData(result);
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				setHasErrors(true);
-				setIsLoading(false);
-			})
+			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+			contractInstance.methods.getById(id)
+				.call({ from: userAddress })
+				.then((result) => {
+					console.log(result);
+					setData(result);
+					setIsLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					setHasErrors(true);
+					setIsLoading(false);
+				});
+		}
 
-	}, [id, userAddress, element, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);
 
 	return (
 		<>

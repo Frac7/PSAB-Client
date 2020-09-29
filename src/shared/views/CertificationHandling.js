@@ -1,36 +1,42 @@
 import React, { useState, useCallback } from 'react';
+import { connect } from 'react-redux';
 
-import { Title, Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
-import { StyledFilledButton, StyledSpinner } from '../styled';
+import { Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
+import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
 import contracts from '../contracts';
+import { Selector } from '../../store/user/reducer';
+
+const Title = StyledTitle('h5');
 
 const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
 	const userAddress = attributes['custom:eth_address'];
 
-	const [data, setData] = useState({});
+	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
-		setIsLoading(true);
-		setIsOpen((isOpen) => !isOpen);
+		if (!isOpen) {
+			setIsLoading(true);
+			setIsOpen((isOpen) => !isOpen);
 
-		const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-		contractInstance.methods.getByItem(id)
-			.call({ from: userAddress })
-			.then((result) => {
-				console.log(result);
-				setData(result);
-				setIsLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				setHasErrors(true);
-				setIsLoading(false);
-			})
+			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+			contractInstance.methods.getByItem(id)
+				.call({ from: userAddress })
+				.then((result) => {
+					console.log(result);
+					setData(result);
+					setIsLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					setHasErrors(true);
+					setIsLoading(false);
+				});
+		}
 
-	}, [id, userAddress, element, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);
 
 	return (
 		<>
@@ -94,4 +100,4 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 	)
 };
 
-export default CertificationHandling;
+export default connect((state) => ({ user: Selector.getUser(state) }))(CertificationHandling);

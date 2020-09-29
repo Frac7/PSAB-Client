@@ -42,7 +42,7 @@ const PurchasedPortions = ({ userAddress }) => {
 							console.log(result);
 							elements.push(result);
 
-							if (index === portions.length) {
+							if (index === portions.length - 1) {
 								setElements(elements);
 								setIsLoading(false);
 							}

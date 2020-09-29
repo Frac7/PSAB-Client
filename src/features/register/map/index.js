@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, array, number, mixed } from 'yup';
+import { object, string, number, mixed } from 'yup';
 
 import {
 	LandForm,
@@ -24,19 +24,24 @@ const forms = {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
 			description: '',
-			documents: []
+			documents: {
+				value: '',
+				file: null,
+				base64: ''
+			}
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().of(object().shape({
+			documents: object().shape({
 				value: string(),
-				file: mixed()
-			}))
+				file: mixed(),
+				base64: string()
+			})
 		}),
-		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, documents)
+			landInstance.methods.register(description, value, base64)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
@@ -53,20 +58,25 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			documents: []
+			documents: {
+				value: '',
+				file: null,
+				base64: ''
+			}
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().of(object().shape({
+			documents: object().shape({
 				value: string(),
-				file: mixed()
-			}))
+				file: mixed(),
+				base64: string()
+			})
 		}),
-		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ land, description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, documents, contracts[PORTION].address)
+			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
 				.send({ from : senderAddress })
 				.then((result) => {
 					console.log(result);
