@@ -37,19 +37,15 @@ const RegisterFormContainer = ({ user }) => {
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
-		if (values.documents) {
-			values.documents.forEach((document) => {
-				if (!hasErrors) {
-					Storage.put(document.value, document.file)
-						.then((result) => {
-							console.log(result);
-						})
-						.catch((error) => {
-							console.log(error);
-							setHasErrors(true);
-						});
-				}
-			});
+		if (values.documents && !hasErrors) {
+			Storage.put(values.documents.value, values.documents.file)
+				.then((result) => {
+					console.log(result);
+				})
+				.catch((error) => {
+					console.log(error);
+					setHasErrors(true);
+				});
 		}
 
 		const handleFeedback = (hasErrors) => {

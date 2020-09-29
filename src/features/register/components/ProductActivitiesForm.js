@@ -50,7 +50,8 @@ const ProductActivitiesForm = ({
 
 				for (let i = 0; i < total; i++) {
 					portionInstance.methods.getById(i)
-						.call({ from: userAddress })
+						// .call({ from: userAddress })
+						.call({ from: process.env.REACT_APP_USER_ADDRESS })
 						.then((result) => {
 							console.log(result);
 							elements.push({

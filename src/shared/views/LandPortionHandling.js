@@ -24,13 +24,14 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
+		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
 			setIsLoading(true);
-			setIsOpen((isOpen) => !isOpen);
 
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 			contractInstance.methods.getById(id)
-				.call({ from: userAddress })
+				// .call({ from: userAddress })
+				.call({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					setData(result);

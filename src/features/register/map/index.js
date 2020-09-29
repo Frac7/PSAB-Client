@@ -178,7 +178,8 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
 			portionInstance.methods.registerProduct(description, portion, contracts[PRODUCT].address)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -203,7 +204,8 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
 			portionInstance.methods.registerProductionActivity(description, portion, contracts[PROD_ACTIVITIES].address)
-				.send({ from: senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -227,8 +229,9 @@ const forms = {
 		handleSubmit: ({ portion, description }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 
-			portionInstance.methods.register(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
-				.send({ from : senderAddress })
+			portionInstance.methods.registerMaintenance(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);

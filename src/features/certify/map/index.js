@@ -16,7 +16,8 @@ const handleSubmit = ({ object, description }, handleFeedback, subject, senderAd
 	const contractInstance = new window.web3.eth.Contract(contracts[subject].ABI, contracts[subject].address);
 
 	contractInstance.methods.certify(object, description)
-		.send({ from: senderAddress })
+		// .send({ from: senderAddress })
+		.send({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((result) => {
 			console.log(result);
 			handleFeedback(false);
@@ -32,7 +33,8 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods.getTotal()
-		.call({ from: userAddress })
+		// .call({ from: userAddress })
+		.call({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((total) => {
 			total = parseInt(total);
 			if (!total) {
@@ -44,7 +46,8 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 			for (let i = 0; i < total; i++) {
 				if (!fetchErrors) {
 					contractInstance.methods.getById(i)
-						.call({ from: userAddress })
+						// .call({ from: userAddress })
+						.call({ from: process.env.REACT_APP_USER_ADDRESS })
 						.then((result) => {
 							elements.push({
 								...result,

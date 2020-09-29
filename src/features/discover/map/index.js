@@ -27,7 +27,8 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods.getTotal()
-		.call({ from : userAddress })
+		// .call({ from : userAddress })
+		.call({ from : process.env.REACT_APP_USER_ADDRESS })
 		.then((total) => {
 			console.log(total);
 			total = parseInt(total);
@@ -40,7 +41,8 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 
 			for (let i = 0; i < total; i++) {
 				contractInstance.methods.getById(i)
-					.call({ from : userAddress })
+					// .call({ from: userAddress })
+					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
 						console.log(result);
 						elements.push({
