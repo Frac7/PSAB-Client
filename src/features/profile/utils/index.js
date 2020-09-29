@@ -10,7 +10,6 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 		// .call({ from: userAddress })
 		.call({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((items) => {
-			console.log(items);
 			if (!items.length) {
 				setElements(elements);
 				setIsLoading(false);
@@ -22,7 +21,6 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 					// .call({ from: userAddress })
 					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
-						console.log(result);
 						elements.push({
 							...result,
 							id
@@ -34,7 +32,6 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 						}
 					})
 					.catch((error) => {
-						console.log(error);
 						setFetchErrors(true);
 						setIsLoading(false);
 					});

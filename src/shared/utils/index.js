@@ -10,7 +10,6 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 		// .call({ from: userAddress })
 		.call({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((lands) => {
-			console.log(lands);
 			if (!lands.length) {
 				setElements(elements);
 				setIsLoading(false);
@@ -22,7 +21,6 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 					// .call({ from: userAddress })
 					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
-						console.log(result);
 						elements.push({
 							...result,
 							id
@@ -34,14 +32,12 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 						}
 					})
 					.catch((error) => {
-						console.log(error);
 						setFetchErrors(true);
 						setIsLoading(false);
 					});
 			});
 		})
 		.catch((error) => {
-			console.log(error);
 			setFetchErrors(true);
 			setIsLoading(false);
 		});
@@ -56,7 +52,6 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 		// .call({ from: userAddress })
 		.call({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((result) => {
-			console.log(result);
 			if (!result.length) {
 				setElements([]);
 				setIsLoading(false);
@@ -75,14 +70,12 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 						}
 					})
 					.catch((error) => {
-						console.log(error);
 						setFetchErrors(true);
 						setIsLoading(false);
 					});
 			});
 		})
 		.catch((error) => {
-			console.log(error);
 			setIsLoading(false);
 			setFetchErrors(true);
 		});

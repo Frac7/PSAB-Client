@@ -55,13 +55,11 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 			attributes
 		})
 			.then((result) => {
-				console.log(result);
 				setSubmitting(false);
 				setRegistered(true);
 				resetForm();
 				})
 			.catch((error) => {
-				console.log(error);
 				setSubmitting(false);
 				setErrors({ role: error.message });
 			})

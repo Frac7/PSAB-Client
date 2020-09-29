@@ -41,7 +41,6 @@ const ProductActivitiesForm = ({
 		portionInstance.methods.getTotal()
 			.call({ from : userAddress })
 			.then((total) => {
-				console.log(total);
 				total = parseInt(total);
 				if (!total) {
 					setElements(elements);
@@ -53,7 +52,6 @@ const ProductActivitiesForm = ({
 						// .call({ from: userAddress })
 						.call({ from: process.env.REACT_APP_USER_ADDRESS })
 						.then((result) => {
-							console.log(result);
 							elements.push({
 								...result,
 								id: i
@@ -65,14 +63,12 @@ const ProductActivitiesForm = ({
 							}
 						})
 						.catch((error) => {
-							console.log(error);
 							setFetchErrors(true);
 							setIsLoading(false);
 						});
 				}
 			})
 			.catch((error) => {
-				console.log(error);
 				setFetchErrors(true);
 				setIsLoading(false);
 			});

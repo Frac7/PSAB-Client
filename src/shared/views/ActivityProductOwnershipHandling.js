@@ -36,7 +36,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					// .call({ from: userAddress })
 					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
-						console.log(result);
 						if (element === PORTION) {
 							setData((data) => ({
 								...data,
@@ -51,7 +50,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 										// .call({ from: userAddress })
 										.call({ from: process.env.REACT_APP_USER_ADDRESS })
 										.then((item) => {
-											console.log(item);
 											items.push(item);
 
 											if (index === result.length - 1) {
@@ -63,7 +61,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 											}
 										})
 										.catch((error) => {
-											console.log(error);
 											setHasErrors(true);
 											setIsLoading(false);
 										});
@@ -73,7 +70,6 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 							}
 					}})
 					.catch((error) => {
-						console.log(error);
 						setHasErrors(true);
 						setIsLoading(false);
 					});

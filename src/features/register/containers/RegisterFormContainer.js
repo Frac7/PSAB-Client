@@ -39,11 +39,8 @@ const RegisterFormContainer = ({ user }) => {
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		if (values.documents && !hasErrors) {
 			Storage.put(values.documents.value, values.documents.file)
-				.then((result) => {
-					console.log(result);
-				})
+				.then((result) => {})
 				.catch((error) => {
-					console.log(error);
 					setHasErrors(true);
 				});
 		}

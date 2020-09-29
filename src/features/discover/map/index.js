@@ -30,7 +30,6 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 		// .call({ from : userAddress })
 		.call({ from : process.env.REACT_APP_USER_ADDRESS })
 		.then((total) => {
-			console.log(total);
 			total = parseInt(total);
 			if (!total) {
 				setElements(elements);
@@ -44,7 +43,6 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 					// .call({ from: userAddress })
 					.call({ from: process.env.REACT_APP_USER_ADDRESS })
 					.then((result) => {
-						console.log(result);
 						elements.push({
 							...result,
 							id: i
@@ -57,7 +55,6 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 						}
 					})
 					.catch((error) => {
-						console.log(error);
 						setFetchErrors(true);
 						setIsLoading(false);
 					});
@@ -65,7 +62,6 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 
 		})
 		.catch((error) => {
-			console.log(error);
 			setFetchErrors(true);
 			setIsLoading(false);
 		});

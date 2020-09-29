@@ -29,7 +29,6 @@ const PurchasedPortions = ({ userAddress }) => {
 			// .call({ from: userAddress })
 			.call({ from: process.env.REACT_APP_USER_ADDRESS })
 			.then((portions) => {
-				console.log(portions);
 				if (!portions.length) {
 					setElements(elements);
 					setIsLoading(false);
@@ -41,7 +40,6 @@ const PurchasedPortions = ({ userAddress }) => {
 						// .call({ from: userAddress })
 						.call({ from: process.env.REACT_APP_USER_ADDRESS })
 						.then((result) => {
-							console.log(result);
 							elements.push(result);
 
 							if (index === portions.length - 1) {
@@ -50,14 +48,12 @@ const PurchasedPortions = ({ userAddress }) => {
 							}
 						})
 						.catch((error) => {
-							console.log(error);
 							setFetchErrors(true);
 							setIsLoading(false);
 						});
 				});
 			})
 			.catch((error) => {
-				console.log(error);
 				setFetchErrors(true);
 				setIsLoading(false);
 			});

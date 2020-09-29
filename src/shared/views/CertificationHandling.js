@@ -26,7 +26,6 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 				// .call({ from: userAddress })
 				.call({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					if (result.length) {
 						if (!hasErrors) {
 							result.forEach((id, index) => {
@@ -34,7 +33,6 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 									// .call({ from: userAddress })
 									.call({ from: process.env.REACT_APP_USER_ADDRESS })
 									.then((certification) => {
-										console.log(certification);
 										setData((data) => {
 											data.push(certification);
 											return data;
@@ -44,7 +42,6 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 										}
 									})
 									.catch((error) => {
-										console.log(error);
 										setHasErrors(true);
 										setIsLoading(false);
 									})
@@ -55,7 +52,6 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 					}
 				})
 				.catch((error) => {
-					console.log(error);
 					setHasErrors(true);
 					setIsLoading(false);
 				});

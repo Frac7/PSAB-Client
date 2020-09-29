@@ -42,7 +42,6 @@ function* getUser () {
 			yield put(userReceived({ data: result }));
 		}
 	} catch (error) {
-		console.log(error);
 		yield put(userError({ error }));
 	}
 }

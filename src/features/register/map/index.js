@@ -45,11 +45,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -81,11 +79,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -123,11 +119,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -153,11 +147,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -179,11 +171,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 			});
 		}
@@ -205,11 +195,9 @@ const forms = {
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
