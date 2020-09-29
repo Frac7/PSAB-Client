@@ -52,13 +52,13 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 		.call({ from : userAddress })
 		.then((result) => {
 			console.log(result);
-			if (result.portionsOwned.length === 0) {
+			if (!result.length) {
 				setElements([]);
 				setIsLoading(false);
 				return;
 			}
 
-			result.portionsOwned.forEach((id, index) => {
+			result.forEach((id, index) => {
 				portionInstance.methods.getById(id)
 					.call({ from : userAddress })
 					.then((portion) => {

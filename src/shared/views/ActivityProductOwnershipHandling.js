@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 
 import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
@@ -24,53 +24,55 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
-		setIsOpen((isOpen) => !isOpen);
+		if (!isOpen) {
+			setIsOpen((isOpen) => !isOpen);
 
-		// TODO: set ownership data
-		Object.keys(data).forEach((element) => {
-			setIsLoading(true);
-			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-			contractInstance.methods.getByPortion(id)
-				.call({from: userAddress})
-				.then((result) => {
-					console.log(result);
-					if (result.length) {
-						const items = [];
+			// TODO: set ownership data
+			Object.keys(data).forEach((element) => {
+				setIsLoading(true);
+				const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+				contractInstance.methods.getByPortion(id)
+					.call({ from: userAddress })
+					.then((result) => {
+						console.log(result);
+						if (result.length) {
+							const items = [];
 
-						result.forEach((id, index) => {
-							contractInstance.methods.getById(id)
-								.call({from: userAddress})
-								.then((item) => {
-									console.log(item);
-									items.push(item);
+							result.forEach((id, index) => {
+								contractInstance.methods.getById(id)
+									.call({ from: userAddress })
+									.then((item) => {
+										console.log(item);
+										items.push(item);
 
-									if (index === result.length - 1) {
-										setData((data) => ({
-											...data,
-											[element]: items
-										}));
+										if (index === result.length - 1) {
+											setData((data) => ({
+												...data,
+												[element]: items
+											}));
+											setIsLoading(false);
+										}
+									})
+									.catch((error) => {
+										console.log(error);
+										setHasErrors(true);
 										setIsLoading(false);
-									}
-								})
-								.catch((error) => {
-									console.log(error);
-									setHasErrors(true);
-									setIsLoading(false);
-								});
-						})
-					} else {
+									});
+							})
+						} else {
+							setIsLoading(false);
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						setHasErrors(true);
 						setIsLoading(false);
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-					setHasErrors(true);
-					setIsLoading(false);
-				});
+					});
 
-		});
+			});
+		}
 
-	}, [id, userAddress, setIsOpen, setIsLoading, data, setData]);
+	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, data, setData]);
 
 	return (
 		<>
@@ -99,9 +101,9 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 							</Row>
 						</Container>
 					)}
-					{Object.keys(data).forEach((element, upperIndex) => (
+					{Object.keys(data).map((element, upperIndex) => (
 						<>
-							{data[element].forEach(({ id, description, portion, registeredBy }, lowerIndex) => (
+							{data[element].map(({ id, description, portion, registeredBy }, lowerIndex) => (
 								<DiscoverActivityProduct
 									key={`${upperIndex}${lowerIndex}`}
 									element={element}
