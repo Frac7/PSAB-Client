@@ -42,7 +42,8 @@ const forms = {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.register(description, value, base64)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -77,7 +78,8 @@ const forms = {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -124,7 +126,8 @@ const forms = {
 				expMainActivityCost,
 				expProdActivityCost,
 				contracts[PORTION].address)
-				.send({ from : senderAddress })
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);
@@ -151,9 +154,10 @@ const forms = {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.sell(
 				portion,
-				address,
-				contracts[PORTION].address)
-				.send({ from : senderAddress })
+				address
+			)
+				// .send({ from: senderAddress })
+				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
 					console.log(result);
 					handleFeedback(false);

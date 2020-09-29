@@ -1,12 +1,12 @@
 import contracts from '../../../shared/contracts';
 
 const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, element, subject) => {
+	setIsLoading(true);
 	const elements = [];
 
-	userAddress = process.env.REACT_APP_USER_ADDRESS;
-
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-	contractInstance.methods[`getBy${subject}`](userAddress)
+	// contractInstance.methods[`getBy${subject}`](userAddress)
+	contractInstance.methods[`getBy${subject}`](process.env.REACT_APP_USER_ADDRESS)
 		// .call({ from: userAddress })
 		.call({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((items) => {
@@ -28,7 +28,7 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 							id
 						});
 
-						if (index === items - 1) {
+						if (index === items.length - 1) {
 							setElements(elements);
 							setIsLoading(false);
 						}

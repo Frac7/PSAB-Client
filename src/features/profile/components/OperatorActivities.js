@@ -21,13 +21,13 @@ const OperatorActivities = ({ userAddress }) => {
 	const [maintenance, setMaintenance] = useState([]);
 	const [products, setProducts] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Operator');
 		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, MAINTENANCE_ACTIVITIES, 'Operator');
 		handleFetch(userAddress, setMaintenance, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Operator');
-	}, [userAddress]);
+	}, [userAddress, setProducts, setFetchErrors, setIsLoading]);
 
 	return (
 		<Row className="align-items-center">
@@ -47,7 +47,10 @@ const OperatorActivities = ({ userAddress }) => {
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 				)}
 				{!activities.length && (
-					<Alert color="info" className="my-3">Nessuna attività registrata</Alert>
+					<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
+				)}
+				{!maintenance.length && (
+					<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
 				)}
 				{!products.length && (
 					<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>

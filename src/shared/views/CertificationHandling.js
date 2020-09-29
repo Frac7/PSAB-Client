@@ -31,8 +31,14 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 						if (!hasErrors) {
 							result.forEach((id, index) => {
 								contractInstance.methods.getCertificationById(id)
+									// .call({ from: userAddress })
+									.call({ from: process.env.REACT_APP_USER_ADDRESS })
 									.then((certification) => {
-										setData((data) => data.push(certification));
+										console.log(certification);
+										setData((data) => {
+											data.push(certification);
+											return data;
+										});
 										if (index === result.length - 1) {
 											setIsLoading(false);
 										}
@@ -55,7 +61,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 				});
 		}
 
-	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData, hasErrors, setHasErrors]);
 
 	return (
 		<>
