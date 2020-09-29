@@ -8,7 +8,7 @@ const Title = StyledTitle('h5');
 const DiscoverLand = ({ description, documents }) => (
 	<Container fluid>
 		<Row className="align-items-center my-3">
-			<Col md={3} sm={12}>
+			<Col xl={3} sm={12}>
 				<Title>Descrizione</Title>
 			</Col>
 			<Col>
@@ -17,7 +17,7 @@ const DiscoverLand = ({ description, documents }) => (
 		</Row>
 		{documents && (
 		<Row className="align-items-center my-3">
-			<Col md={3} sm={12}>
+			<Col xl={3} sm={12}>
 				<Title>Documenti</Title>
 			</Col>
 			<Col>

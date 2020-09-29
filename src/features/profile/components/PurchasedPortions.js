@@ -25,7 +25,8 @@ const PurchasedPortions = ({ userAddress }) => {
 		const elements = [];
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		portionInstance.methods.getByBuyer(userAddress)
+		// portionInstance.methods.getByBuyer(userAddress)
+		portionInstance.methods.getByBuyer(process.env.REACT_APP_USER_ADDRESS)
 			// .call({ from: userAddress })
 			.call({ from: process.env.REACT_APP_USER_ADDRESS })
 			.then((portions) => {
@@ -61,7 +62,7 @@ const PurchasedPortions = ({ userAddress }) => {
 
 	return (
 		<Row className="align-items-center">
-			<Col md="auto">
+			<Col xl="auto">
 				<h2>Porzioni di terreno acquistate</h2>
 			</Col>
 			<Col>
@@ -69,7 +70,7 @@ const PurchasedPortions = ({ userAddress }) => {
 					Buyer
 				</StyledBadge>
 			</Col>
-			<Col md={12} sm={12}>
+			<Col xl={12} sm={12}>
 				{isLoading && (
 					<StyledSpinner size="large"/>
 				)}

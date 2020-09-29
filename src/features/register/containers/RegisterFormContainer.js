@@ -74,7 +74,7 @@ const RegisterFormContainer = ({ user }) => {
 					<Col>
 						<h1>Registra {currentForm}</h1>
 					</Col>
-					<Col md={5} sm={12} className="justify-content-center">
+					<Col xl={5} sm={12} className="justify-content-center">
 						<ElementSelector
 							elements={[
 								{
@@ -108,7 +108,7 @@ const RegisterFormContainer = ({ user }) => {
 					</Col>
 				</Row>
 				<Row>
-					<Col md={12} sm={12}>
+					<Col xl={12} sm={12}>
 						<Formik
 							initialValues={initialValues}
 							validationSchema={validationSchema}

@@ -46,7 +46,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 	return (
 		<Container fluid>
 			<Row className="align-items-center justify-content-end my-3">
-				<Col md={9} sm={12} align="end">
+				<Col xl={9} sm={12} align="end">
 					<ActivityProductOwnershipHandling
 						setIsOpen={setIsHistoryOpen}
 						isOpen={isHistoryOpen}
@@ -55,7 +55,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3} sm={12}>
+				<Col xl={3} sm={12}>
 					<Title>Terreno</Title>
 				</Col>
 				<Col>
@@ -68,7 +68,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Col>
 			</Row>
 			<Row className="align-items-center my-3">
-				<Col md={3} sm={12}>
+				<Col xl={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
 				<Col>
@@ -77,7 +77,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 			</Row>
 			{documents && (
 			<Row className="align-items-center my-3">
-				<Col md={3} sm={12}>
+				<Col xl={3} sm={12}>
 					<Title>Documenti</Title>
 				</Col>
 				<Col>
@@ -95,7 +95,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 			</Row>
 			<Collapse isOpen={isDetailsOpen}>
 				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
+					<Col xl={3} sm={12}>
 						<Title>Canone</Title>
 					</Col>
 					<Col>
@@ -103,7 +103,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
+					<Col xl={3} sm={12}>
 						<Title>Durata</Title>
 					</Col>
 					<Col>
@@ -111,7 +111,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
+					<Col xl={3} sm={12}>
 						<Title>Produzione attesa</Title>
 					</Col>
 					<Col>
@@ -119,7 +119,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
+					<Col xl={3} sm={12}>
 						<Title>Costi di manutenzione attesi</Title>
 					</Col>
 					<Col>
@@ -127,7 +127,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
-					<Col md={3} sm={12}>
+					<Col xl={3} sm={12}>
 						<Title>Costi di produzione attesi</Title>
 					</Col>
 					<Col>

@@ -51,7 +51,7 @@ const SignIn = ({
         return (
             <Container fluid>
                 <Row className="justify-content-center align-content-center align-items-center">
-                    <Col md={10} sm={10}>
+                    <Col xl={10} sm={10}>
                         <Alert color="danger">{(error && error.message) || 'Si è verificato un errore'}</Alert>
                     </Col>
                 </Row>
@@ -67,7 +67,7 @@ const SignIn = ({
         return (
             <Container fluid>
                 <Row className="justify-content-center align-content-center align-items-center">
-                    <Col md={1} sm={1}>
+                    <Col xl={1} sm={1}>
                         <StyledSpinner size="large"/>
                     </Col>
                 </Row>
@@ -77,7 +77,7 @@ const SignIn = ({
 
     return (
         <Row className="justify-content-center">
-            <Col md={6} sm={10}>
+            <Col xl={6} sm={10}>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}

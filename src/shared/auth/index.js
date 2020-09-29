@@ -23,7 +23,7 @@ const withAuthentication = (AuthComponent) =>
                 return (
                     <Container fluid>
                         <Row className="justify-content-center align-content-center align-items-center">
-                            <Col md={1} sm={1}>
+                            <Col xl={1} sm={1}>
                                 <StyledSpinner size="large"/>
                             </Col>
                         </Row>
@@ -35,7 +35,7 @@ const withAuthentication = (AuthComponent) =>
                 return (
                     <Container fluid>
                         <Row className="justify-content-center align-content-center align-items-center">
-                            <Col md={12} sm={12}>
+                            <Col xl={12} sm={12}>
                                 <Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dell'account</Alert>
                             </Col>
                         </Row>

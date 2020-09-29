@@ -31,7 +31,7 @@ const OperatorActivities = ({ userAddress }) => {
 
 	return (
 		<Row className="align-items-center">
-			<Col md="auto">
+			<Col xl="auto">
 				<h2>Attività di produzione, manutenzione e prodotti registrati</h2>
 			</Col>
 			<Col>
@@ -39,7 +39,7 @@ const OperatorActivities = ({ userAddress }) => {
 					Operator
 				</StyledBadge>
 			</Col>
-			<Col md={12} sm={12}>
+			<Col xl={12} sm={12}>
 				{isLoading && (
 					<StyledSpinner size="large"/>
 				)}
