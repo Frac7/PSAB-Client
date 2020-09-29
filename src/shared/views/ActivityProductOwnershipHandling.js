@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert, ListGroup, ListGroupItem } from 'reactstrap';
+import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
 
 import DiscoverActivityProduct from './DiscoverActivityProduct';
 import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
@@ -114,36 +114,34 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 						if (element === PORTION) {
 							return (
 								<Container fluid>
-									<Row className="justify-content-center align-content-center align-items-center">
+									<Row className="align-items-center my-3">
 										<Col md={3} sm={12}>
-											<Title>Possessore</Title>
+											<Title>Possessori</Title>
 										</Col>
 									</Row>
-									<Row className="justify-content-center align-content-center align-items-center">
-										<Col>
-											<ListGroup flush>
-												{data[element].map((item, index) => (
-													<ListGroupItem key={index}>{item}</ListGroupItem>
-												))}
-											</ListGroup>
+									<Row className="align-items-center my-3">
+										<Col md={9} sm={12}>
+											{data[PORTION].map((address, index) => (
+												<p align="justify" key={index}>{address}</p>
+											))}
 										</Col>
 									</Row>
 								</Container>
 							);
-						} else {
-							return data[element].map(({id, description, portion, registeredBy}, lowerIndex) => {
-								return (
-									<DiscoverActivityProduct
-										key={`${upperIndex}${lowerIndex}`}
-										element={element}
-										description={description}
-										portion={portion}
-										id={id}
-										registeredBy={registeredBy}
-									/>
-								);
-							})
 						}
+
+						return data[element].map(({id, description, portion, registeredBy}, lowerIndex) => {
+							return (
+								<DiscoverActivityProduct
+									key={`${upperIndex}${lowerIndex}`}
+									element={element}
+									description={description}
+									portion={portion}
+									id={id}
+									registeredBy={registeredBy}
+								/>
+							);
+						});
 					})}
 				</ModalBody>
 			</Modal>
