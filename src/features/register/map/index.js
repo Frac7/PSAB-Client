@@ -99,8 +99,7 @@ const forms = {
 			periodicity: '',
 			expectedProduction: '',
 			expMainActivityCost: '',
-			expProdActivityCost: '',
-			buyer: ''
+			expProdActivityCost: ''
 		},
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione relativa'),
@@ -109,23 +108,18 @@ const forms = {
 			periodicity: string().required('Inserire la periodicità della produzione attesa'),
 			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
-			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori'),
-			buyer: string()
-				.matches(/^0x[a-fA-F0-9]{40}$/g, 'Il formato dell\'indirizzo non è valido')
-				.length(42, 'L\'indirizzo è lungo esattamente 42 caratteri')
-				.required('L\'indirizzo dell\'acquirente è obbligatorio')
+			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
 		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
 				portion,
-				price,
+				price * 100,
 				duration,
 				expectedProduction,
 				periodicity,
-				expMainActivityCost,
-				expProdActivityCost,
-				contracts[PORTION].address)
+				expMainActivityCost * 100,
+				expProdActivityCost * 100)
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {

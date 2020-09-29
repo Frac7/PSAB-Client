@@ -21,8 +21,8 @@ const DiscoverPortion = ({ id, ...rest }) => {
 		price,
 		duration,
 		expectedProduction,
-		expMainActivityCost,
-		expProdActivityCost
+		expectedMaintenanceCost,
+		expectedProdActivityCost
 	} = useMemo(() => {
 		if (rest[0] && rest[1]) {
 			return {
@@ -99,7 +99,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<Title>Canone</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {price && (parseInt(price)/10).toFixed(2)}</p>
+						<p align="justify">€ {price && (parseInt(price)/100).toFixed(2)}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
@@ -123,7 +123,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<Title>Costi di manutenzione attesi</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {expMainActivityCost && (parseInt(expMainActivityCost)/10).toFixed(2)}</p>
+						<p align="justify">€ {expectedMaintenanceCost && (parseInt(expectedMaintenanceCost)/100).toFixed(2)}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
@@ -131,7 +131,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<Title>Costi di produzione attesi</Title>
 					</Col>
 					<Col>
-						<p align="justify">€ {expProdActivityCost && (parseInt(expProdActivityCost)/10).toFixed(2)}</p>
+						<p align="justify">€ {expectedProdActivityCost && (parseInt(expectedProdActivityCost)/100).toFixed(2)}</p>
 					</Col>
 				</Row>
 			</Collapse>
