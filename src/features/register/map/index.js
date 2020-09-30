@@ -36,7 +36,7 @@ const forms = {
 				value: string(),
 				file: mixed(),
 				base64: string()
-			})
+			}).required('Inserire un allegato')
 		}),
 		handleSubmit: ({ description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
@@ -70,7 +70,7 @@ const forms = {
 				value: string(),
 				file: mixed(),
 				base64: string()
-			})
+			}).required('Inserire un allegato')
 		}),
 		handleSubmit: ({ land, description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
@@ -100,18 +100,21 @@ const forms = {
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione relativa'),
 			price: number().required('Il costo relativo al contratto è obbligatorio'),
-			duration: string().required('Le informazioni sulla durata del contratto sono obbligatorie'),
+			duration: number().required('Le informazioni sulla durata del contratto sono obbligatorie'),
 			periodicity: string().required('Inserire la periodicità della produzione attesa'),
 			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
 			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
 		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
+			const today = new Date().getTime();
+			const deadline = new Date(today.getFullYear() + duration, today.getMonth(), today.getDay()).getTime();
+
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
 				portion,
 				price * 100,
-				duration,
+				Math.round(deadline / 1000),
 				expectedProduction,
 				periodicity,
 				expMainActivityCost * 100,
