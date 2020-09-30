@@ -47,7 +47,7 @@ const CertifyFormContainer = ({ user }) => {
 			setHasErrors(hasErrors);
 			setIsOpen(true);
 		}
-		handleSubmit(values, handleFeedback, currentForm, user.data.attributes['custom:eth_address']);
+		handleSubmit(values, handleFeedback, currentForm, user.data.attributes['custom:eth_address'], currentForm);
 	}, [setHasErrors, setIsOpen, currentForm, user]);
 
 	return (

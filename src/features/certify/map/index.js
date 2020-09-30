@@ -1,6 +1,7 @@
 import { number, string, object } from 'yup';
 
 import contracts from '../../../shared/contracts';
+import { PRODUCT } from '../../../shared/values';
 
 const initialValues = {
 	object: '',
@@ -12,10 +13,12 @@ const validationSchema = object().shape({
 	description: string().required('La descrizione della certificazione è obbligatoria')
 });
 
-const handleSubmit = ({ object, description }, handleFeedback, subject, senderAddress) => {
+const handleSubmit = ({ object, description }, handleFeedback, subject, senderAddress, currentForm) => {
 	const contractInstance = new window.web3.eth.Contract(contracts[subject].ABI, contracts[subject].address);
 
-	contractInstance.methods.certify(object, description)
+	const element = currentForm === PRODUCT ? 'Product' : 'Production';
+
+	contractInstance.methods[`certify${element}`](object, description)
 		// .send({ from: senderAddress })
 		.send({ from: process.env.REACT_APP_USER_ADDRESS })
 		.then((result) => {
