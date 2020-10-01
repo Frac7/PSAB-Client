@@ -17,23 +17,23 @@ import {
 const contracts = {
 	[LAND]: {
 		ABI: Land.abi,
-		address: '0x45422801874Fa8875bcBa7fE184C132768A19322'
+		address: '0xC02f04F8Fb21D8dD61248aD0f2bf4d69534F03ea'
 	},
 	[PORTION]: {
 		ABI: Portion.abi,
-		address: '0x2f4eD1Fca0ae50a411Eab90B60F5175A9DbD38d1'
+		address: '0xc021380b552Ae43883E74c6c99824145A1456e95'
 	},
 	[PRODUCT]: {
 		ABI: Product.abi,
-		address: '0x22473bbA0ed6DAd98e80F2ffD17bc9ed6005dF38'
+		address: '0x0E8ddcC72053F225B1Da63284951359515C91638'
 	},
 	[MAINTENANCE_ACTIVITIES]: {
 		ABI: Maintenance.abi,
-		address: '0x0F9a329341CD429f49fd3125e3cde47f3Cd8730F'
+		address: '0x27D99F499085B5413f6F6553A6Fd821d1452B2E9'
 	},
 	[PROD_ACTIVITIES]: {
 		ABI: ProductionActivity.abi,
-		address: '0x2e8EaC0ED127Da0f648B292D114180AE3a4e6245'
+		address: '0x2242bC8fFbBdf2A7A698D5d46112e08A7FD146b1'
 	}
 };
 
