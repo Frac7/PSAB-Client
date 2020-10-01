@@ -25,7 +25,7 @@ const contracts = {
 	},
 	[PRODUCT]: {
 		ABI: Product.abi,
-		address: '0x3Cb3F5F567c7100Ba33559624537fd1285A51069'
+		address: '0x22473bbA0ed6DAd98e80F2ffD17bc9ed6005dF38'
 	},
 	[MAINTENANCE_ACTIVITIES]: {
 		ABI: Maintenance.abi,
@@ -33,7 +33,7 @@ const contracts = {
 	},
 	[PROD_ACTIVITIES]: {
 		ABI: ProductionActivity.abi,
-		address: '0x9701A63A6f47Bb160dD6DBaCf676BF5b04782Bb1'
+		address: '0x2e8EaC0ED127Da0f648B292D114180AE3a4e6245'
 	}
 };
 
