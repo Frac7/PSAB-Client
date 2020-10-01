@@ -98,7 +98,7 @@ const forms = {
 			portionInstance.methods.defineTerms(
 				portion,
 				price * 100,
-				Math.round(deadline / 1000),
+				deadline,
 				expectedProduction,
 				periodicity,
 				expMainActivityCost * 100,
