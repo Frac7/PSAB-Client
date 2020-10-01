@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, number, mixed } from 'yup';
+import { object, string, number, array } from 'yup';
 
 import {
 	LandForm,
@@ -24,24 +24,16 @@ const forms = {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
 			description: '',
-			documents: {
-				value: '',
-				file: null,
-				base64: ''
-			}
+			documents: []
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: object().shape({
-				value: string(),
-				file: mixed(),
-				base64: string()
-			}).required('Inserire un allegato')
+			documents: array().min(1, 'Inserire un allegato')
 		}),
-		handleSubmit: ({ description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, value, base64)
+			landInstance.methods.register(description, documents[3], documents[2])
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
@@ -57,25 +49,17 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			documents: {
-				value: '',
-				file: null,
-				base64: ''
-			}
+			documents: []
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: object().shape({
-				value: string(),
-				file: mixed(),
-				base64: string()
-			}).required('Inserire un allegato')
+			documents: array().min(1, 'Inserire un allegato')
 		}),
-		handleSubmit: ({ land, description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
+			landInstance.methods.divide(land, description, documents[3], documents[2], contracts[PORTION].address)
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {

@@ -20,14 +20,14 @@ const DocumentField = ({
 	const handleFileChange = useCallback((event) => {
 		event.persist();
 
-		const documents = {};
+		const documents = [];
 		if (event.currentTarget.files && event.currentTarget.files.length) {
-			documents.file = event.currentTarget.files[0];
-			documents.value = documents.file.name;
+			documents.push(event.currentTarget.files[0]);
+			documents.push(documents[0].name);
 
 			const reader = new FileReader();
-			reader.readAsDataURL(documents.file);
-			documents.base64 = reader.result;
+			reader.readAsDataURL(documents[0]);
+			documents.push(reader.result);
 		}
 
 		setFieldValue('documents', documents);
