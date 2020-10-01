@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, number, mixed } from 'yup';
+import { object, string, number, array } from 'yup';
 
 import {
 	LandForm,
@@ -24,24 +24,16 @@ const forms = {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
 			description: '',
-			documents: {
-				value: '',
-				file: null,
-				base64: ''
-			}
+			documents: []
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: object().shape({
-				value: string(),
-				file: mixed(),
-				base64: string()
-			})
+			documents: array().min(1, 'Inserire un allegato')
 		}),
-		handleSubmit: ({ description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, value, base64)
+			landInstance.methods.register(description, documents[3], documents[2])
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
@@ -57,25 +49,17 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			documents: {
-				value: '',
-				file: null,
-				base64: ''
-			}
+			documents: []
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: object().shape({
-				value: string(),
-				file: mixed(),
-				base64: string()
-			})
+			documents: array().min(1, 'Inserire un allegato')
 		}),
-		handleSubmit: ({ land, description, documents: { value, base64 } }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, value, base64, contracts[PORTION].address)
+			landInstance.methods.divide(land, description, documents[3], documents[2], contracts[PORTION].address)
 				// .send({ from: senderAddress })
 				.send({ from: process.env.REACT_APP_USER_ADDRESS })
 				.then((result) => {
@@ -100,18 +84,21 @@ const forms = {
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione relativa'),
 			price: number().required('Il costo relativo al contratto è obbligatorio'),
-			duration: string().required('Le informazioni sulla durata del contratto sono obbligatorie'),
+			duration: number().required('Le informazioni sulla durata del contratto sono obbligatorie'),
 			periodicity: string().required('Inserire la periodicità della produzione attesa'),
 			expectedProduction: string().required('Le informazioni sulla produzione attesa sono obbligatorie'),
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
 			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
 		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
+			const today = new Date().getTime();
+			const deadline = new Date(today.getFullYear() + duration, today.getMonth(), today.getDay()).getTime();
+
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
 				portion,
 				price * 100,
-				duration,
+				Math.round(deadline / 1000),
 				expectedProduction,
 				periodicity,
 				expMainActivityCost * 100,

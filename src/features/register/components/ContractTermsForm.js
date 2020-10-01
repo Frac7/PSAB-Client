@@ -98,8 +98,8 @@ const ContractTermsForm = ({
 			</FormGroup>
 			<FormGroup>
 				<Label for="duration">Durata</Label>
-				<Input valid={touched.duration && !errors.duration} type="text" name="duration" id="duration" onChange={handleChange} value={values.duration}/>
-				<FormText>Contratto perpetuo, contratto valido per <i>n</i> anni, ...</FormText>
+				<Input valid={touched.duration && !errors.duration} type="number" name="duration" id="duration" onChange={handleChange} value={values.duration}/>
+				<FormText>Inserire 0 se perpetuo, altrimenti indicare il numero di anni</FormText>
 				{ errors.duration && <FormText color="danger">{errors.duration}</FormText>}
 			</FormGroup>
 			<FormGroup>
