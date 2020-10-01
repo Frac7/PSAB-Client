@@ -91,7 +91,7 @@ const forms = {
 			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
 		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
-			const today = new Date().getTime();
+			const today = new Date();
 			const deadline = duration ?
 				new Date(today.getFullYear() + duration, today.getMonth(), today.getDay()).getTime() : 0;
 
