@@ -75,7 +75,45 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 		});
 }
 
+const fetchPortionsByBuyer = (userAddress, setElements, setIsLoading, setFetchErrors) => {
+	const elements = [];
+
+	const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
+	portionInstance.methods.getByBuyer(userAddress)
+		.call({ from: userAddress })
+		.then((result) => {
+			if (!result.length) {
+				setElements([]);
+				setIsLoading(false);
+				return;
+			}
+
+			result.forEach((id, index) => {
+				portionInstance.methods.getById(id)
+					.call({ from: userAddress })
+					.then((portion) => {
+						if (portion[1].buyer === userAddress) {
+							elements.push(portion[0]);
+							if (index === result.length - 1) {
+								setElements(elements);
+								setIsLoading(false);
+							}
+						}
+					})
+					.catch((error) => {
+						setFetchErrors(true);
+						setIsLoading(false);
+					});
+			});
+		})
+		.catch((error) => {
+			setIsLoading(false);
+			setFetchErrors(true);
+		});
+}
+
 export {
 	fetchLandsByOwner,
-	fetchPortionsByOwner
+	fetchPortionsByOwner,
+	fetchPortionsByBuyer
 }

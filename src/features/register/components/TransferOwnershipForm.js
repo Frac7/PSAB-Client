@@ -4,7 +4,7 @@ import { Alert, Col, Container, Form, FormGroup, FormText, Input, Label, Row } f
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import { fetchPortionsByOwner } from '../../../shared/utils';
+import { fetchPortionsByBuyer, fetchPortionsByOwner } from '../../../shared/utils';
 
 /**
  * Form for selling portion or transfer its ownership.
@@ -35,6 +35,7 @@ const TransferOwnership = ({
 
 	useEffect(() => {
 		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+		fetchPortionsByBuyer(userAddress, setElements, setIsLoading, setFetchErrors);
 	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 
 	if (isLoading) {
