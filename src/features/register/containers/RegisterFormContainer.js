@@ -55,12 +55,12 @@ const RegisterFormContainer = ({ user }) => {
 		if(!hasErrors) {
 			handleSubmit({
 				...values,
-				documents: [
-					...values.documents,
-					values.documents ?
-						`https://psab-documents83040-dev.s3.amazonaws.com/public/${values.documents[1]}` :
-						undefined
-				]
+				...values.documents ? {
+					documents: [
+						...values.documents,
+						`https://psab-documents83040-dev.s3.amazonaws.com/public/${values.documents[1]}`
+					]
+				} : undefined
 			}, handleFeedback, user.data.attributes['custom:eth_address']);
 		} else {
 			handleFeedback(hasErrors);
