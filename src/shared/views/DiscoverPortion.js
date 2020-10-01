@@ -19,6 +19,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 		description,
 		documents,
 		price,
+		periodicity,
 		duration,
 		expectedProduction,
 		expectedMaintenanceCost,
@@ -116,6 +117,14 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</Col>
 					<Col>
 						<p align="justify">{expectedProduction}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-center my-3">
+					<Col xl={3} sm={12}>
+						<Title>Periodicità</Title>
+					</Col>
+					<Col>
+						<p align="justify">{periodicity}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
