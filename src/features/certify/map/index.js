@@ -19,8 +19,7 @@ const handleSubmit = ({ object, description }, handleFeedback, subject, senderAd
 	const element = currentForm === PRODUCT ? 'Product' : 'Production';
 
 	contractInstance.methods[`certify${element}`](object, description)
-		// .send({ from: senderAddress })
-		.send({ from: process.env.REACT_APP_USER_ADDRESS })
+		.send({ from: senderAddress })
 		.then((result) => {
 			handleFeedback(false);
 		})
@@ -34,8 +33,7 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods.getTotal()
-		// .call({ from: userAddress })
-		.call({ from: process.env.REACT_APP_USER_ADDRESS })
+		.call({ from: userAddress })
 		.then((total) => {
 			total = parseInt(total);
 			if (!total) {
@@ -47,8 +45,7 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 			for (let i = 0; i < total; i++) {
 				if (!fetchErrors) {
 					contractInstance.methods.getById(i)
-						// .call({ from: userAddress })
-						.call({ from: process.env.REACT_APP_USER_ADDRESS })
+						.call({ from: userAddress })
 						.then((result) => {
 							elements.push({
 								...result,

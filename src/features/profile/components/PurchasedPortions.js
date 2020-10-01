@@ -25,10 +25,8 @@ const PurchasedPortions = ({ userAddress }) => {
 		const elements = [];
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-		// portionInstance.methods.getByBuyer(userAddress)
-		portionInstance.methods.getByBuyer(process.env.REACT_APP_USER_ADDRESS)
-			// .call({ from: userAddress })
-			.call({ from: process.env.REACT_APP_USER_ADDRESS })
+		portionInstance.methods.getByBuyer(userAddress)
+			.call({ from: userAddress })
 			.then((portions) => {
 				if (!portions.length) {
 					setElements(elements);
@@ -38,8 +36,7 @@ const PurchasedPortions = ({ userAddress }) => {
 
 				portions.forEach((id, index) => {
 					portionInstance.methods.getById(id)
-						// .call({ from: userAddress })
-						.call({ from: process.env.REACT_APP_USER_ADDRESS })
+						.call({ from: userAddress })
 						.then((result) => {
 							elements.push(result);
 

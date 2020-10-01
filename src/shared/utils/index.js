@@ -5,10 +5,8 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 	const elements = [];
 
 	const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
-	// landInstance.methods.getByOwner(userAddress)
-	landInstance.methods.getByOwner(process.env.REACT_APP_USER_ADDRESS)
-		// .call({ from: userAddress })
-		.call({ from: process.env.REACT_APP_USER_ADDRESS })
+	landInstance.methods.getByOwner(userAddress)
+		.call({ from: userAddress })
 		.then((lands) => {
 			if (!lands.length) {
 				setElements(elements);
@@ -18,8 +16,7 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 
 			lands.forEach((id, index) => {
 				landInstance.methods.getById(id)
-					// .call({ from: userAddress })
-					.call({ from: process.env.REACT_APP_USER_ADDRESS })
+					.call({ from: userAddress })
 					.then((result) => {
 						elements.push({
 							...result,
@@ -47,10 +44,8 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 	const elements = [];
 
 	const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
-	// portionInstance.methods.getByOwner(userAddress)
-	portionInstance.methods.getByOwner(process.env.REACT_APP_USER_ADDRESS)
-		// .call({ from: userAddress })
-		.call({ from: process.env.REACT_APP_USER_ADDRESS })
+	portionInstance.methods.getByOwner(userAddress)
+		.call({ from: userAddress })
 		.then((result) => {
 			if (!result.length) {
 				setElements([]);
@@ -60,8 +55,7 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 
 			result.forEach((id, index) => {
 				portionInstance.methods.getById(id)
-					// .call({ from: userAddress })
-					.call({ from: process.env.REACT_APP_USER_ADDRESS })
+					.call({ from: userAddress })
 					.then((portion) => {
 						elements.push(portion[0]);
 						if (index === result.length - 1) {

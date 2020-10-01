@@ -5,10 +5,8 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 	const elements = [];
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-	// contractInstance.methods[`getBy${subject}`](userAddress)
-	contractInstance.methods[`getBy${subject}`](process.env.REACT_APP_USER_ADDRESS)
-		// .call({ from: userAddress })
-		.call({ from: process.env.REACT_APP_USER_ADDRESS })
+	contractInstance.methods[`getBy${subject}`](userAddress)
+		.call({ from: userAddress })
 		.then((items) => {
 			if (!items.length) {
 				setElements(elements);
@@ -18,8 +16,7 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 
 			items.forEach((id, index) => {
 				contractInstance.methods.getById(id)
-					// .call({ from: userAddress })
-					.call({ from: process.env.REACT_APP_USER_ADDRESS })
+					.call({ from: userAddress })
 					.then((result) => {
 						elements.push({
 							...result,
