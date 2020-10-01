@@ -38,7 +38,10 @@ const PurchasedPortions = ({ userAddress }) => {
 					portionInstance.methods.getById(id)
 						.call({ from: userAddress })
 						.then((result) => {
-							elements.push(result);
+							elements.push({
+								...result,
+								id
+							});
 
 							if (index === portions.length - 1) {
 								setElements(elements);
