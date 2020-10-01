@@ -32,12 +32,13 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { a
 			contractInstance.methods.getById(id)
 				.call({ from: userAddress })
 				.then((result) => {
-					console.log(result);
-					setData(result);
+					setData({
+						...result,
+						id
+					});
 					setIsLoading(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					setHasErrors(true);
 					setIsLoading(false);
 				});

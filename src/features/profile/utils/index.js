@@ -35,7 +35,6 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 			});
 		})
 		.catch((error) => {
-			console.log(error);
 			setFetchErrors(true);
 			setIsLoading(false);
 		});

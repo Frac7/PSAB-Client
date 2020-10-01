@@ -48,7 +48,10 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 									contractInstance.methods.getById(id)
 										.call({ from: userAddress })
 										.then((item) => {
-											items.push(item);
+											items.push({
+												...item,
+												id
+											});
 
 											if (index === result.length - 1) {
 												setData((data) => ({

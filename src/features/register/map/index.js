@@ -202,11 +202,9 @@ const forms = {
 			portionInstance.methods.registerMaintenance(description, portion, contracts[MAINTENANCE_ACTIVITIES].address)
 				.send({ from: senderAddress })
 				.then((result) => {
-					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
