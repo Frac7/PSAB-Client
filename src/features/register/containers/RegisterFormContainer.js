@@ -43,7 +43,9 @@ const RegisterFormContainer = ({ user }) => {
 		}
 	}, [user, history]);
 
-	const [currentForm, setCurrentForm] = useState(LAND);
+	const [currentForm, setCurrentForm] = useState(
+		user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString() ? PRODUCT : LAND
+	);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -91,16 +93,20 @@ const RegisterFormContainer = ({ user }) => {
 						<ElementSelector
 							elements={[
 								{
-									type: LAND
+									type: LAND,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: PORTION
+									type: PORTION,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: CONTRACT_TERMS
+									type: CONTRACT_TERMS,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: TRANSFER_OWNERSHIP
+									type: TRANSFER_OWNERSHIP,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
 									type: PRODUCT,
