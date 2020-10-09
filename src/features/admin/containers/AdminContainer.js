@@ -36,7 +36,7 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 
 	const history = useHistory();
 	useEffect(() => {
-		if(!isAdmin) {
+		if(!parseInt(isAdmin)) {
 			history.push(PROFILE);
 		}
 	}, [isAdmin, history]);
