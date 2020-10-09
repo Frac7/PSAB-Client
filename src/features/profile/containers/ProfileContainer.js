@@ -9,7 +9,7 @@ import { Selector } from '../../../store/user/reducer';
 import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
 
 /**
- * User information container.
+ * User information containers.
  *
  * @param data
  * @returns {JSX.Element}

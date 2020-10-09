@@ -20,7 +20,7 @@ import { Selector } from '../../../store/user/reducer';
 import { StyledSpinner } from '../../../shared/styled';
 
 /**
- * Discover section, container for elements details.
+ * Discover section, containers for elements details.
  *
  * @param user
  * @returns {JSX.Element}

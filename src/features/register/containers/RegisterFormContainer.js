@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
@@ -16,10 +16,12 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
-	TRANSFER_OWNERSHIP, OPERATOR, roles
+	TRANSFER_OWNERSHIP, OPERATOR, roles, CERTIFIER
 } from '../../../shared/values';
 import { forms } from '../map';
 import { Selector } from '../../../store/user/reducer';
+import { useHistory } from 'react-router-dom';
+import { PROFILE } from '../../../config/routes';
 
 /**
  * Container for elements registration.
@@ -30,6 +32,17 @@ import { Selector } from '../../../store/user/reducer';
  * @component
  */
 const RegisterFormContainer = ({ user }) => {
+	const history = useHistory();
+
+	useEffect(() => {
+		if(user.data) {
+			const { attributes } = user.data;
+			if (attributes['custom:role'] === roles.indexOf(CERTIFIER).toString()) {
+				history.push(PROFILE);
+			}
+		}
+	}, [user, history]);
+
 	const [currentForm, setCurrentForm] = useState(LAND);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
