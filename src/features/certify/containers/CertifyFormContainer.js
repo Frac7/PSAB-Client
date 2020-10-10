@@ -47,7 +47,7 @@ const CertifyFormContainer = ({ user }) => {
 			setHasErrors(hasErrors);
 			setIsOpen(true);
 		}
-		handleSubmit(values, handleFeedback, currentForm, user.data.attributes['custom:eth_address'], currentForm);
+		handleSubmit(values, handleFeedback, currentForm, user.data.username, currentForm);
 	}, [setHasErrors, setIsOpen, currentForm, user]);
 
 	return (
@@ -81,7 +81,7 @@ const CertifyFormContainer = ({ user }) => {
 						>
 							{props => <CertifyForm
 								currentForm={currentForm}
-								userAddress={user.data.attributes['custom:eth_address']}
+								userAddress={user.data.username}
 								{...props}/>}
 						</Formik>
 					</Col>

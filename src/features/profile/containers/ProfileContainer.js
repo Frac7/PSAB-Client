@@ -19,7 +19,7 @@ import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
 const ProfileContainer = ({ user: { data } }) => {
 	const { attributes: { email, name } } = data;
 	const role = parseInt(data.attributes['custom:role']);
-	const address = data.attributes['custom:eth_address'];
+	const address = data.username;
 
 	return (
 		<Container fluid>

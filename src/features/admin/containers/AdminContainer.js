@@ -44,13 +44,13 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
 		const attributes = {
 			name,
-			'custom:eth_address': address,
+			email,
 			'custom:role': role.toString(),
 			'custom:is_admin': '0'
 		};
 
 		Auth.signUp({
-			username: email,
+			username: address,
 			password,
 			attributes
 		})

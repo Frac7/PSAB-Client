@@ -9,8 +9,8 @@ import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
 
-const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
-	const userAddress = attributes['custom:eth_address'];
+const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username, attributes }} }) => {
+	const userAddress = username;
 
 	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);

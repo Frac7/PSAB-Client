@@ -76,7 +76,7 @@ const RegisterFormContainer = ({ user }) => {
 						`https://psab-documents83040-dev.s3.amazonaws.com/public/${values.documents[1]}`
 					]
 				} : undefined
-			}, handleFeedback, user.data.attributes['custom:eth_address']);
+			}, handleFeedback, user.data.username);
 		} else {
 			handleFeedback(hasErrors);
 		}
@@ -133,7 +133,7 @@ const RegisterFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <Form userAddress={user.data.attributes['custom:eth_address']} {...props}/>}
+							{props => <Form userAddress={user.data.username} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>
