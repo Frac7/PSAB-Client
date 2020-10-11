@@ -39,13 +39,8 @@ const RegisterUserForm = ({
 			{ errors.address && <FormText color="danger">{errors.address}</FormText>}
 		</FormGroup>
 		<FormGroup>
-			<Label for="email">E-mail</Label>
-			<Input valid={touched.email && !errors.email} type="email" name="email" id="email" placeholder="user@example.com" onChange={handleChange} value={values.email}/>
-			{ errors.email && <FormText color="danger">{errors.email}</FormText>}
-		</FormGroup>
-		<FormGroup>
 			<Label for="password">Password</Label>
-			<Input valid={touched.email && !errors.password} type="password" name="password" id="password" onChange={handleChange} value={values.password}/>
+			<Input valid={touched.password && !errors.password} type="password" name="password" id="password" onChange={handleChange} value={values.password}/>
 			<FormText>Almeno 8 caratteri, lettere maiuscole, lettere minuscole, caratteri speciali, numeri</FormText>
 			{ errors.password && <FormText color="danger">{errors.password}</FormText>}
 		</FormGroup>

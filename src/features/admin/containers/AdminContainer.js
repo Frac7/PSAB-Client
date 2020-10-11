@@ -36,21 +36,20 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 
 	const history = useHistory();
 	useEffect(() => {
-		if(!isAdmin) {
+		if(!parseInt(isAdmin)) {
 			history.push(PROFILE);
 		}
 	}, [isAdmin, history]);
 
-	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
+	const onSubmit = useCallback(({ name, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
 		const attributes = {
 			name,
-			'custom:eth_address': address,
 			'custom:role': role.toString(),
 			'custom:is_admin': '0'
 		};
 
 		Auth.signUp({
-			username: email,
+			username: address,
 			password,
 			attributes
 		})

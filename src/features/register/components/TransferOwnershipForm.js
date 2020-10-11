@@ -15,6 +15,8 @@ import { fetchPortionsByBuyer, fetchPortionsByOwner } from '../../../shared/util
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param resetForm
+ * @param initialValues
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
@@ -27,11 +29,17 @@ const TransferOwnership = ({
     isSubmitting,
     handleSubmit,
     handleChange,
+	resetForm,
+	initialValues,
 	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		resetForm(initialValues);
+	}, [resetForm, initialValues]);
 
 	useEffect(() => {
 		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
@@ -109,6 +117,14 @@ TransferOwnership.propTypes = {
 	 * Field changes handling
 	 */
 	handleChange: PropTypes.func,
+	/**
+	 * Form values reset
+	 */
+	resetForm: PropTypes.func,
+	/**
+	 * Initial form values
+	 */
+	initialValues: PropTypes.object,
 	/**
 	 * Ethereum address
 	 */

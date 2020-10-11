@@ -34,8 +34,8 @@ const Header = ({ user }) => {
 				<Nav navbar style={{ width: '100%' }}>
 					<Container fluid>
 						<Row style={{ width: '100%' }} className="justify-content-center">
-								{ menu.map(({ route, label }, index) => {
-									if ((index === 1 && isCertifier) || index !== 1) {
+								{menu.map(({ route, label }, index) => {
+									if ((!index && !isCertifier) || (index === 1 && isCertifier) || index > 1) {
 										return <Col lg={1} md={2} key={index}>
 											<NavItem active={pathname === route}>
 												<Link component={NavLink} to={route}>{label}</Link>

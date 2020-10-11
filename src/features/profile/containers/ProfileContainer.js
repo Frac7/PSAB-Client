@@ -9,7 +9,7 @@ import { Selector } from '../../../store/user/reducer';
 import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
 
 /**
- * User information container.
+ * User information containers.
  *
  * @param data
  * @returns {JSX.Element}
@@ -17,14 +17,14 @@ import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
  * @component
  */
 const ProfileContainer = ({ user: { data } }) => {
-	const { attributes: { email, name } } = data;
+	const { attributes: { name } } = data;
 	const role = parseInt(data.attributes['custom:role']);
-	const address = data.attributes['custom:eth_address'];
+	const address = data.username;
 
 	return (
 		<Container fluid>
 			<ProfileData user={{
-				email,
+				username: address,
 				name
 			}} />
 			<OwnedLands userAddress={address} />

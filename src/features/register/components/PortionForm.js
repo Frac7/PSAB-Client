@@ -17,6 +17,8 @@ import { fetchLandsByOwner } from '../../../shared/utils';
  * @param handleSubmit
  * @param handleChange
  * @param setFieldValue
+ * @param resetForm
+ * @param initialValues
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
@@ -30,11 +32,17 @@ const PortionForm = ({
     handleSubmit,
     handleChange,
 	setFieldValue,
+	resetForm,
+	initialValues,
 	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		resetForm(initialValues);
+	}, [resetForm, initialValues]);
 
 	useEffect(() => {
 		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
@@ -121,7 +129,15 @@ PortionForm.propTypes = {
 	/**
 	 * Field changes handling
 	 */
-	handleChange: PropTypes.func
+	handleChange: PropTypes.func,
+	/**
+	 * Form values reset
+	 */
+	resetForm: PropTypes.func,
+	/**
+	 * Initial form values
+	 */
+	initialValues: PropTypes.object,
 };
 
 export default PortionForm;

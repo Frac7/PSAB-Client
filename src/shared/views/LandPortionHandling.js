@@ -16,8 +16,8 @@ const viewToRender = (props) => ({
 	[PORTION]: <DiscoverPortion {...props} />
 });
 
-const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { attributes }} }) => {
-	const userAddress = attributes['custom:eth_address'];
+const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username, attributes }} }) => {
+	const userAddress = username;
 
 	const [data, setData] = useState({});
 	const [isLoading, setIsLoading] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Formik } from 'formik';
@@ -37,6 +37,8 @@ const SignIn = ({
         isError,
         error
 }}) => {
+    const location = useLocation();
+
     useEffect(() => {
         if (!data) {
             requestUser();
@@ -60,7 +62,7 @@ const SignIn = ({
     }
 
     if (data) {
-        return <Redirect to={PROFILE} />
+        return <Redirect to={(location.state && location.state.from) || PROFILE} />
     }
 
     if (isLoading) {

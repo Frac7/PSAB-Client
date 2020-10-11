@@ -42,11 +42,17 @@ const ContractTermsForm = ({
     isSubmitting,
     handleSubmit,
     handleChange,
+	initialValues,
+	resetForm,
 	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		resetForm(initialValues);
+	}, [resetForm, initialValues]);
 
 	useEffect(() => {
 		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);

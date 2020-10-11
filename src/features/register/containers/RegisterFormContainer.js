@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
@@ -16,10 +16,12 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
-	TRANSFER_OWNERSHIP, OPERATOR, roles
+	TRANSFER_OWNERSHIP, OPERATOR, roles, CERTIFIER
 } from '../../../shared/values';
 import { forms } from '../map';
 import { Selector } from '../../../store/user/reducer';
+import { useHistory } from 'react-router-dom';
+import { PROFILE } from '../../../config/routes';
 
 /**
  * Container for elements registration.
@@ -30,7 +32,20 @@ import { Selector } from '../../../store/user/reducer';
  * @component
  */
 const RegisterFormContainer = ({ user }) => {
-	const [currentForm, setCurrentForm] = useState(LAND);
+	const history = useHistory();
+
+	useEffect(() => {
+		if(user.data) {
+			const { attributes } = user.data;
+			if (attributes['custom:role'] === roles.indexOf(CERTIFIER).toString()) {
+				history.push(PROFILE);
+			}
+		}
+	}, [user, history]);
+
+	const [currentForm, setCurrentForm] = useState(
+		user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString() ? PRODUCT : LAND
+	);
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -58,10 +73,10 @@ const RegisterFormContainer = ({ user }) => {
 				...values.documents && values.documents.length ? {
 					documents: [
 						...values.documents,
-						`https://psab-documents83040-dev.s3.amazonaws.com/public/${values.documents[1]}`
+						`https://psab-documents225914-dev.s3.amazonaws.com/public/${values.documents[1]}`
 					]
 				} : undefined
-			}, handleFeedback, user.data.attributes['custom:eth_address']);
+			}, handleFeedback, user.data.username);
 		} else {
 			handleFeedback(hasErrors);
 		}
@@ -78,16 +93,20 @@ const RegisterFormContainer = ({ user }) => {
 						<ElementSelector
 							elements={[
 								{
-									type: LAND
+									type: LAND,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: PORTION
+									type: PORTION,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: CONTRACT_TERMS
+									type: CONTRACT_TERMS,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
-									type: TRANSFER_OWNERSHIP
+									type: TRANSFER_OWNERSHIP,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{
 									type: PRODUCT,
@@ -114,7 +133,7 @@ const RegisterFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <Form userAddress={user.data.attributes['custom:eth_address']} {...props}/>}
+							{props => <Form userAddress={user.data.username} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>

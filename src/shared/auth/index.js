@@ -10,7 +10,7 @@ import { SIGNIN } from '../../config/routes';
 import { requestUser } from '../../store/user/action';
 import { Selector } from '../../store/user/reducer';
 
-const withAuthentication = (AuthComponent) =>
+const withAuthentication = (AuthComponent, from) =>
     connect((state) => ({ user: Selector.getUser(state) }), { requestUser })(
         ({ requestUser, user: { data, isLoading, isError }}) => {
             useEffect(() => {
@@ -46,7 +46,10 @@ const withAuthentication = (AuthComponent) =>
             if (data) {
                 return <AuthComponent />;
             } else {
-                return <Redirect to={SIGNIN} />
+                return <Redirect to={{
+                    pathname: SIGNIN,
+                    state: { from }
+                }} />
             }
         });
 

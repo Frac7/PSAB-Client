@@ -16,6 +16,8 @@ import { PORTION } from '../../../shared/values';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param resetForm
+ * @param initialValues
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
@@ -28,11 +30,17 @@ const ProductActivitiesForm = ({
     isSubmitting,
     handleSubmit,
     handleChange,
+	resetForm,
+	initialValues,
 	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		resetForm(initialValues);
+	}, [resetForm, initialValues]);
 
 	useEffect(() => {
 		const elements = [];
@@ -145,6 +153,14 @@ ProductActivitiesForm.propTypes = {
 	 * Field changes handling
 	 */
 	handleChange: PropTypes.func,
+	/**
+	 * Form values reset
+	 */
+	resetForm: PropTypes.func,
+	/**
+	 * Initial form values
+	 */
+	initialValues: PropTypes.object,
 	/**
 	 * Current user's Ethereum address
 	 */

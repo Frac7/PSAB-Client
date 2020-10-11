@@ -12,8 +12,8 @@ import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
 
-const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data: { attributes }} }) => {
-	const userAddress = attributes['custom:eth_address'];
+const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data: { username, attributes }} }) => {
+	const userAddress = username;
 
 	const [data, setData] = useState({
 		[PORTION]: [],

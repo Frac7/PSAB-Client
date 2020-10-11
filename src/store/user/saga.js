@@ -9,9 +9,9 @@ import { currentUserInfo, signIn, signOut } from '../../api/user';
 
 function* handleLogin ({ payload: { data }}) {
 	try {
-		const { email, password } = data;
+		const { address, password } = data;
 
-		const { result, error } = yield call(signIn, email, password);
+		const { result, error } = yield call(signIn, address, password);
 
 		if (result) {
 			yield put(loggedIn({ data: result }));
