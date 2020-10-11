@@ -17,15 +17,14 @@ import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
  * @component
  */
 const ProfileContainer = ({ user: { data } }) => {
-	const { attributes: { username, email, name } } = data;
+	const { attributes: { name } } = data;
 	const role = parseInt(data.attributes['custom:role']);
 	const address = data.username;
 
 	return (
 		<Container fluid>
 			<ProfileData user={{
-				username,
-				email,
+				username: address,
 				name
 			}} />
 			<OwnedLands userAddress={address} />
