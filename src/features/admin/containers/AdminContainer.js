@@ -41,10 +41,9 @@ const AdminContainer = ({ user: { data: { attributes: { 'custom:is_admin': isAdm
 		}
 	}, [isAdmin, history]);
 
-	const onSubmit = useCallback(({ name, email, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
+	const onSubmit = useCallback(({ name, address, password, role }, { setSubmitting, setErrors, resetForm }) => {
 		const attributes = {
 			name,
-			email,
 			'custom:role': role.toString(),
 			'custom:is_admin': '0'
 		};

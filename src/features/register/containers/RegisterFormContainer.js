@@ -73,7 +73,7 @@ const RegisterFormContainer = ({ user }) => {
 				...values.documents && values.documents.length ? {
 					documents: [
 						...values.documents,
-						`https://psab-documents83040-dev.s3.amazonaws.com/public/${values.documents[1]}`
+						`https://psab-documents225914-dev.s3.amazonaws.com/public/${values.documents[1]}`
 					]
 				} : undefined
 			}, handleFeedback, user.data.username);
