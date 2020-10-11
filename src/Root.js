@@ -16,15 +16,15 @@ const Root = () => {
 	const { connected } = useWeb3Network('wss://goerli.infura.io/ws/v3/2825ef3aeb9047b7ab6e108500f89b60', {
 		gsn: { signKey: useEphemeralKey() }
 	});
+
+	window.web3 = new Web3(new GSNProvider('https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60', {
+		signKey: Wallet.generate().privKey
+	}));
 	useEffect(() => {
 		if (connected) {
 			setIsLoading(false);
 		}
 	}, [connected]);
-
-	window.web3 = new Web3(new GSNProvider('https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60', {
-		signKey: Wallet.generate().privKey
-	}));
 
 	if (isLoading) {
 		return (

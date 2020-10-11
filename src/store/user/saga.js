@@ -14,6 +14,7 @@ function* handleLogin ({ payload: { data }}) {
 		const { result, error } = yield call(signIn, address, password);
 
 		if (result) {
+			window.web3.eth.defaultAccount = result.username;
 			yield put(loggedIn({ data: result }));
 		} else {
 			yield put(userError({ error }));
@@ -26,6 +27,7 @@ function* handleLogin ({ payload: { data }}) {
 function* handleLogout () {
 	try {
 		yield call(signOut);
+		window.web3.eth.defaultAccount = null;
 		yield put(loggedOut());
 	} catch (error) {
 		yield put(userError({ error }));
@@ -39,6 +41,7 @@ function* getUser () {
 		if (error) {
 			yield put(userError({ error }));
 		} else {
+			window.web3.eth.defaultAccount = result.username;
 			yield put(userReceived({ data: result }));
 		}
 	} catch (error) {
