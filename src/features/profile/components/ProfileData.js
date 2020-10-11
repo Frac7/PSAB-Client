@@ -14,7 +14,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
  * @constructor
  * @component
  */
-const ProfileData = ({ user: { email, name } }) => {
+const ProfileData = ({ user: { username, email, name } }) => {
 	return (
 		<Row className="align-items-center">
 			<Col xl={1} sm={1} align="center">
@@ -23,12 +23,17 @@ const ProfileData = ({ user: { email, name } }) => {
 			<Col>
 				<h1>{name}</h1>
 				<h6>{email}</h6>
+				<h6>{username}</h6>
 			</Col>
 		</Row>
 	)
 };
 
 ProfileData.propTypes = {
+	/**
+	 * User's address
+	 */
+	username: PropTypes.string,
 	/**
 	 * User's email
 	 */

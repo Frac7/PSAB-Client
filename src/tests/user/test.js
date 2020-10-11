@@ -72,7 +72,7 @@ describe('User actions test: asynchronous', () => {
 
 	it('Requests login and logs in successfully', () => {
 		Auth.signIn =
-			jest.fn().mockImplementation((email, password) => {
+			jest.fn().mockImplementation((address, password) => {
 				return Promise
 					.resolve('Some user data');
 		});
@@ -89,7 +89,7 @@ describe('User actions test: asynchronous', () => {
 			}
 		});
 		sagaMiddleware.run(handleLogin, {
-			payload: { data: { email: 'user@email.com', password: '12345678' }}});
+			payload: { data: { username: 'eth_address', password: '12345678' }}});
 
 		const expectedActions = [
 			{ type: TYPES.REQUEST_LOGIN },
@@ -105,7 +105,7 @@ describe('User actions test: asynchronous', () => {
 
 	it('Requests login and doesn\'t log in', () => {
 		Auth.signIn =
-			jest.fn().mockImplementation((email, password) => {
+			jest.fn().mockImplementation((address, password) => {
 				return Promise
 					.reject(new Error('User error'));
 			});
@@ -122,7 +122,7 @@ describe('User actions test: asynchronous', () => {
 			}
 		});
 		sagaMiddleware.run(handleLogin, {
-			payload: { data: { email: 'user@email.com', password: '12345678' }}});
+			payload: { data: { username: 'eth_address', password: '12345678' }}});
 
 		const expectedActions = [
 			{ type: TYPES.REQUEST_LOGIN },
@@ -267,10 +267,10 @@ describe('User sagas test: "testSaga"', () => {
 		testSaga(handleLogin, {
 			payload: {
 				data: {
-					email: 'user@email.com', password: '12345678'
+					username: 'eth_address', password: '12345678'
 				}}})
 			.next()
-			.call(signIn, 'user@email.com', '12345678')
+			.call(signIn, 'eth_address', '12345678')
 			.next({ result: 'Some user data' })
 			.put(loggedIn({ data: 'Some user data' }))
 			.next()
@@ -282,10 +282,10 @@ describe('User sagas test: "testSaga"', () => {
 		testSaga(handleLogin, {
 			payload: {
 				data: {
-					email: 'user@email.com', password: '12345678'
+					username: 'eth_address', password: '12345678'
 				}}})
 			.next()
-			.call(signIn, 'user@email.com', '12345678')
+			.call(signIn, 'eth_address', '12345678')
 			.throw(new Error('User error'))
 			.put(userError({ error: new Error('User error') }))
 			.next()
@@ -339,11 +339,11 @@ describe('User sagas test: "testSaga"', () => {
 describe('User sagas test: "expectSaga"', () => {
 	it('Logs in', () => {
 		expectSaga(handleLogin, {
-			payload: { data: { email: 'user@email.com', password: '12345678'} }
+			payload: { data: { username: 'eth_address', password: '12345678'} }
 		})
 			.provide([
 				[matchers.call.fn(
-					signIn, 'user@email.com', '12345678'), {
+					signIn, 'eth_address', '12345678'), {
 					result: 'Some user data'
 				}]
 			])
@@ -354,10 +354,10 @@ describe('User sagas test: "expectSaga"', () => {
 
 	it('Doesn\'t log in', () => {
 		expectSaga(handleLogin, {
-			payload: { data: { email: 'user@email.com', password: '12345678'} }
+			payload: { data: { username: 'eth_address', password: '12345678'} }
 		})
 			.provide([
-				[matchers.call.fn(signIn, 'user@email.com', '12345678'),
+				[matchers.call.fn(signIn, 'eth_address', '12345678'),
 					throwError(new Error('User error'))]
 			])
 			.put(userError({ error: new Error('User error') }))

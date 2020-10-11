@@ -1,11 +1,13 @@
 import { object, string } from 'yup';
 
 const initialValues = {
-    email: '',
+    address: '',
     password: ''
 };
 const validationSchema = object().shape(({
-    email: string().email('E-mail non valida').required('Inserire l\'e-mail'),
+    address: string()
+        .required('Inserire l\'indirizzo')
+        .length(42, 'L\'address è lungo esattamente 42 caratteri'),
     password: string().required('Inserire la password')
 }));
 
