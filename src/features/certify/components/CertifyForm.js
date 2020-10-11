@@ -15,6 +15,8 @@ import { handleFetching } from '../map';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param resetForm
+ * @param initialValues
  * @param currentForm
  * @param userAddress
  * @returns {JSX.Element}
@@ -28,12 +30,18 @@ const ProductActivitiesForm = ({
 	isSubmitting,
 	handleSubmit,
 	handleChange,
+	resetForm,
+	initialValues,
 	currentForm,
 	userAddress
 }) => {
 	const [elements, setElements] = useState([]);
 	const [fetchErrors, setFetchErrors] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		resetForm(initialValues);
+	}, [resetForm, initialValues]);
 
 	useEffect(() => {
 		handleFetching(userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading, currentForm);
@@ -111,6 +119,14 @@ ProductActivitiesForm.propTypes = {
 	 * Field changes handling
 	 */
 	handleChange: PropTypes.func,
+	/**
+	 * Form values reset
+	 */
+	resetForm: PropTypes.func,
+	/**
+	 * Initial form values
+	 */
+	initialValues: PropTypes.object,
 	/**
 	 * Current form, product or production activity
 	 */
