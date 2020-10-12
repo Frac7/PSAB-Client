@@ -9,7 +9,7 @@ import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
 
-const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username, attributes }} }) => {
+const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username }} }) => {
 	const userAddress = username;
 
 	const [data, setData] = useState([]);

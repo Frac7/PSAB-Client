@@ -16,7 +16,7 @@ const viewToRender = (props) => ({
 	[PORTION]: <DiscoverPortion {...props} />
 });
 
-const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username, attributes }} }) => {
+const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username }} }) => {
 	const userAddress = username;
 
 	const [data, setData] = useState({});
