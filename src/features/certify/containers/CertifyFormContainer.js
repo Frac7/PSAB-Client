@@ -49,17 +49,11 @@ const CertifyFormContainer = ({ user }) => {
 			setSubmitting(false);
 
 			setHasErrors(hasErrors);
-			setIsLoading(false);
 			setIsOpen(true);
+			setIsLoading(false);
 		}
 		handleSubmit(values, handleFeedback, currentForm, user.data.username, currentForm);
 	}, [setHasErrors, setIsOpen, currentForm, user]);
-
-	if (isLoading) {
-		return (
-			<TransactionLoader />
-		);
-	}
 
 	return (
 		<>
@@ -83,6 +77,7 @@ const CertifyFormContainer = ({ user }) => {
 						/>
 					</Col>
 				</Row>
+				{isLoading && <TransactionLoader />}
 				<Row>
 					<Col xl={12} sm={12}>
 						<Formik

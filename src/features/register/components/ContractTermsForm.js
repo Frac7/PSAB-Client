@@ -30,6 +30,8 @@ import { fetchPortionsByOwner } from '../../../shared/utils';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param initialValues
+ * @param resetForm
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor

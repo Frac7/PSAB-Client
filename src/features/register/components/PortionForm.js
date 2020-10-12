@@ -89,7 +89,7 @@ const PortionForm = ({
 			</FormGroup>
 			<FormGroup>
 				<Label for="documents">Documenti</Label>
-				<FormText>Deve essere caricato un documento al minimo; una volta inserito un file, apparirà un nuovo campo di input per ulteriori file</FormText>
+				<FormText>Deve essere caricato un documento al minimo</FormText>
 				<DocumentField
 					setFieldValue={setFieldValue}
 					values={values}

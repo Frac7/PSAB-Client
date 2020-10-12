@@ -65,11 +65,12 @@ const RegisterFormContainer = ({ user }) => {
 		}
 
 		const handleFeedback = (hasErrors) => {
-			setHasErrors(hasErrors);
-			setIsLoading(false);
-			setIsOpen(true);
 			resetForm(initialValues);
 			setSubmitting(false);
+
+			setHasErrors(hasErrors);
+			setIsOpen(true);
+			setIsLoading(false);
 		}
 
 		if(!hasErrors) {
@@ -86,12 +87,6 @@ const RegisterFormContainer = ({ user }) => {
 			handleFeedback(hasErrors);
 		}
 	}, [initialValues, handleSubmit, hasErrors, user]);
-
-	if (isLoading) {
-		return (
-			<TransactionLoader />
-		);
-	}
 
 	return (
 		<>
@@ -137,6 +132,7 @@ const RegisterFormContainer = ({ user }) => {
 						/>
 					</Col>
 				</Row>
+				{isLoading && <TransactionLoader />}
 				<Row>
 					<Col xl={12} sm={12}>
 						<Formik

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Web3 from 'web3';
+
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -13,6 +15,8 @@ import * as serviceWorker from './serviceWorker';
 import configureAwsAmplify from './config/aws-amplify';
 
 configureAwsAmplify();
+
+window.web3 = new Web3('https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60');
 
 ReactDOM.render(
 	<Provider store={store}>
