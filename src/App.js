@@ -13,7 +13,7 @@ const App = () => (
 			<Col xl={6} sm={10}>
 				<Suspense fallback={
 					<Container fluid>
-						<Row className="justify-content-center align-content-center align-items-center">
+						<Row className="my-3 justify-content-center align-content-center align-items-center">
 							<Col xl={1} sm={1}>
 								<StyledSpinner size="large"/>
 							</Col>
