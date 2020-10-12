@@ -41,7 +41,7 @@ const OwnedLands = ({ userAddress }) => {
 				{fetchErrors && (
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
 				)}
-				{!elements.length && (
+				{!elements.length && !isLoading && !fetchErrors && (
 					<Alert color="info" className="my-3">Nessun terreno posseduto</Alert>
 				)}
 				<ListGroup flush>

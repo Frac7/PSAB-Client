@@ -77,7 +77,7 @@ const PurchasedPortions = ({ userAddress }) => {
 				{fetchErrors && (
 					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
 				)}
-				{!elements.length && (
+				{!elements.length && !isLoading && !fetchErrors && (
 					<Alert color="info" className="my-3">Nessuna porzione di terreno acquistata</Alert>
 				)}
 				<ListGroup flush>

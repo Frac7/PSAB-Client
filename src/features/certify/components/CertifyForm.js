@@ -44,6 +44,7 @@ const ProductActivitiesForm = ({
 	}, [resetForm, initialValues]);
 
 	useEffect(() => {
+		setElements([]);
 		handleFetching(userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading, currentForm);
 	}, [currentForm, userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading]);
 

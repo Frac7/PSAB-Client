@@ -23,6 +23,7 @@ const elementWrappers = {
 }
 
 const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, element) => {
+	setIsLoading(true);
 	const elements = [];
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
