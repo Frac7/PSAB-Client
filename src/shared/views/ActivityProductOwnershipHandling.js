@@ -80,7 +80,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 			});
 		}
 
-	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, data, setData]);
+	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, initialData, data, setData]);
 
 	return (
 		<>
