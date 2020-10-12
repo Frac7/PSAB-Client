@@ -26,6 +26,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { u
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
+			setData({});
 			setIsLoading(true);
 
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);

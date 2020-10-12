@@ -19,6 +19,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
+			setData([]);
 			setIsLoading(true);
 
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
@@ -83,6 +84,13 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 								</Col>
 							</Row>
 						</Container>
+					)}
+					{!data.length && !isLoading && !hasErrors && (
+						<Row className="justify-content-center align-content-center align-items-center">
+							<Col xl={12} sm={12}>
+								<Alert color="info" className="my-3">Nessuna certificazione</Alert>
+							</Col>
+						</Row>
 					)}
 					<ListGroup flush>
 						{data.map(({ description, certifier }, index) => (
