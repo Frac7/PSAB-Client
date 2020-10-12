@@ -8,6 +8,7 @@ import Storage from '@aws-amplify/storage';
 
 import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
+import TransactionLoader from '../../../shared/transaction-loader';
 
 import {
 	LAND,
@@ -49,9 +50,12 @@ const RegisterFormContainer = ({ user }) => {
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
+		setIsLoading(true);
+
 		if (values.documents && values.documents.length && !hasErrors) {
 			Storage.put(values.documents[1], values.documents[0])
 				.then((result) => {})
@@ -62,6 +66,7 @@ const RegisterFormContainer = ({ user }) => {
 
 		const handleFeedback = (hasErrors) => {
 			setHasErrors(hasErrors);
+			setIsLoading(false);
 			setIsOpen(true);
 			resetForm(initialValues);
 			setSubmitting(false);
@@ -81,6 +86,12 @@ const RegisterFormContainer = ({ user }) => {
 			handleFeedback(hasErrors);
 		}
 	}, [initialValues, handleSubmit, hasErrors, user]);
+
+	if (isLoading) {
+		return (
+			<TransactionLoader />
+		);
+	}
 
 	return (
 		<>
