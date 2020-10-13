@@ -27,10 +27,16 @@ const SeedPhraseForm = ({
 }) => (
 	<Form onSubmit={handleSubmit} noValidate>
 		<FormGroup>
-			<Label for="username">Seed Phrase</Label>
+			<Label for="phrase">Seed Phrase</Label>
 			<Input valid={touched.phrase && !errors.phrase} type="textarea" name="phrase" id="phrase" onChange={handleChange} value={values.phrase}/>
 			{errors.phrase && <FormText color="danger">{errors.phrase}</FormText>}
 			<FormText>Inserire la frase composta da 12 parole utilizzata per sbloccare il wallet</FormText>
+		</FormGroup>
+		<FormGroup>
+			<Label for="index">Indice dell'address</Label>
+			<Input valid={touched.index && !errors.index} type="number" name="index" id="index" onChange={handleChange} value={values.index}/>
+			{errors.index && <FormText color="danger">{errors.index}</FormText>}
+			<FormText>Inserire l'indice, con base 0, che identifica l'address da utilizzare</FormText>
 		</FormGroup>
 		<StyledFilledButton type="submit" disabled={isSubmitting}>
 			Conferma

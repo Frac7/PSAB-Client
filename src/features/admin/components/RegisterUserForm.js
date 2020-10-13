@@ -29,7 +29,7 @@ const RegisterUserForm = ({
 }) => (
 	<Form onSubmit={handleSubmit} noValidate>
 		<FormGroup>
-			<Label for="username">Nome</Label>
+			<Label for="name">Nome</Label>
 			<Input valid={touched.name && !errors.name} type="text" name="name" id="name" onChange={handleChange} value={values.name}/>
 			{ errors.name && <FormText color="danger">{errors.name}</FormText>}
 		</FormGroup>

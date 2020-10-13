@@ -39,6 +39,7 @@ const forms = {
 					handleFeedback(false);
 				})
 				.catch((error) => {
+					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -64,6 +65,7 @@ const forms = {
 					handleFeedback(false);
 				})
 				.catch((error) => {
+					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -109,6 +111,7 @@ const forms = {
 					handleFeedback(false);
 				})
 				.catch((error) => {
+					console.log(error);
 					handleFeedback(true);
 				});
 		}
@@ -136,6 +139,7 @@ const forms = {
 					handleFeedback(false);
 				})
 				.catch((error) => {
+					console.log(error);
 					handleFeedback(true);
 				});
 		}
