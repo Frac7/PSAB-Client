@@ -23,7 +23,12 @@ const withAuthentication = (AuthComponent, from) =>
                 return (
                     <Container fluid>
                         <Row className="my-3 justify-content-center align-content-center align-items-center">
-                            <Col xl={1} sm={1}>
+                            <Col xl="auto" sm="auto">
+                                <h3>Uscita dall'applicazione in corso...</h3>
+                            </Col>
+                        </Row>
+                        <Row className="my-3 justify-content-center align-content-center align-items-center">
+                            <Col xl="auto" sm="auto">
                                 <StyledSpinner size="large"/>
                             </Col>
                         </Row>

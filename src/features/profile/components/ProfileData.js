@@ -17,7 +17,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 const ProfileData = ({ user: { username, name } }) => {
 	return (
 		<Row className="align-items-center">
-			<Col xl={1} sm={1} align="center">
+			<Col xl="auto" sm="auto" align="center">
 				<FontAwesomeIcon icon={faUser} size="lg" />
 			</Col>
 			<Col>

@@ -94,7 +94,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 					{isLoading && (
 						<Container fluid>
 							<Row className="my-3 justify-content-center align-content-center align-items-center">
-								<Col xl={1} sm={1}>
+								<Col xl="auto" sm="auto">
 									<StyledSpinner size="large"/>
 								</Col>
 							</Row>
