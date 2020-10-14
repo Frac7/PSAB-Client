@@ -23,7 +23,7 @@ const withWallet = (Component) =>
 					providerOrUrl: 'https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60',
 					sharedNonce: false
 				});
-				
+
 				if (!provider.getAddresses().includes(username.toLowerCase())) {
 					setErrors({ phrase: 'L\'address dell\'account non è incluso in questo wallet' });
 				} else {

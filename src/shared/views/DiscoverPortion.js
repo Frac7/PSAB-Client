@@ -110,7 +110,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<Title>Durata</Title>
 					</Col>
 					<Col>
-						<p align="justify">{duration ? `Fino al ${new Date(parseInt(duration)).toLocaleDateString()}` : 'Perpetua'}</p>
+						<p align="justify">{parseInt(duration) ? `Fino al ${new Date(parseInt(duration)).toLocaleDateString()}` : 'Perpetua'}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">
