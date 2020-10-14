@@ -26,8 +26,10 @@ const DocumentField = ({
 			documents.push(documents[0].name);
 
 			const reader = new FileReader();
+			reader.addEventListener('load', () => {
+				documents.push(reader.result);
+			});
 			reader.readAsDataURL(documents[0]);
-			documents.push(reader.result);
 		}
 
 		setFieldValue('documents', documents);
