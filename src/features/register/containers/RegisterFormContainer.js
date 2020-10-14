@@ -53,6 +53,12 @@ const RegisterFormContainer = ({ user }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
+	useEffect(() => {
+		if (hasErrors && isOpen) {
+			setTimeout(() => setHasErrors(false), 5000);
+		}
+	}, [hasErrors, setHasErrors, isOpen])
+
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		setIsLoading(true);
 
