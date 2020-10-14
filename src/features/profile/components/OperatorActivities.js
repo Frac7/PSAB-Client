@@ -24,8 +24,11 @@ const OperatorActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
+		setProducts([]);
 		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Operator');
+		setActivities([]);
 		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, MAINTENANCE_ACTIVITIES, 'Operator');
+		setMaintenance([]);
 		handleFetch(userAddress, setMaintenance, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Operator');
 	}, [userAddress, setProducts, setFetchErrors, setIsLoading]);
 

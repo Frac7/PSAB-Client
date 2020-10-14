@@ -23,7 +23,9 @@ const CertifierActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		setProducts([]);
 		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Certifier');
+		setActivities([]);
 		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Certifier');
 	}, [userAddress]);
 

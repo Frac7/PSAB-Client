@@ -1,14 +1,17 @@
 import React, { useCallback, useState } from 'react';
+import { connect } from 'react-redux';
+
 import { Formik } from 'formik';
 import { string, object, number } from 'yup';
-
 import { Col, Container, Row } from 'reactstrap';
-
-import SeedPhraseForm from './SeedPhraseForm';
 import HDWalletProvider from '@truffle/hdwallet-provider';
 
+import SeedPhraseForm from './SeedPhraseForm';
+import { Selector } from '../../store/user/reducer';
+
 const withWallet = (Component) =>
-	() => {
+	connect((state) => ({ user: Selector.getUser(state) }))(
+		({ user: { data: { username } }}) => {
 		const [isHDWalletProvider, setIsHDWalletProvider] = useState(window.web3.currentProvider.constructor.name === 'HDWalletProvider');
 
 		const onSubmit = useCallback(({ phrase }, { setSubmitting, setErrors }) => {
@@ -20,13 +23,17 @@ const withWallet = (Component) =>
 					providerOrUrl: 'https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60',
 					sharedNonce: false
 				});
-
-				window.web3.setProvider(provider);
-				setIsHDWalletProvider(true);
+				
+				if (!provider.getAddresses().includes(username.toLowerCase())) {
+					setErrors({ phrase: 'L\'address dell\'account non è incluso in questo wallet' });
+				} else {
+					window.web3.setProvider(provider);
+					setIsHDWalletProvider(true);
+				}
 			} catch(error) {
 				setErrors({ phrase: error.message });
 			}
-		}, [setIsHDWalletProvider]);
+		}, [username, setIsHDWalletProvider]);
 
 		if (!isHDWalletProvider) {
 			return (
@@ -61,6 +68,6 @@ const withWallet = (Component) =>
 		} else {
 			return <Component />;
 		}
-	};
+	});
 
 export default withWallet;

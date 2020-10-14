@@ -21,6 +21,7 @@ const OwnedLands = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		setElements([]);
 		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
 	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 

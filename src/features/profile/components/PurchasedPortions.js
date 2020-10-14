@@ -23,6 +23,7 @@ const PurchasedPortions = ({ userAddress }) => {
 
 	useEffect(() => {
 		const elements = [];
+		setElements([]);
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 		portionInstance.methods.getByBuyer(userAddress)
