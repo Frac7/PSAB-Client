@@ -91,6 +91,7 @@ const PortionForm = ({
 				<Label for="documents">Documenti</Label>
 				<FormText>Deve essere caricato un documento al minimo</FormText>
 				<DocumentField
+					isSubmitting={isSubmitting}
 					setFieldValue={setFieldValue}
 					values={values}
 					errors={errors}

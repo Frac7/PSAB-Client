@@ -76,7 +76,7 @@ const ProductActivitiesForm = ({
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Oggetto della certificazione</Label>
-				<Input valid={touched.object && !errors.object} type="select" name="object" id="object" onChange={handleChange} value={values.object}>
+				<Input valid={touched.object && !errors.object} type="select" name="object" id="object" onChange={handleChange} value={values.object} disabled={isSubmitting}>
 					<option value=""/>
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
@@ -85,7 +85,7 @@ const ProductActivitiesForm = ({
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={
-					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
+					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description} disabled={isSubmitting}/>
 				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
