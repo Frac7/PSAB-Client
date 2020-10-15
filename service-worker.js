@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/PSAB-Client/precache-manifest.a9bdbd6361efae9088753cd8c09bf572.js"
+  "/PSAB-Client/precache-manifest.69aba7620f13ca84de61305225958c3e.js"
 );
 
 self.addEventListener('message', (event) => {
