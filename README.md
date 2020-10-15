@@ -18,7 +18,6 @@ This project was created with:
 
 # Getting started
 ## Development
-- Install MetaMask
 - `yarn install`
 - `yarn start`
 ## Test
