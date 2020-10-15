@@ -30,42 +30,46 @@ const CertifierActivities = ({ userAddress }) => {
 	}, [userAddress]);
 
 	return (
-		<Row className="align-items-center">
-			<Col xl="auto">
-				<h2>Attività di produzione e prodotti certificati</h2>
-			</Col>
-			<Col>
-				<StyledBadge>
-					Certifier
-				</StyledBadge>
-			</Col>
-			<Col xl={12} sm={12}>
-				{isLoading && (
-					<StyledSpinner size="large"/>
-				)}
-				{fetchErrors && (
-					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
-				)}
-				{!activities.length && (
-					<Alert color="info" className="my-3">Nessuna attività certificata</Alert>
-				)}
-				{!products.length && (
-					<Alert color="info" className="my-3">Nessun prodotto certificato</Alert>
-				)}
-				<ListGroup flush>
-					{activities.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
-						</ListGroupItem>
-					))}
-					{products.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverActivityProduct {...element} element={PRODUCT} />
-						</ListGroupItem>
-					))}
-				</ListGroup>
-			</Col>
-		</Row>
+		<>
+			<Row className="my-3 align-items-center">
+				<Col xl="auto">
+					<h2>Attività di produzione e prodotti certificati</h2>
+				</Col>
+				<Col>
+					<StyledBadge>
+						Certifier
+					</StyledBadge>
+				</Col>
+			</Row>
+			<Row className="my-3 align-items-center">
+				<Col xl={12} sm={12}>
+					{isLoading && (
+						<StyledSpinner size="large"/>
+					)}
+					{fetchErrors && (
+						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
+					)}
+					{!activities.length && (
+						<Alert color="info" className="my-3">Nessuna attività certificata</Alert>
+					)}
+					{!products.length && (
+						<Alert color="info" className="my-3">Nessun prodotto certificato</Alert>
+					)}
+					<ListGroup flush>
+						{activities.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
+							</ListGroupItem>
+						))}
+						{products.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverActivityProduct {...element} element={PRODUCT} />
+							</ListGroupItem>
+						))}
+					</ListGroup>
+				</Col>
+			</Row>
+		</>
 	)
 };
 

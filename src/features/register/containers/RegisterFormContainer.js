@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
@@ -53,6 +53,8 @@ const RegisterFormContainer = ({ user }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
+	const form = useRef(null);
+
 	useEffect(() => {
 		if (hasErrors && isOpen) {
 			setTimeout(() => setHasErrors(false), 5000);
@@ -71,6 +73,9 @@ const RegisterFormContainer = ({ user }) => {
 		}
 
 		const handleFeedback = (hasErrors) => {
+			if ((currentForm === LAND || currentForm === PORTION) && form.current) {
+				form.current.reset();
+			}
 			resetForm(initialValues);
 			setSubmitting(false);
 
@@ -92,7 +97,7 @@ const RegisterFormContainer = ({ user }) => {
 		} else {
 			handleFeedback(hasErrors);
 		}
-	}, [initialValues, handleSubmit, hasErrors, user]);
+	}, [currentForm, initialValues, handleSubmit, hasErrors, user]);
 
 	return (
 		<>
@@ -146,7 +151,7 @@ const RegisterFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <Form userAddress={user.data.username} {...props}/>}
+							{props => <Form reference={form} userAddress={user.data.username} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>

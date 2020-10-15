@@ -8,6 +8,7 @@ import DocumentField from './DocumentField';
 /**
  * Land registration form.
  *
+ * @param reference
  * @param values
  * @param touched
  * @param errors
@@ -22,6 +23,7 @@ import DocumentField from './DocumentField';
  * @component
  */
 const LandForm = ({
+	reference,
 	values,
 	touched,
 	errors,
@@ -37,7 +39,7 @@ const LandForm = ({
 	}, [resetForm, initialValues]);
 
 	return (
-		<Form onSubmit={handleSubmit} noValidate>
+		<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
@@ -63,6 +65,10 @@ const LandForm = ({
 }
 
 LandForm.propTypes = {
+	/**
+	 * Form reference
+	 */
+	reference: PropTypes.object,
 	/**
 	 * Form values
 	 */

@@ -62,34 +62,38 @@ const PurchasedPortions = ({ userAddress }) => {
 	}, [userAddress]);
 
 	return (
-		<Row className="align-items-center">
-			<Col xl="auto">
-				<h2>Porzioni di terreno acquistate</h2>
-			</Col>
-			<Col>
-				<StyledBadge>
-					Buyer
-				</StyledBadge>
-			</Col>
-			<Col xl={12} sm={12}>
-				{isLoading && (
-					<StyledSpinner size="large"/>
-				)}
-				{fetchErrors && (
-					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
-				)}
-				{!elements.length && !isLoading && !fetchErrors && (
-					<Alert color="info" className="my-3">Nessuna porzione di terreno acquistata</Alert>
-				)}
-				<ListGroup flush>
-					{elements.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverPortion {...element} />
-						</ListGroupItem>
-					))}
-				</ListGroup>
-			</Col>
-		</Row>
+		<>
+			<Row className="my-3 align-items-center">
+				<Col xl="auto">
+					<h2>Porzioni di terreno acquistate</h2>
+				</Col>
+				<Col>
+					<StyledBadge>
+						Buyer
+					</StyledBadge>
+				</Col>
+			</Row>
+			<Row className="my-3 align-items-center">
+				<Col xl={12} sm={12}>
+					{isLoading && (
+						<StyledSpinner size="large"/>
+					)}
+					{fetchErrors && (
+						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento delle porzioni di terreno</Alert>
+					)}
+					{!elements.length && !isLoading && !fetchErrors && (
+						<Alert color="info" className="my-3">Nessuna porzione di terreno acquistata</Alert>
+					)}
+					<ListGroup flush>
+						{elements.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverPortion {...element} />
+							</ListGroupItem>
+						))}
+					</ListGroup>
+				</Col>
+			</Row>
+		</>
 	)
 };
 

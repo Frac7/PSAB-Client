@@ -58,11 +58,6 @@ const SignIn = ({
             <Container fluid>
                 <Row className="my-3 justify-content-center align-content-center align-items-center">
                     <Col xl="auto" sm="auto">
-                        <h3>Accesso in corso...</h3>
-                    </Col>
-                </Row>
-                <Row className="my-3 justify-content-center align-content-center align-items-center">
-                    <Col xl="auto" sm="auto">
                         <StyledSpinner size="large"/>
                     </Col>
                 </Row>

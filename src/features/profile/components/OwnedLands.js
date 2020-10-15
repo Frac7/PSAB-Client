@@ -26,34 +26,38 @@ const OwnedLands = ({ userAddress }) => {
 	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
 
 	return (
-		<Row className="align-items-center">
-			<Col xl="auto">
-				<h2>Terreni posseduti</h2>
-			</Col>
-			<Col>
-				<StyledBadge>
-					Owner
-				</StyledBadge>
-			</Col>
-			<Col xl={12} sm={12}>
-				{isLoading && (
-					<StyledSpinner size="large"/>
-				)}
-				{fetchErrors && (
-					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
-				)}
-				{!elements.length && !isLoading && !fetchErrors && (
-					<Alert color="info" className="my-3">Nessun terreno posseduto</Alert>
-				)}
-				<ListGroup flush>
-				{elements.map((element, index) => (
-					<ListGroupItem key={index}>
-						<DiscoverLand {...element} />
-					</ListGroupItem>
-				))}
-				</ListGroup>
-			</Col>
-		</Row>
+		<>
+			<Row className="my-3 align-items-center">
+				<Col xl="auto">
+					<h2>Terreni posseduti</h2>
+				</Col>
+				<Col>
+					<StyledBadge>
+						Owner
+					</StyledBadge>
+				</Col>
+			</Row>
+			<Row className="my-3 align-items-center">
+				<Col xl={12} sm={12}>
+					{isLoading && (
+						<StyledSpinner size="large"/>
+					)}
+					{fetchErrors && (
+						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
+					)}
+					{!elements.length && !isLoading && !fetchErrors && (
+						<Alert color="info" className="my-3">Nessun terreno posseduto</Alert>
+					)}
+					<ListGroup flush>
+					{elements.map((element, index) => (
+						<ListGroupItem key={index}>
+							<DiscoverLand {...element} />
+						</ListGroupItem>
+					))}
+					</ListGroup>
+				</Col>
+			</Row>
+		</>
 	)
 };
 

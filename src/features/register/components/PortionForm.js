@@ -10,6 +10,7 @@ import { fetchLandsByOwner } from '../../../shared/utils';
 /**
  * Portion registration form.
  *
+ * @param reference
  * @param values
  * @param touched
  * @param errors
@@ -25,6 +26,7 @@ import { fetchLandsByOwner } from '../../../shared/utils';
  * @component
  */
 const PortionForm = ({
+	reference,
     values,
     touched,
     errors,
@@ -36,13 +38,13 @@ const PortionForm = ({
 	initialValues,
 	userAddress
 }) => {
-	const [elements, setElements] = useState([]);
-	const [fetchErrors, setFetchErrors] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
-
 	useEffect(() => {
 		resetForm(initialValues);
 	}, [resetForm, initialValues]);
+
+	const [elements, setElements] = useState([]);
+	const [fetchErrors, setFetchErrors] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
@@ -73,7 +75,7 @@ const PortionForm = ({
 	}
 
 	return (
-		<Form onSubmit={handleSubmit} noValidate>
+		<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="land">Terreno da dividere</Label>
 				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land}>
@@ -107,6 +109,10 @@ const PortionForm = ({
 };
 
 PortionForm.propTypes = {
+	/**
+	 * Form reference
+	 */
+	reference: PropTypes.object,
 	/**
 	 * Form values
 	 */
