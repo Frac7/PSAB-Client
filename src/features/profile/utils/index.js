@@ -1,4 +1,4 @@
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 
 const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, element, subject) => {
 	setIsLoading(true);

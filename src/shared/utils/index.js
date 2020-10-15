@@ -1,4 +1,4 @@
-import contracts from '../contracts';
+import contracts from '../../contracts';
 import { LAND, PORTION } from '../values';
 
 const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchErrors) => {

@@ -4,7 +4,7 @@ import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } f
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 import { PORTION } from '../../../shared/values';
 
 /**

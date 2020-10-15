@@ -12,7 +12,7 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES
 } from '../../../shared/values';
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 
 const elementWrappers = {
 	[LAND]: (props) => <DiscoverLand {...props} />,

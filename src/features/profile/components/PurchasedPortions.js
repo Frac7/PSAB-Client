@@ -5,7 +5,7 @@ import { Row, Col, ListGroup, ListGroupItem, Alert } from 'reactstrap';
 import { StyledBadge, StyledSpinner } from '../../../shared/styled';
 import { DiscoverPortion } from '../../../shared/views';
 
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 import { PORTION } from '../../../shared/values';
 
 /**

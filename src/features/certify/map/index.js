@@ -1,6 +1,6 @@
 import { number, string, object } from 'yup';
 
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 import { PRODUCT } from '../../../shared/values';
 
 const initialValues = {

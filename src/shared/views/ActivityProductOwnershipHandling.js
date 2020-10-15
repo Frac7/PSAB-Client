@@ -6,7 +6,7 @@ import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'react
 import DiscoverActivityProduct from './DiscoverActivityProduct';
 import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
-import contracts from '../contracts';
+import contracts from '../../contracts';
 import { MAINTENANCE_ACTIVITIES, PORTION, PROD_ACTIVITIES, PRODUCT } from '../values';
 import { Selector } from '../../store/user/reducer';
 

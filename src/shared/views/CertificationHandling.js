@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
 import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
-import contracts from '../contracts';
+import contracts from '../../contracts';
 import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
