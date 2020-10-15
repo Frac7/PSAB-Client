@@ -49,8 +49,8 @@ const TransferOwnership = ({
 	if (isLoading) {
 		return (
 			<Container fluid>
-				<Row className="justify-content-center align-content-center align-items-center">
-					<Col xl={1} sm={1}>
+				<Row className="my-3 justify-content-center align-content-center align-items-center">
+					<Col xl="auto" sm="auto">
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>
@@ -74,7 +74,7 @@ const TransferOwnership = ({
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Porzione relativa</Label>
-				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
@@ -82,7 +82,7 @@ const TransferOwnership = ({
 			</FormGroup>
 			<FormGroup>
 				<Label for="address">Address</Label>
-				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address}/>
+				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address} disabled={isSubmitting}/>
 				{ errors.address && <FormText color="danger">{errors.address}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>

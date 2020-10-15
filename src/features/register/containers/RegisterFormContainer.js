@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
@@ -8,6 +8,7 @@ import Storage from '@aws-amplify/storage';
 
 import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
+import TransactionLoader from '../../../shared/transaction-loader';
 
 import {
 	LAND,
@@ -49,9 +50,20 @@ const RegisterFormContainer = ({ user }) => {
 	const { component: Form, initialValues, validationSchema, handleSubmit } = useMemo(() => forms[currentForm], [currentForm]);
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
+	const form = useRef(null);
+
+	useEffect(() => {
+		if (hasErrors && isOpen) {
+			setTimeout(() => setHasErrors(false), 5000);
+		}
+	}, [hasErrors, setHasErrors, isOpen])
+
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
+		setIsLoading(true);
+
 		if (values.documents && values.documents.length && !hasErrors) {
 			Storage.put(values.documents[1], values.documents[0])
 				.then((result) => {})
@@ -61,10 +73,15 @@ const RegisterFormContainer = ({ user }) => {
 		}
 
 		const handleFeedback = (hasErrors) => {
-			setHasErrors(hasErrors);
-			setIsOpen(true);
+			if ((currentForm === LAND || currentForm === PORTION) && form.current) {
+				form.current.reset();
+			}
 			resetForm(initialValues);
 			setSubmitting(false);
+
+			setHasErrors(hasErrors);
+			setIsOpen(true);
+			setIsLoading(false);
 		}
 
 		if(!hasErrors) {
@@ -80,7 +97,7 @@ const RegisterFormContainer = ({ user }) => {
 		} else {
 			handleFeedback(hasErrors);
 		}
-	}, [initialValues, handleSubmit, hasErrors, user]);
+	}, [currentForm, initialValues, handleSubmit, hasErrors, user]);
 
 	return (
 		<>
@@ -126,6 +143,7 @@ const RegisterFormContainer = ({ user }) => {
 						/>
 					</Col>
 				</Row>
+				{isLoading && <TransactionLoader />}
 				<Row>
 					<Col xl={12} sm={12}>
 						<Formik
@@ -133,7 +151,7 @@ const RegisterFormContainer = ({ user }) => {
 							validationSchema={validationSchema}
 							onSubmit={onSubmit}
 						>
-							{props => <Form userAddress={user.data.username} {...props}/>}
+							{props => <Form reference={form} userAddress={user.data.username} {...props}/>}
 						</Formik>
 					</Col>
 				</Row>

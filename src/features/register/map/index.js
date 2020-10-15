@@ -17,7 +17,7 @@ import {
 	CONTRACT_TERMS, TRANSFER_OWNERSHIP
 } from '../../../shared/values';
 
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 
 const forms = {
 	[LAND]: {

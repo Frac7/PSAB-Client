@@ -87,13 +87,15 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					</ListGroup>
 				</Col>
 			</Row>)}
-			<Row className="align-items-center my-3">
-				<Col align="center">
-					<StyledLinkButton color="link" onClick={handleDetailsClick}>
-						Dati del contratto <FontAwesomeIcon icon={icon} />
-					</StyledLinkButton>
-				</Col>
-			</Row>
+			{expectedProduction && expectedProduction.length  && (
+				<Row className="align-items-center my-3">
+					<Col align="center">
+						<StyledLinkButton color="link" onClick={handleDetailsClick}>
+							Dati del contratto <FontAwesomeIcon icon={icon} />
+						</StyledLinkButton>
+					</Col>
+				</Row>
+			)}
 			<Collapse isOpen={isDetailsOpen}>
 				<Row className="align-items-center my-3">
 					<Col xl={3} sm={12}>
@@ -108,7 +110,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<Title>Durata</Title>
 					</Col>
 					<Col>
-						<p align="justify">{duration ? `Fino al ${new Date(parseInt(duration)).toLocaleDateString()}` : 'Perpetua'}</p>
+						<p align="justify">{parseInt(duration) ? `Fino al ${new Date(parseInt(duration)).toLocaleDateString()}` : 'Perpetua'}</p>
 					</Col>
 				</Row>
 				<Row className="align-items-center my-3">

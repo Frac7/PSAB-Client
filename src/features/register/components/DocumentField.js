@@ -8,6 +8,7 @@ import { FormText, Input, Row, Col } from 'reactstrap';
  * @param touched
  * @param errors
  * @param setFieldValue
+ * @param isSubmitting
  * @returns {JSX.Element}
  * @constructor
  * @component
@@ -15,7 +16,8 @@ import { FormText, Input, Row, Col } from 'reactstrap';
 const DocumentField = ({
 	touched,
 	errors,
-	setFieldValue
+	setFieldValue,
+	isSubmitting
 }) => {
 	const handleFileChange = useCallback((event) => {
 		event.persist();
@@ -26,8 +28,10 @@ const DocumentField = ({
 			documents.push(documents[0].name);
 
 			const reader = new FileReader();
+			reader.addEventListener('load', () => {
+				documents.push(reader.result);
+			});
 			reader.readAsDataURL(documents[0]);
-			documents.push(reader.result);
 		}
 
 		setFieldValue('documents', documents);
@@ -36,7 +40,7 @@ const DocumentField = ({
 	return (
 		<Row className="my-3" form>
 			<Col>
-				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} />
+				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} disabled={isSubmitting}/>
 				{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
 			</Col>
 		</Row>
@@ -55,7 +59,11 @@ DocumentField.propTypes = {
 	/**
 	 * Field changes handling
 	 */
-	setFieldValue: PropTypes.func
+	setFieldValue: PropTypes.func,
+	/**
+	 * Form submission flag
+	 */
+	isSubmitting: PropTypes.bool
 };
 
 export default DocumentField;

@@ -1,42 +1,35 @@
 import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { Alert, Col, Container, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
+import { Alert, Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 
-import DiscoverLand from './DiscoverLand';
-import DiscoverPortion from './DiscoverPortion';
-import { StyledLinkButton, StyledSpinner } from '../styled';
+import { StyledFilledButton, StyledSpinner } from '../styled';
 
 import contracts from '../../contracts';
-import { LAND, PORTION } from '../values';
+import { PORTION } from '../values';
 
 import { Selector } from '../../store/user/reducer';
+import LandPortionHandling from './LandPortionHandling';
 
-const viewToRender = (props) => ({
-	[LAND]: <DiscoverLand {...props} />,
-	[PORTION]: <DiscoverPortion {...props} />
-});
-
-const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username }} }) => {
+const PortionLandHandling = ({ id, isOpen, setIsOpen, user: { data: { username }} }) => {
 	const userAddress = username;
 
-	const [data, setData] = useState({});
+	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
+
+	const [isPortionOpen, setIsPortionOpen] = useState(false);
 
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
-			setData({});
+			setData([]);
 			setIsLoading(true);
 
-			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
-			contractInstance.methods.getById(id)
+			const contractInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
+			contractInstance.methods.getByLand(id)
 				.call({ from: userAddress })
 				.then((result) => {
-					setData({
-						...result,
-						id
-					});
+					setData(result);
 					setIsLoading(false);
 				})
 				.catch((error) => {
@@ -45,16 +38,16 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { u
 				});
 		}
 
-	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, setData]);
 
 	return (
 		<>
-			<StyledLinkButton color="link" onClick={handleClick}>
-				{element} #{id}
-			</StyledLinkButton>
+			<StyledFilledButton onClick={handleClick}>
+				Sfoglia porzioni
+			</StyledFilledButton>
 			<Modal className="modal-lg" isOpen={isOpen} toggle={handleClick}>
 				<ModalHeader toggle={handleClick}>
-					Dettagli {element} #{id}</ModalHeader>
+					Dettagli Terreno #{id}</ModalHeader>
 				<ModalBody>
 					{isLoading && (
 						<Container fluid>
@@ -74,11 +67,25 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { u
 							</Row>
 						</Container>
 					)}
-					{viewToRender(data)[element]}
+					{!data.length && (
+						<Alert color="info" className="my-3">Nessuna porzione registrata</Alert>
+					)}
+					<ListGroup flush>
+					{data.map((item, index) => (
+						<ListGroupItem key={index}>
+							<LandPortionHandling
+								id={item}
+								isOpen={isPortionOpen}
+								setIsOpen={setIsPortionOpen}
+								element={PORTION}
+							/>
+						</ListGroupItem>
+					))}
+					</ListGroup>
 				</ModalBody>
 			</Modal>
 		</>
-	)
+	);
 };
 
-export default connect((state) => ({ user: Selector.getUser(state) }))(LandPortionHandling);
+export default connect((state) => ({ user: Selector.getUser(state) }))(PortionLandHandling);

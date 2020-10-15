@@ -12,7 +12,7 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES
 } from '../../../shared/values';
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 
 const elementWrappers = {
 	[LAND]: (props) => <DiscoverLand {...props} />,
@@ -23,6 +23,7 @@ const elementWrappers = {
 }
 
 const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, element) => {
+	setIsLoading(true);
 	const elements = [];
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);

@@ -31,8 +31,8 @@ const SignOut = ({ requestLogout, user: { data } }) => {
     } else {
         return (
             <Container fluid>
-                <Row className="justify-content-center align-content-center align-items-center">
-                    <Col xl={1} sm={1}>
+                <Row className="my-3 justify-content-center align-content-center align-items-center">
+                    <Col xl="auto" sm="auto">
                         <StyledSpinner size="large"/>
                     </Col>
                 </Row>

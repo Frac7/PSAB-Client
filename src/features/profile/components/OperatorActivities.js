@@ -24,56 +24,63 @@ const OperatorActivities = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
+		setProducts([]);
 		handleFetch(userAddress, setProducts, setFetchErrors, setIsLoading, PRODUCT, 'Operator');
+		setActivities([]);
 		handleFetch(userAddress, setActivities, setFetchErrors, setIsLoading, MAINTENANCE_ACTIVITIES, 'Operator');
+		setMaintenance([]);
 		handleFetch(userAddress, setMaintenance, setFetchErrors, setIsLoading, PROD_ACTIVITIES, 'Operator');
 	}, [userAddress, setProducts, setFetchErrors, setIsLoading]);
 
 	return (
-		<Row className="align-items-center">
-			<Col xl="auto">
-				<h2>Attività di produzione, manutenzione e prodotti registrati</h2>
-			</Col>
-			<Col>
-				<StyledBadge>
-					Operator
-				</StyledBadge>
-			</Col>
-			<Col xl={12} sm={12}>
-				{isLoading && (
-					<StyledSpinner size="large"/>
-				)}
-				{fetchErrors && (
-					<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
-				)}
-				{!activities.length && (
-					<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
-				)}
-				{!maintenance.length && (
-					<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
-				)}
-				{!products.length && (
-					<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>
-				)}
-				<ListGroup flush>
-					{activities.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
-						</ListGroupItem>
-					))}
-					{maintenance.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverActivityProduct {...element} element={MAINTENANCE_ACTIVITIES} />
-						</ListGroupItem>
-					))}
-					{products.map((element, index) => (
-						<ListGroupItem key={index}>
-							<DiscoverActivityProduct {...element} element={PRODUCT} />
-						</ListGroupItem>
-					))}
-				</ListGroup>
-			</Col>
-		</Row>
+		<>
+			<Row className="my-3 align-items-center">
+				<Col xl="auto">
+					<h2>Attività di produzione, manutenzione e prodotti registrati</h2>
+				</Col>
+				<Col>
+					<StyledBadge>
+						Operator
+					</StyledBadge>
+				</Col>
+			</Row>
+			<Row className="my-3 align-items-center">
+				<Col xl={12} sm={12}>
+					{isLoading && (
+						<StyledSpinner size="large"/>
+					)}
+					{fetchErrors && (
+						<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
+					)}
+					{!activities.length && (
+						<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
+					)}
+					{!maintenance.length && (
+						<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
+					)}
+					{!products.length && (
+						<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>
+					)}
+					<ListGroup flush>
+						{activities.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverActivityProduct {...element} element={PROD_ACTIVITIES} />
+							</ListGroupItem>
+						))}
+						{maintenance.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverActivityProduct {...element} element={MAINTENANCE_ACTIVITIES} />
+							</ListGroupItem>
+						))}
+						{products.map((element, index) => (
+							<ListGroupItem key={index}>
+								<DiscoverActivityProduct {...element} element={PRODUCT} />
+							</ListGroupItem>
+						))}
+					</ListGroup>
+				</Col>
+			</Row>
+		</>
 	)
 };
 

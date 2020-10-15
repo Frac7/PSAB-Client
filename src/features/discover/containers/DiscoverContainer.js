@@ -35,8 +35,9 @@ const DiscoverContainer = ({ user }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		setElements([]);
 		handleFetching(user.data.username, setElements, setFetchErrors, setIsLoading, currentElement);
-	}, [currentElement, user]);
+	}, [currentElement, user, setElements]);
 
 	return (
 		<Container fluid>
@@ -69,8 +70,8 @@ const DiscoverContainer = ({ user }) => {
 				</Col>
 			</Row>
 			{isLoading && (
-				<Row className="justify-content-center align-content-center align-items-center">
-					<Col xl={1} sm={1}>
+				<Row className="my-3 justify-content-center align-content-center align-items-center">
+					<Col xl="auto" sm="auto">
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>
@@ -82,7 +83,7 @@ const DiscoverContainer = ({ user }) => {
 					</Col>
 				</Row>
 			)}
-			{!elements.length && (
+			{!elements.length && !isLoading && !fetchErrors && (
 				<Row className="justify-content-center align-content-center align-items-center">
 					<Col xl={12} sm={12}>
 						<Alert color="info" className="my-3">Nessun elemento disponibile</Alert>

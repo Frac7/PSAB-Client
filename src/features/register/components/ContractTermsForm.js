@@ -30,6 +30,8 @@ import { fetchPortionsByOwner } from '../../../shared/utils';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param initialValues
+ * @param resetForm
  * @param userAddress
  * @returns {JSX.Element}
  * @constructor
@@ -61,8 +63,8 @@ const ContractTermsForm = ({
 	if (isLoading) {
 		return (
 			<Container fluid>
-				<Row className="justify-content-center align-content-center align-items-center">
-					<Col xl={1} sm={1}>
+				<Row className="my-3 justify-content-center align-content-center align-items-center">
+					<Col xl="auto" sm="auto">
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>
@@ -86,7 +88,7 @@ const ContractTermsForm = ({
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Porzione relativa</Label>
-				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
@@ -98,19 +100,19 @@ const ContractTermsForm = ({
 					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
 						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
 					</InputGroupAddon>
-					<Input valid={touched.price && !errors.price} type="number" name="price" id="price" onChange={handleChange} value={values.price}/>
+					<Input valid={touched.price && !errors.price} type="number" name="price" id="price" onChange={handleChange} value={values.price} disabled={isSubmitting}/>
 				</InputGroup>
 				{ errors.price && <FormText color="danger">{errors.price}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="duration">Durata</Label>
-				<Input valid={touched.duration && !errors.duration} type="number" name="duration" id="duration" onChange={handleChange} value={values.duration}/>
+				<Input valid={touched.duration && !errors.duration} type="number" name="duration" id="duration" onChange={handleChange} value={values.duration} disabled={isSubmitting}/>
 				<FormText>Inserire 0 se perpetuo, altrimenti indicare il numero di anni</FormText>
 				{ errors.duration && <FormText color="danger">{errors.duration}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="expectedProduction">Produzione attesa</Label>
-				<Input valid={touched.expectedProduction && !errors.expectedProduction} type="text" name="expectedProduction" id="expectedProduction" onChange={handleChange} value={values.expectedProduction}/>
+				<Input valid={touched.expectedProduction && !errors.expectedProduction} type="text" name="expectedProduction" id="expectedProduction" onChange={handleChange} value={values.expectedProduction} disabled={isSubmitting}/>
 				{ errors.expectedProduction && <FormText color="danger">{errors.expectedProduction}</FormText>}
 			</FormGroup>
 			<FormGroup>
@@ -125,7 +127,7 @@ const ContractTermsForm = ({
 					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
 						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
 					</InputGroupAddon>
-					<Input valid={touched.expMainActivityCost && !errors.expMainActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expMainActivityCost}/>
+					<Input valid={touched.expMainActivityCost && !errors.expMainActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expMainActivityCost} disabled={isSubmitting}/>
 				</InputGroup>
 				{ errors.expMainActivityCost && <FormText color="danger">{errors.expMainActivityCost}</FormText>}
 			</FormGroup>
@@ -135,7 +137,7 @@ const ContractTermsForm = ({
 					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">
 						<FontAwesomeIcon icon={faEuroSign} size="lg"/>
 					</InputGroupAddon>
-					<Input valid={touched.expProdActivityCost && !errors.expProdActivityCost} type="number" name="expProdActivityCost" id="expProdActivityCost" onChange={handleChange} value={values.expProdActivityCost}/>
+					<Input valid={touched.expProdActivityCost && !errors.expProdActivityCost} type="number" name="expProdActivityCost" id="expProdActivityCost" onChange={handleChange} value={values.expProdActivityCost} disabled={isSubmitting}/>
 				</InputGroup>
 				{ errors.expProdActivityCost && <FormText color="danger">{errors.expProdActivityCost}</FormText>}
 			</FormGroup>

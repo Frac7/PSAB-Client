@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Col, Container, ListGroup, ListGroupItem, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
 import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
-import contracts from '../contracts';
+import contracts from '../../contracts';
 import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
 
-const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username, attributes }} }) => {
+const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username }} }) => {
 	const userAddress = username;
 
 	const [data, setData] = useState([]);
@@ -19,6 +19,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
+			setData([]);
 			setIsLoading(true);
 
 			const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
@@ -68,8 +69,8 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 				<ModalBody>
 					{isLoading && (
 						<Container fluid>
-							<Row className="justify-content-center align-content-center align-items-center">
-								<Col xl={1} sm={1}>
+							<Row className="my-3 justify-content-center align-content-center align-items-center">
+								<Col xl="auto" sm="auto">
 									<StyledSpinner size="large"/>
 								</Col>
 							</Row>
@@ -83,6 +84,13 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 								</Col>
 							</Row>
 						</Container>
+					)}
+					{!data.length && !isLoading && !hasErrors && (
+						<Row className="justify-content-center align-content-center align-items-center">
+							<Col xl={12} sm={12}>
+								<Alert color="info" className="my-3">Nessuna certificazione</Alert>
+							</Col>
+						</Row>
 					)}
 					<ListGroup flush>
 						{data.map(({ description, certifier }, index) => (

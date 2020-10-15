@@ -4,7 +4,7 @@ import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } f
 
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import contracts from '../../../shared/contracts';
+import contracts from '../../../contracts';
 import { PORTION } from '../../../shared/values';
 
 /**
@@ -84,8 +84,8 @@ const ProductActivitiesForm = ({
 	if (isLoading) {
 		return (
 			<Container fluid>
-				<Row className="justify-content-center align-content-center align-items-center">
-					<Col xl={1} sm={1}>
+				<Row className="my-3 justify-content-center align-content-center align-items-center">
+					<Col xl="auto" sm="auto">
 						<StyledSpinner size="large"/>
 					</Col>
 				</Row>
@@ -109,7 +109,7 @@ const ProductActivitiesForm = ({
 		<Form onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="portion">Porzione relativa all'oggetto della registrazione</Label>
-				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion}>
+				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element[0].description}</option>)}
 				</Input>
@@ -118,7 +118,7 @@ const ProductActivitiesForm = ({
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={
-					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
+					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description} disabled={isSubmitting}/>
 				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>

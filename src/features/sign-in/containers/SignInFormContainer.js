@@ -49,18 +49,6 @@ const SignIn = ({
         requestLogin({ data: values });
     }, [requestLogin]);
 
-    if (isError) {
-        return (
-            <Container fluid>
-                <Row className="justify-content-center align-content-center align-items-center">
-                    <Col xl={10} sm={10}>
-                        <Alert color="danger">{(error && error.message) || 'Si è verificato un errore'}</Alert>
-                    </Col>
-                </Row>
-            </Container>
-        )
-    }
-
     if (data) {
         return <Redirect to={(location.state && location.state.from) || PROFILE} />
     }
@@ -68,8 +56,8 @@ const SignIn = ({
     if (isLoading) {
         return (
             <Container fluid>
-                <Row className="justify-content-center align-content-center align-items-center">
-                    <Col xl={1} sm={1}>
+                <Row className="my-3 justify-content-center align-content-center align-items-center">
+                    <Col xl="auto" sm="auto">
                         <StyledSpinner size="large"/>
                     </Col>
                 </Row>
@@ -78,17 +66,26 @@ const SignIn = ({
     }
 
     return (
-        <Row className="justify-content-center">
-            <Col xl={6} sm={10}>
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}
-                >
-                    {props => <SignInForm {...props}/>}
-                </Formik>
-            </Col>
-        </Row>
+        <>
+            {isError && (
+                <Row className="justify-content-center align-content-center align-items-center">
+                    <Col xl={6} sm={10}>
+                        <Alert color="danger">{(error && error.message) || 'Si è verificato un errore'}</Alert>
+                    </Col>
+                </Row>
+            )}
+            <Row className="justify-content-center">
+                <Col xl={6} sm={10}>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={onSubmit}
+                    >
+                        {props => <SignInForm {...props}/>}
+                    </Formik>
+                </Col>
+            </Row>
+        </>
     );
 };
 

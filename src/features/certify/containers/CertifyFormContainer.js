@@ -8,6 +8,7 @@ import { Formik } from 'formik';
 import { CertifyForm } from '../components';
 import { ToastFeedback } from '../../register/components';
 import { ElementSelector } from '../../../shared/element-dropdown';
+import TransactionLoader from '../../../shared/transaction-loader';
 
 import { initialValues, validationSchema, handleSubmit } from '../map';
 import { CERTIFIER, PROD_ACTIVITIES, PRODUCT, roles } from '../../../shared/values';
@@ -38,14 +39,18 @@ const CertifyFormContainer = ({ user }) => {
 	const [currentForm, setCurrentForm] = useState(PRODUCT);
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
+		setIsLoading(true);
+
 		const handleFeedback = (hasErrors) => {
 			resetForm(initialValues);
 			setSubmitting(false);
 
 			setHasErrors(hasErrors);
 			setIsOpen(true);
+			setIsLoading(false);
 		}
 		handleSubmit(values, handleFeedback, currentForm, user.data.username, currentForm);
 	}, [setHasErrors, setIsOpen, currentForm, user]);
@@ -72,6 +77,7 @@ const CertifyFormContainer = ({ user }) => {
 						/>
 					</Col>
 				</Row>
+				{isLoading && <TransactionLoader />}
 				<Row>
 					<Col xl={12} sm={12}>
 						<Formik

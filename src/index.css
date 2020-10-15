@@ -16,6 +16,6 @@ header {
   text-transform: uppercase;
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active, .dropdown-item:active, .progress-bar {
   background-color: #006D77 !important;
 }

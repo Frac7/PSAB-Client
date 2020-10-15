@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'reactstrap';
@@ -6,31 +6,33 @@ import { Col, Container, Modal, ModalBody, ModalHeader, Row, Alert } from 'react
 import DiscoverActivityProduct from './DiscoverActivityProduct';
 import { StyledFilledButton, StyledSpinner, StyledTitle } from '../styled';
 
-import contracts from '../contracts';
+import contracts from '../../contracts';
 import { MAINTENANCE_ACTIVITIES, PORTION, PROD_ACTIVITIES, PRODUCT } from '../values';
 import { Selector } from '../../store/user/reducer';
 
 const Title = StyledTitle('h5');
 
-const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data: { username, attributes }} }) => {
-	const userAddress = username;
+const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data: { username }} }) => {
+	const userAddress = useMemo(() => username, [username]);
 
-	const [data, setData] = useState({
+	const initialData = useMemo(() => ({
 		[PORTION]: [],
 		[PRODUCT]: [],
 		[PROD_ACTIVITIES]: [],
 		[MAINTENANCE_ACTIVITIES]: []
-	});
+	}), []);
+	const [data, setData] = useState(initialData);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
+			setData(initialData);
 
 			Object.keys(data).forEach((element) => {
-				const method = element === PORTION ? 'getBuyersByPortion' : 'getByPortion';
 				setIsLoading(true);
+				const method = element === PORTION ? 'getBuyersByPortion' : 'getByPortion';
 				const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 				contractInstance.methods[method](id)
 					.call({ from: userAddress })
@@ -78,7 +80,7 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 			});
 		}
 
-	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, data, setData]);
+	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, initialData, data, setData]);
 
 	return (
 		<>
@@ -91,8 +93,8 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 				<ModalBody>
 					{isLoading && (
 						<Container fluid>
-							<Row className="justify-content-center align-content-center align-items-center">
-								<Col xl={1} sm={1}>
+							<Row className="my-3 justify-content-center align-content-center align-items-center">
+								<Col xl="auto" sm="auto">
 									<StyledSpinner size="large"/>
 								</Col>
 							</Row>
