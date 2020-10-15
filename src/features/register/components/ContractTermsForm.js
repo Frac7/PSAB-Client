@@ -117,7 +117,7 @@ const ContractTermsForm = ({
 			</FormGroup>
 			<FormGroup>
 				<Label for="periodicity">Periodicità</Label>
-				<Input valid={touched.periodicity && !errors.periodicity} type="text" name="periodicity" id="periodicity" onChange={handleChange} value={values.periodicity}/>
+				<Input valid={touched.periodicity && !errors.periodicity} type="text" name="periodicity" id="periodicity" onChange={handleChange} value={values.periodicity} disabled={isSubmitting}/>
 				<FormText>Ogni estate, ...</FormText>
 				{ errors.periodicity && <FormText color="danger">{errors.periodicity}</FormText>}
 			</FormGroup>

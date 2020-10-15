@@ -78,7 +78,7 @@ const PortionForm = ({
 		<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
 			<FormGroup>
 				<Label for="land">Terreno da dividere</Label>
-				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land}>
+				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land} disabled={isSubmitting}>
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
