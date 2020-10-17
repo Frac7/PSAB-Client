@@ -82,12 +82,12 @@ const PortionForm = ({
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
-				{ errors.land && <FormText color="danger">{errors.land}</FormText>}
+				{errors.land && <FormText color="danger">{errors.land}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
+				{errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="documents">Documenti</Label>

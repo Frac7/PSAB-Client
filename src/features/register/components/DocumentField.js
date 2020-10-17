@@ -41,7 +41,7 @@ const DocumentField = ({
 		<Row className="my-3" form>
 			<Col>
 				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} disabled={isSubmitting}/>
-				{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
+				{errors.documents && <FormText color="danger">{errors.documents}</FormText>}
 			</Col>
 		</Row>
 	);

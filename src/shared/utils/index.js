@@ -48,7 +48,7 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 		.call({ from: userAddress })
 		.then((result) => {
 			if (!result.length) {
-				setElements([]);
+				setElements(elements);
 				setIsLoading(false);
 				return;
 			}
@@ -83,7 +83,7 @@ const fetchPortionsByBuyer = (userAddress, setElements, setIsLoading, setFetchEr
 		.call({ from: userAddress })
 		.then((result) => {
 			if (!result.length) {
-				setElements([]);
+				setElements(elements);
 				setIsLoading(false);
 				return;
 			}

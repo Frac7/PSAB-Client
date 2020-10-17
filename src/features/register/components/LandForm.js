@@ -43,7 +43,7 @@ const LandForm = ({
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
+				{errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="documents">Documenti</Label>

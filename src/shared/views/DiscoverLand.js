@@ -35,7 +35,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 					</Col>
 					<Col>
 						<ListGroup flush>
-							<ListGroupItem className="text-success" tag="a" href={documents} target="_blank">Documento allegato</ListGroupItem>
+							<ListGroupItem className="text-success" tag="a" href={window.web3.utils.hexToAscii(documents)} target="_blank">Documento allegato</ListGroupItem>
 						</ListGroup>
 					</Col>
 				</Row>)}

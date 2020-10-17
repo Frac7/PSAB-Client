@@ -80,13 +80,13 @@ const ProductActivitiesForm = ({
 					<option value=""/>
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
-				{ errors.object && <FormText color="danger">{errors.object}</FormText>}
+				{errors.object && <FormText color="danger">{errors.object}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={
 					touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description} disabled={isSubmitting}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
+				{errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
 				Certifica

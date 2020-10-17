@@ -33,7 +33,7 @@ const forms = {
 		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, documents[3], documents[2])
+			landInstance.methods.register(description, window.web3.utils.asciiToHex(documents[3]), window.web3.utils.asciiToHex(documents[2]))
 				.send({ from: senderAddress })
 				.then((result) => {
 					handleFeedback(false);
@@ -58,7 +58,7 @@ const forms = {
 		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, documents[3], documents[2], contracts[PORTION].address)
+			landInstance.methods.divide(land, description, window.web3.utils.asciiToHex(documents[3]), window.web3.utils.asciiToHex(documents[2]), contracts[PORTION].address)
 				.send({ from: senderAddress })
 				.then((result) => {
 					handleFeedback(false);
