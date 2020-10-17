@@ -9,7 +9,7 @@ This project was created with:
 - Jest, Redux Mock Store and Redux Saga Test Plan for testing
 - Reactstrap, Styled Components and Font Awesome for the UI
 - Formik and Yup for handling forms
-- Web3 for interacting with the blockchain
+- Web3 and HDWalletProvider for interacting with the blockchain
 - Amazon Cognito for user management
 - Amazon S3 for storage
 - Jsdoc and Better Docs for the code documentation
