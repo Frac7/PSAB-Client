@@ -35,7 +35,7 @@ const SignInForm = ({
         <FormGroup>
             <Label for="password">Password</Label>
             <Input valid={touched.password && !errors.password} type="password" name="password" id="password" onChange={handleChange} value={values.password}/>
-            { errors.password && <FormText color="danger">{errors.password}</FormText>}
+            {errors.password && <FormText color="danger">{errors.password}</FormText>}
         </FormGroup>
         <StyledFilledButton type="submit" disabled={isSubmitting}>
             Accedi

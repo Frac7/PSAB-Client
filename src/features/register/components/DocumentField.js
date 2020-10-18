@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { FormText, Input, Row, Col } from 'reactstrap';
+import { FormText, Input, Row, Col, Label } from 'reactstrap';
+
+import createDocumentName from '../utils';
 
 /**
  * Custom field for handling document upload.
@@ -22,28 +24,48 @@ const DocumentField = ({
 	const handleFileChange = useCallback((event) => {
 		event.persist();
 
-		const documents = [];
-		if (event.currentTarget.files && event.currentTarget.files.length) {
-			documents.push(event.currentTarget.files[0]);
-			documents.push(documents[0].name);
+		const files = event.currentTarget.files;
+		if (files && files.length) {
+			const file = files[0];
 
 			const reader = new FileReader();
 			reader.addEventListener('load', () => {
-				documents.push(reader.result);
-			});
-			reader.readAsDataURL(documents[0]);
-		}
+				const base64 = reader.result;
 
-		setFieldValue('documents', documents);
+				setFieldValue('document', {
+					file,
+					name: createDocumentName(file.name),
+					base64
+				});
+			});
+			reader.readAsDataURL(file);
+		} else {
+			setFieldValue('document', {});
+		}
 	}, [setFieldValue]);
 
 	return (
+		<>
+		<Label for="documents">Documenti</Label>
 		<Row className="my-3" form>
+			<Col xl={12} xs={12}>
+				<Input
+					valid={touched.document && errors.document}
+					type="file"
+					name="document"
+					id="document"
+					onChange={handleFileChange}
+					disabled={isSubmitting}
+				/>
+				{(errors.document && (errors.document.name || errors.document.file)) && (
+					<FormText color="danger">{errors.document.name || errors.document.file || errors.document.base64}</FormText>
+				)}
+			</Col>
 			<Col>
-				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} disabled={isSubmitting}/>
-				{ errors.documents && <FormText color="danger">{errors.documents}</FormText>}
+				<FormText>Il documento è obbligatorio</FormText>
 			</Col>
 		</Row>
+		</>
 	);
 };
 

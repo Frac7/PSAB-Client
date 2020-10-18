@@ -92,7 +92,7 @@ const ContractTermsForm = ({
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
-				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
+				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="price">Prezzo</Label>
@@ -102,24 +102,24 @@ const ContractTermsForm = ({
 					</InputGroupAddon>
 					<Input valid={touched.price && !errors.price} type="number" name="price" id="price" onChange={handleChange} value={values.price} disabled={isSubmitting}/>
 				</InputGroup>
-				{ errors.price && <FormText color="danger">{errors.price}</FormText>}
+				{errors.price && <FormText color="danger">{errors.price}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="duration">Durata</Label>
 				<Input valid={touched.duration && !errors.duration} type="number" name="duration" id="duration" onChange={handleChange} value={values.duration} disabled={isSubmitting}/>
 				<FormText>Inserire 0 se perpetuo, altrimenti indicare il numero di anni</FormText>
-				{ errors.duration && <FormText color="danger">{errors.duration}</FormText>}
+				{errors.duration && <FormText color="danger">{errors.duration}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="expectedProduction">Produzione attesa</Label>
 				<Input valid={touched.expectedProduction && !errors.expectedProduction} type="text" name="expectedProduction" id="expectedProduction" onChange={handleChange} value={values.expectedProduction} disabled={isSubmitting}/>
-				{ errors.expectedProduction && <FormText color="danger">{errors.expectedProduction}</FormText>}
+				{errors.expectedProduction && <FormText color="danger">{errors.expectedProduction}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="periodicity">Periodicità</Label>
 				<Input valid={touched.periodicity && !errors.periodicity} type="text" name="periodicity" id="periodicity" onChange={handleChange} value={values.periodicity} disabled={isSubmitting}/>
 				<FormText>Ogni estate, ...</FormText>
-				{ errors.periodicity && <FormText color="danger">{errors.periodicity}</FormText>}
+				{errors.periodicity && <FormText color="danger">{errors.periodicity}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="expMainActivityCost">Costi di manutenzione attesi</Label>
@@ -129,7 +129,7 @@ const ContractTermsForm = ({
 					</InputGroupAddon>
 					<Input valid={touched.expMainActivityCost && !errors.expMainActivityCost} type="number" name="expMainActivityCost" id="expMainActivityCost" onChange={handleChange} value={values.expMainActivityCost} disabled={isSubmitting}/>
 				</InputGroup>
-				{ errors.expMainActivityCost && <FormText color="danger">{errors.expMainActivityCost}</FormText>}
+				{errors.expMainActivityCost && <FormText color="danger">{errors.expMainActivityCost}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="expProdActivityCost">Costi di produzione attesi</Label>
@@ -139,7 +139,7 @@ const ContractTermsForm = ({
 					</InputGroupAddon>
 					<Input valid={touched.expProdActivityCost && !errors.expProdActivityCost} type="number" name="expProdActivityCost" id="expProdActivityCost" onChange={handleChange} value={values.expProdActivityCost} disabled={isSubmitting}/>
 				</InputGroup>
-				{ errors.expProdActivityCost && <FormText color="danger">{errors.expProdActivityCost}</FormText>}
+				{errors.expProdActivityCost && <FormText color="danger">{errors.expProdActivityCost}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
 				Aggiungi

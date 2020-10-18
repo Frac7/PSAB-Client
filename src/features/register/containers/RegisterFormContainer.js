@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
-import Storage from '@aws-amplify/storage';
 
 import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
@@ -17,7 +16,11 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
-	TRANSFER_OWNERSHIP, OPERATOR, roles, CERTIFIER
+	TRANSFER_OWNERSHIP,
+	DOCUMENTS,
+	OPERATOR,
+	CERTIFIER,
+	roles,
 } from '../../../shared/values';
 import { forms } from '../map';
 import { Selector } from '../../../store/user/reducer';
@@ -64,16 +67,8 @@ const RegisterFormContainer = ({ user }) => {
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		setIsLoading(true);
 
-		if (values.documents && values.documents.length && !hasErrors) {
-			Storage.put(values.documents[1], values.documents[0])
-				.then((result) => {})
-				.catch((error) => {
-					setHasErrors(true);
-				});
-		}
-
 		const handleFeedback = (hasErrors) => {
-			if ((currentForm === LAND || currentForm === PORTION) && form.current) {
+			if (currentForm === DOCUMENTS && form.current) {
 				form.current.reset();
 			}
 			resetForm(initialValues);
@@ -84,20 +79,8 @@ const RegisterFormContainer = ({ user }) => {
 			setIsLoading(false);
 		}
 
-		if(!hasErrors) {
-			handleSubmit({
-				...values,
-				...values.documents && values.documents.length ? {
-					documents: [
-						...values.documents,
-						`https://psab-documents225914-dev.s3.amazonaws.com/public/${values.documents[1]}`
-					]
-				} : undefined
-			}, handleFeedback, user.data.username);
-		} else {
-			handleFeedback(hasErrors);
-		}
-	}, [currentForm, initialValues, handleSubmit, hasErrors, user]);
+		handleSubmit(values, handleFeedback, user.data.username);
+	}, [currentForm, initialValues, handleSubmit, user]);
 
 	return (
 		<>
@@ -115,6 +98,10 @@ const RegisterFormContainer = ({ user }) => {
 								},
 								{
 									type: PORTION,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
+								},
+								{
+									type: DOCUMENTS,
 									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{

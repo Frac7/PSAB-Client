@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } from 'reactstrap';
 
-import DocumentField from './DocumentField';
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
 import { fetchLandsByOwner } from '../../../shared/utils';
@@ -17,7 +16,6 @@ import { fetchLandsByOwner } from '../../../shared/utils';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
- * @param setFieldValue
  * @param resetForm
  * @param initialValues
  * @param userAddress
@@ -33,7 +31,6 @@ const PortionForm = ({
     isSubmitting,
     handleSubmit,
     handleChange,
-	setFieldValue,
 	resetForm,
 	initialValues,
 	userAddress
@@ -80,26 +77,14 @@ const PortionForm = ({
 				<Label for="land">Terreno da dividere</Label>
 				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land} disabled={isSubmitting}>
 					<option value="" />
-					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
 				</Input>
-				{ errors.land && <FormText color="danger">{errors.land}</FormText>}
+				{errors.land && <FormText color="danger">{errors.land}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="description">Descrizione</Label>
 				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{ errors.description && <FormText color="danger">{errors.description}</FormText>}
-			</FormGroup>
-			<FormGroup>
-				<Label for="documents">Documenti</Label>
-				<FormText>Deve essere caricato un documento al minimo</FormText>
-				<DocumentField
-					isSubmitting={isSubmitting}
-					setFieldValue={setFieldValue}
-					values={values}
-					errors={errors}
-					handleChange={handleChange}
-					touched={touched}
-				/>
+				{errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
 				Aggiungi

@@ -5,6 +5,7 @@ import DocumentField from './DocumentField';
 import ToastFeedback from './ToastFeedback';
 import ContractTermsForm from './ContractTermsForm';
 import TransferOwnershipForm from './TransferOwnershipForm';
+import DocumentForm from './DocumentForm';
 
 export {
 	LandForm,
@@ -13,5 +14,6 @@ export {
 	DocumentField,
 	ToastFeedback,
 	ContractTermsForm,
-	TransferOwnershipForm
+	TransferOwnershipForm,
+	DocumentForm
 }

@@ -1,12 +1,14 @@
 import React from 'react';
-import { object, string, number, array } from 'yup';
+import { object, string, number, mixed } from 'yup';
+import Storage from '@aws-amplify/storage';
 
 import {
 	LandForm,
 	PortionForm,
 	ProductActivitiesForm,
 	ContractTermsForm,
-	TransferOwnershipForm
+	TransferOwnershipForm,
+	DocumentForm
 } from '../components';
 import {
 	LAND,
@@ -14,26 +16,61 @@ import {
 	PRODUCT,
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
-	CONTRACT_TERMS, TRANSFER_OWNERSHIP
+	CONTRACT_TERMS,
+	TRANSFER_OWNERSHIP,
+	DOCUMENTS
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
 
 const forms = {
+	[DOCUMENTS]: {
+		component: (props) => <DocumentForm {...props} />,
+		initialValues : {
+			element: LAND,
+			id: '',
+			document: {}
+		},
+		validationSchema: object().shape({
+			element: string().required('Selezionare l\'elemento per il quale si vuole registrare il documento'),
+			id: number().required('Selezionare un terreno o una porzione a cui allegare il documento'),
+			document: object().shape({
+				name: string().required('Inserire un allegato'),
+				file: mixed().required('Inserire un allegato'),
+				base64: string().required('Inserire un allegato')
+			})
+		}),
+		handleSubmit: ({ element, id, document: { name, file, base64 }}, handleFeedback, senderAddress) => {
+			const instance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+
+			instance.methods.registerDocument(id, window.web3.utils.fromAscii(name), window.web3.utils.keccak256(base64))
+				.send({ from: senderAddress })
+				.then((result) => {
+					Storage.put(name, file)
+						.then((result) => {
+							handleFeedback(false);
+						})
+						.catch((error) => {
+							handleFeedback(true);
+						});
+				})
+				.catch((error) => {
+					handleFeedback(true);
+				});
+		}
+	},
 	[LAND]: {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
-			description: '',
-			documents: []
+			description: ''
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().min(1, 'Inserire un allegato')
 		}),
-		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ description }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, documents[3], documents[2])
+			landInstance.methods.register(description)
 				.send({ from: senderAddress })
 				.then((result) => {
 					handleFeedback(false);
@@ -48,17 +85,16 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			documents: []
+			documents: null
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
-			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().min(1, 'Inserire un allegato')
+			description: string().required('Il campo descrizione è obbligatorio')
 		}),
-		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
+		handleSubmit: ({ land, description }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, documents[3], documents[2], contracts[PORTION].address)
+			landInstance.methods.divide(land, description, contracts[PORTION].address)
 				.send({ from: senderAddress })
 				.then((result) => {
 					handleFeedback(false);

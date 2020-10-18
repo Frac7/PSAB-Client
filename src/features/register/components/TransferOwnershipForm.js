@@ -78,12 +78,12 @@ const TransferOwnership = ({
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
 				</Input>
-				{ errors.portion && <FormText color="danger">{errors.portion}</FormText>}
+				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="address">Address</Label>
 				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address} disabled={isSubmitting}/>
-				{ errors.address && <FormText color="danger">{errors.address}</FormText>}
+				{errors.address && <FormText color="danger">{errors.address}</FormText>}
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
 				Trasferisci

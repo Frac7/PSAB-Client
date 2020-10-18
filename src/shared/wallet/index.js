@@ -20,8 +20,8 @@ const withWallet = (Component) =>
 			try {
 				const provider = new HDWalletProvider({
 					mnemonic: phrase,
-					providerOrUrl: 'https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60',
-					// providerOrUrl: 'http://localhost:7545',
+					// providerOrUrl: 'https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60',
+					providerOrUrl: 'http://localhost:7545',
 					shareNonce: false
 				});
 

@@ -16,8 +16,8 @@ import configureAwsAmplify from './config/aws-amplify';
 
 configureAwsAmplify();
 
-window.web3 = new Web3('https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60');
-// window.web3 = new Web3('http://localhost:7545');
+// window.web3 = new Web3('https://goerli.infura.io/v3/2825ef3aeb9047b7ab6e108500f89b60');
+window.web3 = new Web3('http://localhost:7545');
 
 ReactDOM.render(
 	<Provider store={store}>
