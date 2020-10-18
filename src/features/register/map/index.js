@@ -26,14 +26,23 @@ const forms = {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
 			description: '',
-			documents: null
+			documents: {}
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: mixed().test('chosen', 'Inserire un allegato', (value) => Boolean(value))
+			documents: object().shape({
+				name: string().required('Inserire un allegato'),
+				file: mixed().required('Inserire un allegato').test('size', 'Il file inserito è troppo grande', (value) => {
+					if (value) {
+						return value.size < 512000;
+					}
+
+					return true;
+				}),
+				base64: string().required('Inserire un allegato')
+			})
 		}),
-		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
-			const { name, base64, file } = extractInformation(documents);
+		handleSubmit: ({ description, documents: { name, file, base64 } }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
 			landInstance.methods.register(description, window.web3.utils.fromAscii(name), base64)

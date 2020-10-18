@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FormText, Input, Row, Col, Label } from 'reactstrap';
 
+import createDocumentName from '../utils';
+
 /**
  * Custom field for handling document upload.
  *
@@ -22,21 +24,35 @@ const DocumentField = ({
 	const handleFileChange = useCallback((event) => {
 		event.persist();
 
-		if (event.currentTarget.files && event.currentTarget.files.length) {
-			setFieldValue('documents', event.currentTarget.files[0]);
+		const files = event.currentTarget.files;
+		if (files && files.length) {
+			const file = files[0];
+
+			const reader = new FileReader();
+			reader.addEventListener('load', () => {
+				console.log(file);
+				const base64 = reader.result;
+
+				setFieldValue('documents', {
+					file: file,
+					name: createDocumentName(file.name),
+					base64
+				});
+			});
+			reader.readAsDataURL(file);
 		} else {
-			setFieldValue(null);
+			setFieldValue('documents', {});
 		}
 	}, [setFieldValue]);
 
 	return (
 		<>
 		<Label for="documents">Documenti</Label>
-		<FormText>Il documento è obbligatorio</FormText>
+			<FormText>Il documento è obbligatorio, <b>dimensione massima: 500 KB</b></FormText>
 		<Row className="my-3" form>
 			<Col>
 				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} disabled={isSubmitting}/>
-				{errors.documents && <FormText color="danger">{errors.documents}</FormText>}
+				{(errors.documents && (errors.documents.name || errors.documents.file)) && <FormText color="danger">{errors.documents.name || errors.documents.file || errors.documents.base64}</FormText>}
 			</Col>
 		</Row>
 		</>
