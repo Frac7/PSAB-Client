@@ -36,6 +36,7 @@ const forms = {
 			landInstance.methods.register(description, window.web3.utils.fromAscii(documents[3]), documents[2])
 				.send({ from: senderAddress })
 				.then((result) => {
+					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {
@@ -62,6 +63,7 @@ const forms = {
 			landInstance.methods.divide(land, description, window.web3.utils.fromAscii(documents[3]), documents[2], contracts[PORTION].address)
 				.send({ from: senderAddress })
 				.then((result) => {
+					console.log(result);
 					handleFeedback(false);
 				})
 				.catch((error) => {

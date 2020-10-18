@@ -64,14 +64,6 @@ const RegisterFormContainer = ({ user }) => {
 	const onSubmit = useCallback((values, { setSubmitting, resetForm }) => {
 		setIsLoading(true);
 
-		if (values.documents && values.documents.length && !hasErrors) {
-			Storage.put(values.documents[1], values.documents[0])
-				.then((result) => {})
-				.catch((error) => {
-					setHasErrors(true);
-				});
-		}
-
 		const handleFeedback = (hasErrors) => {
 			if ((currentForm === LAND || currentForm === PORTION) && form.current) {
 				form.current.reset();
@@ -84,18 +76,16 @@ const RegisterFormContainer = ({ user }) => {
 			setIsLoading(false);
 		}
 
-		if(!hasErrors) {
-			handleSubmit({
-				...values,
-				...values.documents && values.documents.length ? {
-					documents: [
-						...values.documents,
-						`https://psab-documents225914-dev.s3.amazonaws.com/public/${values.documents[1]}`
-					]
-				} : undefined
-			}, handleFeedback, user.data.username);
-		} else {
-			handleFeedback(hasErrors);
+		if (values.documents && values.documents.length && !hasErrors) {
+			Storage.put(values.documents[1], values.documents[0])
+				.then((result) => {})
+				.catch((error) => {
+					handleFeedback(true);
+				});
+		}
+
+		if (!hasErrors) {
+			handleSubmit(values, handleFeedback, user.data.username);
 		}
 	}, [currentForm, initialValues, handleSubmit, hasErrors, user]);
 
