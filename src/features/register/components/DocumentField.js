@@ -33,7 +33,7 @@ const DocumentField = ({
 				const base64 = reader.result;
 
 				setFieldValue('document', {
-					file: file,
+					file,
 					name: createDocumentName(file.name),
 					base64
 				});
