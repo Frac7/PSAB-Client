@@ -28,7 +28,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
-			{documents && (
+			{documents.length && (
 				<Row className="align-items-center my-3">
 					<Col xl={3} sm={12}>
 						<Title>Documenti</Title>

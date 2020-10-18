@@ -62,7 +62,7 @@ const DocumentField = ({
 				)}
 			</Col>
 			<Col>
-				<FormText>Il documento è obbligatorio, <b>dimensione massima: 500 KB</b></FormText>
+				<FormText>Il documento è obbligatorio</FormText>
 			</Col>
 		</Row>
 		</>
