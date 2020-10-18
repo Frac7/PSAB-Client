@@ -76,7 +76,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
-			{documents.length && (
+			{documents && documents.length ? (
 			<Row className="align-items-center my-3">
 				<Col xl={3} sm={12}>
 					<Title>Documenti</Title>
@@ -87,7 +87,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						)}
 					</ListGroup>
 				</Col>
-			</Row>)}
+			</Row>) : null}
 			{expectedProduction && expectedProduction.length  && (
 				<Row className="align-items-center my-3">
 					<Col align="center">

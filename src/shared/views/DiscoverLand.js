@@ -28,7 +28,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
-			{documents.length && (
+			{documents && documents.length ? (
 				<Row className="align-items-center my-3">
 					<Col xl={3} sm={12}>
 						<Title>Documenti</Title>
@@ -39,7 +39,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 							)}
 						</ListGroup>
 					</Col>
-				</Row>)}
+				</Row>) : null}
 		</Container>
 	);
 }
