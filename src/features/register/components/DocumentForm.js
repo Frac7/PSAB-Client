@@ -71,54 +71,46 @@ const DocumentForm = ({
 					</Col>
 				</Row>
 			</Container>
-		)
-	}
-
-	if (fetchErrors) {
-		return (
-			<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento dei terreni</Alert>
-		);
-	}
-
-	if (!elements.length) {
-		return (
-			<Alert color="info" className="my-3">Nessun elemento disponibile per la registrazione di documenti</Alert>
 		);
 	}
 
 	return (
-		<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
-			<FormGroup>
-				<Label for="element">Elemento per il quale registrare il documento</Label>
-				<Input valid={touched.element && !errors.element} type="select" name="element" id="element" onChange={handleChange} value={values.element} disabled={isSubmitting}>
-					<option value="" />
-					<option value={LAND}>{LAND}</option>
-					<option value={PORTION}>{PORTION}</option>
-				</Input>
-				{errors.element && <FormText color="danger">{errors.element}</FormText>}
-			</FormGroup>
-			<FormGroup>
-				<Label for="id">{values.element}</Label>
-				<Input valid={touched.id && !errors.id} type="select" name="id" id="id" onChange={handleChange} value={values.id} disabled={isSubmitting}>
-					<option value="" />
-					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
-				</Input>
-				{errors.id && <FormText color="danger">{errors.id}</FormText>}
-			</FormGroup>
-			<FormGroup>
-				<DocumentField
-					isSubmitting={isSubmitting}
-					setFieldValue={setFieldValue}
-					values={values}
-					errors={errors}
-					handleChange={handleChange}
-					touched={touched}
-				/>
-			</FormGroup>
-			<StyledFilledButton type="submit" disabled={isSubmitting}>
-				Aggiungi
-			</StyledFilledButton>
-		</Form>
+		<>
+			{!elements.length && <Alert color="info" className="my-3">Nessun elemento disponibile per la registrazione di documenti</Alert>}
+			{fetchErrors && <Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>}
+			<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
+				<FormGroup>
+					<Label for="element">Elemento per il quale registrare il documento</Label>
+					<Input valid={touched.element && !errors.element} type="select" name="element" id="element" onChange={handleChange} value={values.element} disabled={isSubmitting}>
+						<option value="" />
+						<option value={LAND}>{LAND}</option>
+						<option value={PORTION}>{PORTION}</option>
+					</Input>
+					{errors.element && <FormText color="danger">{errors.element}</FormText>}
+				</FormGroup>
+				<FormGroup>
+					<Label for="id">{values.element}</Label>
+					<Input valid={touched.id && !errors.id} type="select" name="id" id="id" onChange={handleChange} value={values.id} disabled={isSubmitting}>
+						<option value="" />
+						{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
+					</Input>
+					{errors.id && <FormText color="danger">{errors.id}</FormText>}
+				</FormGroup>
+				<FormGroup>
+					<DocumentField
+						isSubmitting={isSubmitting}
+						setFieldValue={setFieldValue}
+						values={values}
+						errors={errors}
+						handleChange={handleChange}
+						touched={touched}
+					/>
+				</FormGroup>
+				<StyledFilledButton type="submit" disabled={isSubmitting}>
+					Aggiungi
+				</StyledFilledButton>
+			</Form>
+		</>
 	);
 }
 

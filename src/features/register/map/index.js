@@ -36,34 +36,25 @@ const forms = {
 			id: number().required('Selezionare un terreno o una porzione a cui allegare il documento'),
 			document: object().shape({
 				name: string().required('Inserire un allegato'),
-				file: mixed().required('Inserire un allegato').test('size', 'Il file inserito è troppo grande', (value) => {
-					if (value) {
-						return value.size < 512000;
-					}
-					return true;
-				}),
+				file: mixed().required('Inserire un allegato'),
 				base64: string().required('Inserire un allegato')
 			})
 		}),
 		handleSubmit: ({ element, id, document: { name, file, base64 }}, handleFeedback, senderAddress) => {
 			const instance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 
-			instance.methods.registerDocument(id, window.web3.utils.fromAscii(name), base64)
+			instance.methods.registerDocument(id, window.web3.utils.fromAscii(name), window.web3.utils.keccak256(base64))
 				.send({ from: senderAddress })
 				.then((result) => {
-					console.log(result);
 					Storage.put(name, file)
 						.then((result) => {
-							 console.log(result);
 							handleFeedback(false);
 						})
 						.catch((error) => {
-							console.log(error);
 							handleFeedback(true);
 						});
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
