@@ -6,7 +6,7 @@ import { Container } from 'reactstrap';
 import { ProfileData, OwnedLands, PurchasedPortions, OperatorActivities, CertifierActivities } from '../components';
 
 import { Selector } from '../../../store/user/reducer';
-import { CERTIFIER, OPERATOR, roles } from '../../../shared/values';
+import { CERTIFIER, OPERATOR, roles, USER } from '../../../shared/values';
 
 /**
  * User information containers.
@@ -27,8 +27,8 @@ const ProfileContainer = ({ user: { data } }) => {
 				username: address,
 				name
 			}} />
-			<OwnedLands userAddress={address} />
-			<PurchasedPortions userAddress={address} />
+			{role === roles.indexOf(USER) && <OwnedLands userAddress={address} />}
+			{role === roles.indexOf(USER) && <PurchasedPortions userAddress={address} />}
 			{role === roles.indexOf(OPERATOR) && <OperatorActivities userAddress={address} />}
 			{role === roles.indexOf(CERTIFIER) && <CertifierActivities userAddress={address} />}
 		</Container>

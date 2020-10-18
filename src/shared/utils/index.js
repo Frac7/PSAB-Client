@@ -57,7 +57,10 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 				portionInstance.methods.getById(id)
 					.call({ from: userAddress })
 					.then((portion) => {
-						elements.push(portion[0]);
+						elements.push({
+							...portion[0],
+							id
+						});
 						if (index === result.length - 1) {
 							setElements(elements);
 							setIsLoading(false);

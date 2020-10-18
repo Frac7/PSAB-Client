@@ -78,7 +78,7 @@ const ProductActivitiesForm = ({
 				<Label for="portion">Oggetto della certificazione</Label>
 				<Input valid={touched.object && !errors.object} type="select" name="object" id="object" onChange={handleChange} value={values.object} disabled={isSubmitting}>
 					<option value=""/>
-					{elements.map((element, index) => <option key={index} value={index}>{element.description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
 				</Input>
 				{errors.object && <FormText color="danger">{errors.object}</FormText>}
 			</FormGroup>
