@@ -1,12 +1,14 @@
 import React from 'react';
 import { object, string, number, mixed } from 'yup';
+import Storage from '@aws-amplify/storage';
 
 import {
 	LandForm,
 	PortionForm,
 	ProductActivitiesForm,
 	ContractTermsForm,
-	TransferOwnershipForm
+	TransferOwnershipForm,
+	DocumentForm
 } from '../components';
 import {
 	LAND,
@@ -20,32 +22,31 @@ import {
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
-import Storage from '@aws-amplify/storage';
 
 const forms = {
 	[DOCUMENTS]: {
-		component: (props) => null,
+		component: (props) => <DocumentForm {...props} />,
 		initialValues : {
-			element: '',
+			element: LAND,
 			id: '',
 			document: {}
 		},
 		validationSchema: object().shape({
-			element: string().required('Selezionare l\'elemento per il quale si vuole registrare il documento').oneOf([LAND, PORTION]),
+			element: string().required('Selezionare l\'elemento per il quale si vuole registrare il documento'),
 			id: number().required('Selezionare un terreno o una porzione a cui allegare il documento'),
 			document: object().shape({
 				name: string().required('Inserire un allegato'),
 				file: mixed().required('Inserire un allegato').test('size', 'Il file inserito è troppo grande', (value) => {
-					// if (value) {
-					// 	return value.size < 512000;
-					// }
+					if (value) {
+						return value.size < 512000;
+					}
 					return true;
 				}),
 				base64: string().required('Inserire un allegato')
 			})
 		}),
-		handleSubmit: ({ element, id, documents: { name, file, base64 }}, handleFeedback, senderAddress) => {
-			const instance = window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
+		handleSubmit: ({ element, id, document: { name, file, base64 }}, handleFeedback, senderAddress) => {
+			const instance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 
 			instance.methods.registerDocument(id, window.web3.utils.fromAscii(name), base64)
 				.send({ from: senderAddress })

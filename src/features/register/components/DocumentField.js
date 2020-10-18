@@ -30,10 +30,9 @@ const DocumentField = ({
 
 			const reader = new FileReader();
 			reader.addEventListener('load', () => {
-				console.log(file);
 				const base64 = reader.result;
 
-				setFieldValue('documents', {
+				setFieldValue('document', {
 					file: file,
 					name: createDocumentName(file.name),
 					base64
@@ -41,18 +40,29 @@ const DocumentField = ({
 			});
 			reader.readAsDataURL(file);
 		} else {
-			setFieldValue('documents', {});
+			setFieldValue('document', {});
 		}
 	}, [setFieldValue]);
 
 	return (
 		<>
 		<Label for="documents">Documenti</Label>
-			<FormText>Il documento è obbligatorio, <b>dimensione massima: 500 KB</b></FormText>
 		<Row className="my-3" form>
+			<Col xl={12} xs={12}>
+				<Input
+					valid={touched.documents && errors.documents}
+					type="file"
+					name="document"
+					id="document"
+					onChange={handleFileChange}
+					disabled={isSubmitting}
+				/>
+				{(errors.documents && (errors.documents.name || errors.documents.file)) && (
+					<FormText color="danger">{errors.documents.name || errors.documents.file || errors.documents.base64}</FormText>
+				)}
+			</Col>
 			<Col>
-				<Input valid={touched.documents && errors.documents} type="file" name="documents" id="documents" onChange={handleFileChange} disabled={isSubmitting}/>
-				{(errors.documents && (errors.documents.name || errors.documents.file)) && <FormText color="danger">{errors.documents.name || errors.documents.file || errors.documents.base64}</FormText>}
+				<FormText>Il documento è obbligatorio, dimensione massima: 500 KB</FormText>
 			</Col>
 		</Row>
 		</>

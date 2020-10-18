@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, FormGroup, FormText, Input, Label, Alert, Container, Row, Col } from 'reactstrap';
+import { Alert, Col, Container, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap';
 
+import DocumentField from './DocumentField';
 import { StyledFilledButton, StyledSpinner } from '../../../shared/styled';
 
-import { fetchLandsByOwner } from '../../../shared/utils';
+import { LAND, PORTION } from '../../../shared/values';
+import { fetchLandsByOwner, fetchPortionsByOwner } from '../../../shared/utils';
 
 /**
- * Portion registration form.
+ * Document registration form.
  *
  * @param reference
  * @param values
@@ -16,6 +18,7 @@ import { fetchLandsByOwner } from '../../../shared/utils';
  * @param isSubmitting
  * @param handleSubmit
  * @param handleChange
+ * @param setFieldValue
  * @param resetForm
  * @param initialValues
  * @param userAddress
@@ -23,14 +26,15 @@ import { fetchLandsByOwner } from '../../../shared/utils';
  * @constructor
  * @component
  */
-const PortionForm = ({
+const DocumentForm = ({
 	reference,
-    values,
-    touched,
-    errors,
-    isSubmitting,
-    handleSubmit,
-    handleChange,
+	values,
+	touched,
+	errors,
+	isSubmitting,
+	handleSubmit,
+	handleChange,
+	setFieldValue,
 	resetForm,
 	initialValues,
 	userAddress
@@ -44,8 +48,19 @@ const PortionForm = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
-	}, [userAddress]);
+		setIsLoading(true);
+
+		switch (values.element) {
+			case LAND:
+				fetchLandsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+				break;
+			case PORTION:
+				fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+				break;
+			default:
+				setIsLoading(false);
+		}
+	}, [values.element, userAddress]);
 
 	if (isLoading) {
 		return (
@@ -67,33 +82,47 @@ const PortionForm = ({
 
 	if (!elements.length) {
 		return (
-			<Alert color="info" className="my-3">Nessun terreno disponibile per la suddivisione</Alert>
+			<Alert color="info" className="my-3">Nessun elemento disponibile per la registrazione di documenti</Alert>
 		);
 	}
 
 	return (
 		<Form innerRef={reference} onSubmit={handleSubmit} noValidate>
 			<FormGroup>
-				<Label for="land">Terreno da dividere</Label>
-				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land} disabled={isSubmitting}>
+				<Label for="element">Elemento per il quale registrare il documento</Label>
+				<Input valid={touched.element && !errors.element} type="select" name="element" id="element" onChange={handleChange} value={values.element} disabled={isSubmitting}>
+					<option value="" />
+					<option value={LAND}>{LAND}</option>
+					<option value={PORTION}>{PORTION}</option>
+				</Input>
+				{errors.element && <FormText color="danger">{errors.element}</FormText>}
+			</FormGroup>
+			<FormGroup>
+				<Label for="id">{values.element}</Label>
+				<Input valid={touched.id && !errors.id} type="select" name="id" id="id" onChange={handleChange} value={values.id} disabled={isSubmitting}>
 					<option value="" />
 					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
 				</Input>
-				{errors.land && <FormText color="danger">{errors.land}</FormText>}
+				{errors.id && <FormText color="danger">{errors.id}</FormText>}
 			</FormGroup>
 			<FormGroup>
-				<Label for="description">Descrizione</Label>
-				<Input valid={touched.description && !errors.description} type="textarea" name="description" id="description" onChange={handleChange} value={values.description}/>
-				{errors.description && <FormText color="danger">{errors.description}</FormText>}
+				<DocumentField
+					isSubmitting={isSubmitting}
+					setFieldValue={setFieldValue}
+					values={values}
+					errors={errors}
+					handleChange={handleChange}
+					touched={touched}
+				/>
 			</FormGroup>
 			<StyledFilledButton type="submit" disabled={isSubmitting}>
 				Aggiungi
 			</StyledFilledButton>
 		</Form>
 	);
-};
+}
 
-PortionForm.propTypes = {
+DocumentForm.propTypes = {
 	/**
 	 * Form reference
 	 */
@@ -123,6 +152,10 @@ PortionForm.propTypes = {
 	 */
 	handleChange: PropTypes.func,
 	/**
+	 * Field specific setter
+	 */
+	setFieldValue: PropTypes.func,
+	/**
 	 * Form values reset
 	 */
 	resetForm: PropTypes.func,
@@ -130,6 +163,6 @@ PortionForm.propTypes = {
 	 * Initial form values
 	 */
 	initialValues: PropTypes.object,
-};
+}
 
-export default PortionForm;
+export default DocumentForm;

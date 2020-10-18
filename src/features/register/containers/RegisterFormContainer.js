@@ -68,7 +68,7 @@ const RegisterFormContainer = ({ user }) => {
 		setIsLoading(true);
 
 		const handleFeedback = (hasErrors) => {
-			if ((currentForm === LAND || currentForm === PORTION) && form.current) {
+			if (currentForm === DOCUMENTS && form.current) {
 				form.current.reset();
 			}
 			resetForm(initialValues);
