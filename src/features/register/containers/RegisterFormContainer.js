@@ -16,7 +16,11 @@ import {
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
-	TRANSFER_OWNERSHIP, OPERATOR, roles, CERTIFIER
+	TRANSFER_OWNERSHIP,
+	DOCUMENTS,
+	OPERATOR,
+	CERTIFIER,
+	roles,
 } from '../../../shared/values';
 import { forms } from '../map';
 import { Selector } from '../../../store/user/reducer';
@@ -94,6 +98,10 @@ const RegisterFormContainer = ({ user }) => {
 								},
 								{
 									type: PORTION,
+									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
+								},
+								{
+									type: DOCUMENTS,
 									disabled: user.data.attributes['custom:role'] === roles.indexOf(OPERATOR).toString()
 								},
 								{

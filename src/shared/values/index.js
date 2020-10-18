@@ -4,6 +4,8 @@ const PROD_ACTIVITIES = 'Attività legate alla produzione';
 const PRODUCT = 'Prodotto';
 const MAINTENANCE_ACTIVITIES = 'Attività di manutenzione';
 
+const DOCUMENTS = 'Documenti';
+
 const ADMIN = 'Amministratore';
 const CERTIFIER = 'Certificatore';
 const OPERATOR = 'Operatore';
@@ -30,5 +32,6 @@ export {
 	USER,
 	CONTRACT_TERMS,
 	TRANSFER_OWNERSHIP,
+	DOCUMENTS,
 	roles
 };

@@ -14,51 +14,76 @@ import {
 	PRODUCT,
 	PROD_ACTIVITIES,
 	MAINTENANCE_ACTIVITIES,
-	CONTRACT_TERMS, TRANSFER_OWNERSHIP
+	CONTRACT_TERMS,
+	TRANSFER_OWNERSHIP,
+	DOCUMENTS
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
 import Storage from '@aws-amplify/storage';
-import extractInformation from '../utils';
 
 const forms = {
-	[LAND]: {
-		component: (props) => <LandForm {...props} />,
-		initialValues: {
-			description: '',
-			documents: {}
+	[DOCUMENTS]: {
+		component: (props) => null,
+		initialValues : {
+			element: '',
+			id: '',
+			document: {}
 		},
 		validationSchema: object().shape({
-			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: object().shape({
+			element: string().required('Selezionare l\'elemento per il quale si vuole registrare il documento').oneOf([LAND, PORTION]),
+			id: number().required('Selezionare un terreno o una porzione a cui allegare il documento'),
+			document: object().shape({
 				name: string().required('Inserire un allegato'),
 				file: mixed().required('Inserire un allegato').test('size', 'Il file inserito è troppo grande', (value) => {
-					if (value) {
-						return value.size < 512000;
-					}
-
+					// if (value) {
+					// 	return value.size < 512000;
+					// }
 					return true;
 				}),
 				base64: string().required('Inserire un allegato')
 			})
 		}),
-		handleSubmit: ({ description, documents: { name, file, base64 } }, handleFeedback, senderAddress) => {
-			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
+		handleSubmit: ({ element, id, documents: { name, file, base64 }}, handleFeedback, senderAddress) => {
+			const instance = window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 
-			landInstance.methods.register(description, window.web3.utils.fromAscii(name), base64)
+			instance.methods.registerDocument(id, window.web3.utils.fromAscii(name), base64)
 				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
 					Storage.put(name, file)
 						.then((result) => {
+							 console.log(result);
 							handleFeedback(false);
 						})
 						.catch((error) => {
+							console.log(error);
 							handleFeedback(true);
 						});
 				})
 				.catch((error) => {
 					console.log(error);
+					handleFeedback(true);
+				});
+		}
+	},
+	[LAND]: {
+		component: (props) => <LandForm {...props} />,
+		initialValues: {
+			description: ''
+		},
+		validationSchema: object().shape({
+			description: string().required('Il campo descrizione è obbligatorio'),
+		}),
+		handleSubmit: ({ description }, handleFeedback, senderAddress) => {
+			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
+
+			landInstance.methods.register(description)
+				.send({ from: senderAddress })
+				.then((result) => {
+					handleFeedback(false);
+				})
+				.catch((error) => {
 					handleFeedback(true);
 				});
 		}
@@ -72,27 +97,17 @@ const forms = {
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
-			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: mixed().test('chosen', 'Inserire un allegato', (value) => Boolean(value))
+			description: string().required('Il campo descrizione è obbligatorio')
 		}),
-		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
-			const { name, base64, file } = extractInformation(documents);
+		handleSubmit: ({ land, description }, handleFeedback, senderAddress) => {
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, window.web3.utils.fromAscii(name), base64, contracts[PORTION].address)
+			landInstance.methods.divide(land, description, contracts[PORTION].address)
 				.send({ from: senderAddress })
 				.then((result) => {
-					console.log(result);
-					Storage.put(name, file)
-						.then((result) => {
-							handleFeedback(false);
-						})
-						.catch((error) => {
-							handleFeedback(true);
-						});
+					handleFeedback(false);
 				})
 				.catch((error) => {
-					console.log(error);
 					handleFeedback(true);
 				});
 		}
