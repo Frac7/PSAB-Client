@@ -90,8 +90,6 @@ const PortionForm = ({
 				{errors.description && <FormText color="danger">{errors.description}</FormText>}
 			</FormGroup>
 			<FormGroup>
-				<Label for="documents">Documenti</Label>
-				<FormText>Deve essere caricato un documento al minimo</FormText>
 				<DocumentField
 					isSubmitting={isSubmitting}
 					setFieldValue={setFieldValue}

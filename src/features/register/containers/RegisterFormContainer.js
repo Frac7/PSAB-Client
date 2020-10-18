@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import { Container, Row, Col } from 'reactstrap';
 import { Formik } from 'formik';
-import Storage from '@aws-amplify/storage';
 
 import { ToastFeedback } from '../components';
 import { ElementSelector } from '../../../shared/element-dropdown';
@@ -76,18 +75,8 @@ const RegisterFormContainer = ({ user }) => {
 			setIsLoading(false);
 		}
 
-		if (values.documents && values.documents.length && !hasErrors) {
-			Storage.put(values.documents[1], values.documents[0])
-				.then((result) => {})
-				.catch((error) => {
-					handleFeedback(true);
-				});
-		}
-
-		if (!hasErrors) {
-			handleSubmit(values, handleFeedback, user.data.username);
-		}
-	}, [currentForm, initialValues, handleSubmit, hasErrors, user]);
+		handleSubmit(values, handleFeedback, user.data.username);
+	}, [currentForm, initialValues, handleSubmit, user]);
 
 	return (
 		<>

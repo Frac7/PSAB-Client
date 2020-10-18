@@ -7,4 +7,18 @@ const createDocumentName = (old) => {
 	return `${id}.${split[split.length - 1]}`;
 }
 
-export default createDocumentName;
+const extractInformation = (file) => {
+	const reader = new FileReader();
+	reader.addEventListener('load', () => {
+		const base64 = reader.result;
+
+		return {
+			name: createDocumentName(file.name),
+			file,
+			base64
+		};
+	});
+	reader.readAsDataURL(file);
+}
+
+export default extractInformation;

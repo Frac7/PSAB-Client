@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, number, array } from 'yup';
+import { object, string, number, mixed } from 'yup';
 
 import {
 	LandForm,
@@ -18,26 +18,35 @@ import {
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
+import Storage from '@aws-amplify/storage';
+import extractInformation from '../utils';
 
 const forms = {
 	[LAND]: {
 		component: (props) => <LandForm {...props} />,
 		initialValues: {
 			description: '',
-			documents: []
+			documents: null
 		},
 		validationSchema: object().shape({
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().min(1, 'Inserire un allegato')
+			documents: mixed().test('chosen', 'Inserire un allegato', (value) => Boolean(value))
 		}),
 		handleSubmit: ({ description, documents }, handleFeedback, senderAddress) => {
+			const { name, base64, file } = extractInformation(documents);
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.register(description, window.web3.utils.fromAscii(documents[3]), documents[2])
+			landInstance.methods.register(description, window.web3.utils.fromAscii(name), base64)
 				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
-					handleFeedback(false);
+					Storage.put(name, file)
+						.then((result) => {
+							handleFeedback(false);
+						})
+						.catch((error) => {
+							handleFeedback(true);
+						});
 				})
 				.catch((error) => {
 					console.log(error);
@@ -50,21 +59,28 @@ const forms = {
 		initialValues: {
 			land: '',
 			description: '',
-			documents: []
+			documents: null
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
 			description: string().required('Il campo descrizione è obbligatorio'),
-			documents: array().min(1, 'Inserire un allegato')
+			documents: mixed().test('chosen', 'Inserire un allegato', (value) => Boolean(value))
 		}),
 		handleSubmit: ({ land, description, documents }, handleFeedback, senderAddress) => {
+			const { name, base64, file } = extractInformation(documents);
 			const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 
-			landInstance.methods.divide(land, description, window.web3.utils.fromAscii(documents[3]), documents[2], contracts[PORTION].address)
+			landInstance.methods.divide(land, description, window.web3.utils.fromAscii(name), base64, contracts[PORTION].address)
 				.send({ from: senderAddress })
 				.then((result) => {
 					console.log(result);
-					handleFeedback(false);
+					Storage.put(name, file)
+						.then((result) => {
+							handleFeedback(false);
+						})
+						.catch((error) => {
+							handleFeedback(true);
+						});
 				})
 				.catch((error) => {
 					console.log(error);
