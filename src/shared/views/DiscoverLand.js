@@ -35,7 +35,8 @@ const DiscoverLand = ({ id, description, documents }) => {
 					</Col>
 					<Col>
 						<ListGroup flush>
-							<ListGroupItem className="text-success" tag="a" href={`https://psab-documents225914-dev.s3.amazonaws.com/public/${window.web3.utils.toAscii(documents)}`} target="_blank">Documento allegato</ListGroupItem>
+							{documents.map((document, index) => <ListGroupItem key={index} className="text-success" tag="a" href={`https://psab-documents225914-dev.s3.amazonaws.com/public/${window.web3.utils.toAscii(document)}`} target="_blank">Documento allegato #{index}</ListGroupItem>
+							)}
 						</ListGroup>
 					</Col>
 				</Row>)}

@@ -50,19 +50,19 @@ const DocumentField = ({
 		<Row className="my-3" form>
 			<Col xl={12} xs={12}>
 				<Input
-					valid={touched.documents && errors.documents}
+					valid={touched.document && errors.document}
 					type="file"
 					name="document"
 					id="document"
 					onChange={handleFileChange}
 					disabled={isSubmitting}
 				/>
-				{(errors.documents && (errors.documents.name || errors.documents.file)) && (
-					<FormText color="danger">{errors.documents.name || errors.documents.file || errors.documents.base64}</FormText>
+				{(errors.document && (errors.document.name || errors.document.file)) && (
+					<FormText color="danger">{errors.document.name || errors.document.file || errors.document.base64}</FormText>
 				)}
 			</Col>
 			<Col>
-				<FormText>Il documento è obbligatorio, dimensione massima: 500 KB</FormText>
+				<FormText>Il documento è obbligatorio, <b>dimensione massima: 500 KB</b></FormText>
 			</Col>
 		</Row>
 		</>
