@@ -41,8 +41,6 @@ const PortionLandHandling = ({ id, isOpen, setIsOpen, user: { data: { username }
 
 	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, setData]);
 
-	console.log(openedPortion)
-
 	return (
 		<>
 			<StyledFilledButton onClick={handleClick}>
