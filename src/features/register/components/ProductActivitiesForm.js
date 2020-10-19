@@ -43,15 +43,13 @@ const ProductActivitiesForm = ({
 	}, [resetForm, initialValues]);
 
 	useEffect(() => {
-		const elements = [];
-
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 		portionInstance.methods.getTotal()
 			.call({ from : userAddress })
 			.then((total) => {
 				total = parseInt(total);
 				if (!total) {
-					setElements(elements);
+					setElements([]);
 					setIsLoading(false);
 				}
 
@@ -59,13 +57,13 @@ const ProductActivitiesForm = ({
 					portionInstance.methods.getById(i)
 						.call({ from: userAddress })
 						.then((result) => {
-							elements.push({
+							setElements((elements) => ([
+								...elements, {
 								...result,
 								id: i
-							});
+							}]));
 
 							if (i === total - 1) {
-								setElements(elements);
 								setIsLoading(false);
 							}
 						})

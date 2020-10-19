@@ -22,7 +22,6 @@ const PurchasedPortions = ({ userAddress }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const elements = [];
 		setElements([]);
 
 		const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
@@ -30,7 +29,7 @@ const PurchasedPortions = ({ userAddress }) => {
 			.call({ from: userAddress })
 			.then((portions) => {
 				if (!portions.length) {
-					setElements(elements);
+					setElements([]);
 					setIsLoading(false);
 					return;
 				}
@@ -39,13 +38,13 @@ const PurchasedPortions = ({ userAddress }) => {
 					portionInstance.methods.getById(id)
 						.call({ from: userAddress })
 						.then((result) => {
-							elements.push({
+							setElements((elements) => ([
+								...elements, {
 								...result,
 								id
-							});
+							}]));
 
 							if (index === portions.length - 1) {
-								setElements(elements);
 								setIsLoading(false);
 							}
 						})

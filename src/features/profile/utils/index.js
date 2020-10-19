@@ -2,14 +2,13 @@ import contracts from '../../../contracts';
 
 const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, element, subject) => {
 	setIsLoading(true);
-	const elements = [];
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods[`getBy${subject}`](userAddress)
 		.call({ from: userAddress })
 		.then((items) => {
 			if (!items.length) {
-				setElements(elements);
+				setElements([]);
 				setIsLoading(false);
 				return;
 			}
@@ -18,13 +17,13 @@ const handleFetch = (userAddress, setElements, setFetchErrors, setIsLoading, ele
 				contractInstance.methods.getById(id)
 					.call({ from: userAddress })
 					.then((result) => {
-						elements.push({
-							...result,
-							id
-						});
+						setElements((elements) => ([
+							...elements, {
+								...result,
+								id
+							}]));
 
 						if (index === items.length - 1) {
-							setElements(elements);
 							setIsLoading(false);
 						}
 					})

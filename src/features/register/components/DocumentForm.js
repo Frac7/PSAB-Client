@@ -49,6 +49,7 @@ const DocumentForm = ({
 
 	useEffect(() => {
 		setIsLoading(true);
+		setElements([]);
 
 		switch (values.element) {
 			case LAND:

@@ -24,7 +24,6 @@ const elementWrappers = {
 
 const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, element) => {
 	setIsLoading(true);
-	const elements = [];
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods.getTotal()
@@ -32,7 +31,7 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 		.then((total) => {
 			total = parseInt(total);
 			if (!total) {
-				setElements(elements);
+				setElements([]);
 				setFetchErrors(false);
 				setIsLoading(false);
 				return;
@@ -42,13 +41,14 @@ const handleFetching = (userAddress, setElements, setFetchErrors, setIsLoading, 
 				contractInstance.methods.getById(i)
 					.call({ from: userAddress })
 					.then((result) => {
-						elements.push({
-							...result,
-							id: i
-						});
+						setElements((elements) => ([
+							...elements, {
+								...result,
+								id: i
+							}
+						]));
 
 						if (i === total - 1) {
-							setElements(elements);
 							setFetchErrors(false);
 							setIsLoading(false);
 						}

@@ -16,7 +16,7 @@ const viewToRender = (props) => ({
 	[PORTION]: <DiscoverPortion {...props} />
 });
 
-const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { username }} }) => {
+const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element, user: { data: { username }} }) => {
 	const userAddress = username;
 
 	const [data, setData] = useState({});
@@ -26,6 +26,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { u
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
+			setOpenedPortion(id);
 			setData({});
 			setIsLoading(true);
 
@@ -43,6 +44,8 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, element, user: { data: { u
 					setHasErrors(true);
 					setIsLoading(false);
 				});
+		} else {
+			setOpenedPortion(null);
 		}
 
 	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);

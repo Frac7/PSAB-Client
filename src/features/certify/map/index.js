@@ -29,7 +29,7 @@ const handleSubmit = ({ object, description }, handleFeedback, subject, senderAd
 };
 
 const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, setIsLoading, element) => {
-	const elements = [];
+	setIsLoading(true);
 
 	const contractInstance = new window.web3.eth.Contract(contracts[element].ABI, contracts[element].address);
 	contractInstance.methods.getTotal()
@@ -37,7 +37,7 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 		.then((total) => {
 			total = parseInt(total);
 			if (!total) {
-				setElements(elements);
+				setElements([]);
 				setIsLoading(false);
 				return;
 			}
@@ -47,13 +47,13 @@ const handleFetching = (userAddress, setElements, fetchErrors, setFetchErrors, s
 					contractInstance.methods.getById(i)
 						.call({ from: userAddress })
 						.then((result) => {
-							elements.push({
+							setElements((elements) => ([
+								...elements, {
 								...result,
 								id: i
-							});
+							}]));
 
 							if (i === total - 1) {
-								setElements(elements);
 								setIsLoading(false);
 							}
 						})

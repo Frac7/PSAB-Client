@@ -44,22 +44,20 @@ const ActivityProductOwnershipHandling = ({ id, isOpen, setIsOpen, user: { data:
 							}));
 						} else {
 							if (result.length) {
-								const items = [];
-
 								result.forEach((id, index) => {
 									contractInstance.methods.getById(id)
 										.call({ from: userAddress })
 										.then((item) => {
-											items.push({
-												...item,
-												id
-											});
+											setData((data) => ({
+												...data,
+												[element]: [
+													...data[element],{
+														...item,
+														id
+													}]
+											}));
 
 											if (index === result.length - 1) {
-												setData((data) => ({
-													...data,
-													[element]: items
-												}));
 												setIsLoading(false);
 											}
 										})

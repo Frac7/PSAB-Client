@@ -18,6 +18,7 @@ const PortionLandHandling = ({ id, isOpen, setIsOpen, user: { data: { username }
 	const [hasErrors, setHasErrors] = useState(false);
 
 	const [isPortionOpen, setIsPortionOpen] = useState(false);
+	const [openedPortion, setOpenedPortion] = useState(null);
 
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
@@ -39,6 +40,8 @@ const PortionLandHandling = ({ id, isOpen, setIsOpen, user: { data: { username }
 		}
 
 	}, [id, userAddress, isOpen, setIsOpen, setIsLoading, setData]);
+
+	console.log(openedPortion)
 
 	return (
 		<>
@@ -75,8 +78,9 @@ const PortionLandHandling = ({ id, isOpen, setIsOpen, user: { data: { username }
 						<ListGroupItem key={index}>
 							<LandPortionHandling
 								id={item}
-								isOpen={isPortionOpen}
+								isOpen={isPortionOpen && item === openedPortion}
 								setIsOpen={setIsPortionOpen}
+								setOpenedPortion={setOpenedPortion}
 								element={PORTION}
 							/>
 						</ListGroupItem>

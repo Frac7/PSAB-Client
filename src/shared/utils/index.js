@@ -2,14 +2,14 @@ import contracts from '../../contracts';
 import { LAND, PORTION } from '../values';
 
 const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchErrors) => {
-	const elements = [];
+	setIsLoading(true);
 
 	const landInstance = new window.web3.eth.Contract(contracts[LAND].ABI, contracts[LAND].address);
 	landInstance.methods.getByOwner(userAddress)
 		.call({ from: userAddress })
 		.then((lands) => {
 			if (!lands.length) {
-				setElements(elements);
+				setElements([]);
 				setIsLoading(false);
 				return;
 			}
@@ -18,13 +18,13 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 				landInstance.methods.getById(id)
 					.call({ from: userAddress })
 					.then((result) => {
-						elements.push({
-							...result,
-							id
-						});
+						setElements((elements) => ([
+							...elements, {
+								...result,
+								id
+							}]));
 
 						if (index === lands.length - 1) {
-							setElements(elements);
 							setIsLoading(false);
 						}
 					})
@@ -41,14 +41,14 @@ const fetchLandsByOwner = (userAddress, setElements, setIsLoading, setFetchError
 };
 
 const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchErrors) => {
-	const elements = [];
+	setIsLoading(true);
 
 	const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 	portionInstance.methods.getByOwner(userAddress)
 		.call({ from: userAddress })
 		.then((result) => {
 			if (!result.length) {
-				setElements(elements);
+				setElements([]);
 				setIsLoading(false);
 				return;
 			}
@@ -57,12 +57,13 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 				portionInstance.methods.getById(id)
 					.call({ from: userAddress })
 					.then((portion) => {
-						elements.push({
-							...portion[0],
-							id
-						});
+						setElements((elements) => ([
+							...elements, {
+								...portion[0],
+								id
+							}]));
+
 						if (index === result.length - 1) {
-							setElements(elements);
 							setIsLoading(false);
 						}
 					})
@@ -79,14 +80,14 @@ const fetchPortionsByOwner = (userAddress, setElements, setIsLoading, setFetchEr
 }
 
 const fetchPortionsByBuyer = (userAddress, setElements, setIsLoading, setFetchErrors) => {
-	const elements = [];
+	setIsLoading(true);
 
 	const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 	portionInstance.methods.getByBuyer(userAddress)
 		.call({ from: userAddress })
 		.then((result) => {
 			if (!result.length) {
-				setElements(elements);
+				setElements([]);
 				setIsLoading(false);
 				return;
 			}
@@ -96,9 +97,13 @@ const fetchPortionsByBuyer = (userAddress, setElements, setIsLoading, setFetchEr
 					.call({ from: userAddress })
 					.then((portion) => {
 						if (portion[1].buyer === userAddress) {
-							elements.push(portion[0]);
+							setElements((elements) => ([
+								...elements, {
+									...portion[0],
+									id
+								}]));
+
 							if (index === result.length - 1) {
-								setElements(elements);
 								setIsLoading(false);
 							}
 						}
