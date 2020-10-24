@@ -48,7 +48,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element,
 			setOpenedPortion(null);
 		}
 
-	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData]);
+	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData, setOpenedPortion]);
 
 	return (
 		<>

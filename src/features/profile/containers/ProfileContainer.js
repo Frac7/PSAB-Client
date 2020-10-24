@@ -19,6 +19,7 @@ import { CERTIFIER, OPERATOR, roles, USER } from '../../../shared/values';
 const ProfileContainer = ({ user: { data } }) => {
 	const { attributes: { name } } = data;
 	const role = parseInt(data.attributes['custom:role']);
+	const isAdmin = Boolean(data.attributes['custom:is_admin']);
 	const address = data.username;
 
 	return (
@@ -27,10 +28,10 @@ const ProfileContainer = ({ user: { data } }) => {
 				username: address,
 				name
 			}} />
-			{role === roles.indexOf(USER) && <OwnedLands userAddress={address} />}
-			{role === roles.indexOf(USER) && <PurchasedPortions userAddress={address} />}
-			{role === roles.indexOf(OPERATOR) && <OperatorActivities userAddress={address} />}
-			{role === roles.indexOf(CERTIFIER) && <CertifierActivities userAddress={address} />}
+			{!isAdmin && role === roles.indexOf(USER) && <OwnedLands userAddress={address} />}
+			{!isAdmin && role === roles.indexOf(USER) && <PurchasedPortions userAddress={address} />}
+			{!isAdmin && role === roles.indexOf(OPERATOR) && <OperatorActivities userAddress={address} />}
+			{!isAdmin && role === roles.indexOf(CERTIFIER) && <CertifierActivities userAddress={address} />}
 		</Container>
 	)
 };

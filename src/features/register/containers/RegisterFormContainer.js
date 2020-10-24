@@ -19,7 +19,7 @@ import {
 	TRANSFER_OWNERSHIP,
 	DOCUMENTS,
 	OPERATOR,
-	CERTIFIER,
+	USER,
 	roles,
 } from '../../../shared/values';
 import { forms } from '../map';
@@ -41,7 +41,7 @@ const RegisterFormContainer = ({ user }) => {
 	useEffect(() => {
 		if(user.data) {
 			const { attributes } = user.data;
-			if (attributes['custom:role'] === roles.indexOf(CERTIFIER).toString()) {
+			if (!attributes['custom:role'] === roles.indexOf(OPERATOR).toString() && !attributes['custom:role'] === roles.indexOf(USER).toString()) {
 				history.push(PROFILE);
 			}
 		}
