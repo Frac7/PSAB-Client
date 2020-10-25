@@ -95,6 +95,11 @@ const ContractTermsForm = ({
 				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>
 			<FormGroup>
+				<Label for="address">Address acquirente</Label>
+				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address} disabled={isSubmitting}/>
+				{errors.address && <FormText color="danger">{errors.address}</FormText>}
+			</FormGroup>
+			<FormGroup>
 				<Label for="price">Prezzo</Label>
 				<InputGroup>
 					<InputGroupAddon addonType="prepend" className="align-items-center mx-3">

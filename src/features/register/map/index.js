@@ -108,6 +108,7 @@ const forms = {
 		component: (props) => <ContractTermsForm {...props} />,
 		initialValues: {
 			portion: '',
+			address: '',
 			price: '',
 			duration: '',
 			periodicity: '',
@@ -117,6 +118,9 @@ const forms = {
 		},
 		validationSchema: object().shape({
 			portion: number().required('Selezionare la porzione relativa'),
+			address: string()
+				.required('Inserire l\'indirizzo')
+				.length(42, 'L\'address è lungo esattamente 42 caratteri'),
 			price: number().required('Il costo relativo al contratto è obbligatorio'),
 			duration: number()
 				.min(0, 'Il dato deve essere maggiore o uguale a 0')
@@ -126,7 +130,16 @@ const forms = {
 			expMainActivityCost: number().required('I costi attesi per le attività di manutenzione sono obbligatori'),
 			expProdActivityCost: number().required('I costi attesi per la produzione sono obbligatori')
 		}),
-		handleSubmit: ({ portion, price, duration, expectedProduction, periodicity, expMainActivityCost, expProdActivityCost }, handleFeedback, senderAddress) => {
+		handleSubmit: ({
+		   portion,
+		   price,
+		   duration,
+		   expectedProduction,
+		   periodicity,
+		   expMainActivityCost,
+		   expProdActivityCost,
+		   address
+		}, handleFeedback, senderAddress) => {
 			const today = new Date();
 			const deadline = duration ?
 				new Date(today.getFullYear() + duration, today.getMonth(), today.getDay()).getTime() : 0;
@@ -139,7 +152,9 @@ const forms = {
 				expectedProduction,
 				periodicity,
 				expMainActivityCost * 100,
-				expProdActivityCost * 100)
+				expProdActivityCost * 100,
+				address,
+				)
 				.send({ from: senderAddress })
 				.then((result) => {
 					handleFeedback(false);
