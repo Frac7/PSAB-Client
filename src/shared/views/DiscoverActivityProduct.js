@@ -18,7 +18,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 		<Container fluid>
 			<Row className="my-3">
 				<Col>
-					<h6 className="text-black-50">{element}</h6>
+					<h6 className="text-black-50">{element} #{id}</h6>
 				</Col>
 			</Row>
 			{element !== MAINTENANCE_ACTIVITIES && (

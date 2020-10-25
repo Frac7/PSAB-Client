@@ -77,7 +77,7 @@ const PortionForm = ({
 				<Label for="land">Terreno da dividere</Label>
 				<Input valid={touched.land && !errors.land} type="select" name="land" id="land" onChange={handleChange} value={values.land} disabled={isSubmitting}>
 					<option value="" />
-					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.id} - {element.description}</option>)}
 				</Input>
 				{errors.land && <FormText color="danger">{errors.land}</FormText>}
 			</FormGroup>

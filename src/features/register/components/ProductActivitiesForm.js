@@ -109,7 +109,7 @@ const ProductActivitiesForm = ({
 				<Label for="portion">Porzione relativa all'oggetto della registrazione</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
-					{elements.map((element, index) => <option key={index} value={element.id}>{element[0].description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.id} - {element[0].description}</option>)}
 				</Input>
 				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>

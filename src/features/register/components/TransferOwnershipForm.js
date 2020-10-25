@@ -42,9 +42,9 @@ const TransferOwnership = ({
 	}, [resetForm, initialValues]);
 
 	useEffect(() => {
-		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
-		fetchPortionsByBuyer(userAddress, setElements, setIsLoading, setFetchErrors);
-	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
+		!isSubmitting && fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+		!isSubmitting && fetchPortionsByBuyer(userAddress, setElements, setIsLoading, setFetchErrors);
+	}, [userAddress, setElements, setIsLoading, setFetchErrors, isSubmitting]);
 
 	if (isLoading) {
 		return (
@@ -76,7 +76,7 @@ const TransferOwnership = ({
 				<Label for="portion">Porzione relativa</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
-					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.id} - {element.description}</option>)}
 				</Input>
 				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
 			</FormGroup>

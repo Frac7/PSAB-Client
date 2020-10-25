@@ -26,7 +26,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element,
 	const handleClick = useCallback(() => {
 		setIsOpen((isOpen) => !isOpen);
 		if (!isOpen) {
-			setOpenedPortion(id);
+			setOpenedPortion && setOpenedPortion(id);
 			setData({});
 			setIsLoading(true);
 
@@ -45,7 +45,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element,
 					setIsLoading(false);
 				});
 		} else {
-			setOpenedPortion(null);
+			setOpenedPortion && setOpenedPortion(null);
 		}
 
 	}, [id, userAddress, element, isOpen, setIsOpen, setIsLoading, setData, setOpenedPortion]);
