@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, string, number, mixed } from 'yup';
+import { object, string, number, mixed, addMethod } from 'yup';
 import Storage from '@aws-amplify/storage';
 
 import {
@@ -19,12 +19,36 @@ import {
 	CONTRACT_TERMS,
 	TRANSFER_OWNERSHIP,
 	DOCUMENTS,
-	OPERATOR,
+	USER,
 	roles
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
 import { credentials, getUserRole } from '../../../api/user';
+
+addMethod(string, 'user', function () {
+	return this.test('user', 'Address non valido per effettuare questo tipo di operazione', function (value) {
+		const { path, createError } = this;
+
+		return credentials() // TODO: improve
+			.then((result) => {
+				return getUserRole(value, result.getIdToken().getJwtToken())
+					.then((result) => {
+						if (result.user) {
+							const user = result.user;
+							return (
+								parseInt(user.UserAttributes[2].Value) === roles.indexOf(USER) &&
+								!Boolean(parseInt(user.UserAttributes[3].Value))
+							);
+						}
+
+						return false;
+					})
+					.catch((error) => createError({ path, message: error.toString() }));
+			})
+			.catch((error) => createError({ path, message: error.toString() }));
+	});
+});
 
 const forms = {
 	[DOCUMENTS]: {
@@ -87,8 +111,7 @@ const forms = {
 		component: (props) => <PortionForm {...props} />,
 		initialValues: {
 			land: '',
-			description: '',
-			documents: null
+			description: ''
 		},
 		validationSchema: object().shape({
 			land: number().required('Selezionare il terreno al quale appartiene la porzione'),
@@ -124,30 +147,7 @@ const forms = {
 			address: string()
 				.required('Inserire l\'indirizzo')
 				.length(42, 'L\'address è lungo esattamente 42 caratteri')
-				.test('valid-buyer', 'Address non valido per questa operazione', function (value) {
-					const self = this;
-
-					credentials() // TODO: improve
-						.then((result) => {
-							getUserRole(value, result.getIdToken())
-								.then((result) => {
-									if (result.user) {
-										const user = result.user;
-										return parseInt(user.UserAttributes[2].value) === roles.indexOf(OPERATOR)
-									}
-
-									return false;
-								})
-								.catch((error) => self.createError({
-									path: self.path,
-									message: error.toString()
-								}))
-						})
-						.catch((error) => self.createError({
-							path: self.path,
-							message: error.toString()
-						})) // TODO: custom message
-				}),
+				.user(),
 			price: number().required('Il costo relativo al contratto è obbligatorio'),
 			duration: number()
 				.min(0, 'Il dato deve essere maggiore o uguale a 0')
@@ -202,30 +202,7 @@ const forms = {
 			address: string()
 				.required('Inserire l\'indirizzo')
 				.length(42, 'L\'address è lungo esattamente 42 caratteri')
-				.test('valid-buyer', 'Address non valido per questa operazione', function (value) {
-					const self = this;
-
-					credentials() // TODO: improve
-						.then((result) => {
-							getUserRole(value, result.getIdToken())
-								.then((result) => {
-									if (result.user) {
-										const user = result.user;
-										return parseInt(user.UserAttributes[2].value) === roles.indexOf(OPERATOR)
-									}
-
-									return false;
-								})
-								.catch((error) => self.createError({
-									path: self.path,
-									message: error.toString()
-								}))
-						})
-						.catch((error) => self.createError({
-							path: self.path,
-							message: error.toString()
-						})) // TODO: custom message
-				}),
+				.user()
 		}),
 		handleSubmit: ({ portion, address }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
