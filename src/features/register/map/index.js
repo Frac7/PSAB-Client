@@ -18,10 +18,13 @@ import {
 	MAINTENANCE_ACTIVITIES,
 	CONTRACT_TERMS,
 	TRANSFER_OWNERSHIP,
-	DOCUMENTS
+	DOCUMENTS,
+	OPERATOR,
+	roles
 } from '../../../shared/values';
 
 import contracts from '../../../contracts';
+import { credentials, getUserRole } from '../../../api/user';
 
 const forms = {
 	[DOCUMENTS]: {
@@ -120,7 +123,31 @@ const forms = {
 			portion: number().required('Selezionare la porzione relativa'),
 			address: string()
 				.required('Inserire l\'indirizzo')
-				.length(42, 'L\'address è lungo esattamente 42 caratteri'),
+				.length(42, 'L\'address è lungo esattamente 42 caratteri')
+				.test('valid-buyer', 'Address non valido per questa operazione', function (value) {
+					const self = this;
+
+					credentials() // TODO: improve
+						.then((result) => {
+							getUserRole(value, result.getIdToken())
+								.then((result) => {
+									if (result.user) {
+										const user = result.user;
+										return parseInt(user.UserAttributes[2].value) === roles.indexOf(OPERATOR)
+									}
+
+									return false;
+								})
+								.catch((error) => self.createError({
+									path: self.path,
+									message: error.toString()
+								}))
+						})
+						.catch((error) => self.createError({
+							path: self.path,
+							message: error.toString()
+						})) // TODO: custom message
+				}),
 			price: number().required('Il costo relativo al contratto è obbligatorio'),
 			duration: number()
 				.min(0, 'Il dato deve essere maggiore o uguale a 0')
@@ -174,7 +201,31 @@ const forms = {
 			portion: number().required('Selezionare la porzione di terra relativa'),
 			address: string()
 				.required('Inserire l\'indirizzo')
-				.length(42, 'L\'address è lungo esattamente 42 caratteri'),
+				.length(42, 'L\'address è lungo esattamente 42 caratteri')
+				.test('valid-buyer', 'Address non valido per questa operazione', function (value) {
+					const self = this;
+
+					credentials() // TODO: improve
+						.then((result) => {
+							getUserRole(value, result.getIdToken())
+								.then((result) => {
+									if (result.user) {
+										const user = result.user;
+										return parseInt(user.UserAttributes[2].value) === roles.indexOf(OPERATOR)
+									}
+
+									return false;
+								})
+								.catch((error) => self.createError({
+									path: self.path,
+									message: error.toString()
+								}))
+						})
+						.catch((error) => self.createError({
+							path: self.path,
+							message: error.toString()
+						})) // TODO: custom message
+				}),
 		}),
 		handleSubmit: ({ portion, address }, handleFeedback, senderAddress) => {
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
