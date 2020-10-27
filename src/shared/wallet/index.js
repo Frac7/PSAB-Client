@@ -29,6 +29,7 @@ const withWallet = (Component) =>
 					setErrors({ phrase: 'L\'address dell\'account non è incluso in questo wallet' });
 				} else {
 					window.web3.setProvider(provider);
+					window.web3.eth.defaultAccount = username;
 					setIsHDWalletProvider(true);
 				}
 			} catch(error) {

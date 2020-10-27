@@ -9,7 +9,8 @@ const getUserRole = (username, idToken) =>
 			Authorization: idToken
 		}
 	})
-		.then((result) => result.json());
+		.then((result) => result.json())
+		.catch((error) => error);
 
 const signIn = (address, password) => Auth.signIn(address, password)
 	.then((result) => {

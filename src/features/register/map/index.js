@@ -30,6 +30,10 @@ addMethod(string, 'user', function () {
 	return this.test('user', 'Address non valido per effettuare questo tipo di operazione', function (value) {
 		const { path, createError } = this;
 
+		if (window.web3.eth.defaultAccount === value) {
+			return false;
+		}
+
 		return credentials() // TODO: improve
 			.then((result) => {
 				return getUserRole(value, result.getIdToken().getJwtToken())
