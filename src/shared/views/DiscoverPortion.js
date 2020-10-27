@@ -46,6 +46,11 @@ const DiscoverPortion = ({ id, ...rest }) => {
 
 	return (
 		<Container fluid>
+			<Row className="my-3">
+				<Col>
+					<h6 className="text-black-50">Porzione #{id}</h6>
+				</Col>
+			</Row>
 			<Row className="align-items-center justify-content-end my-3">
 				<Col xl={9} sm={12} align="end">
 					<ActivityProductOwnershipHandling

@@ -11,6 +11,11 @@ const DiscoverLand = ({ id, description, documents }) => {
 
 	return (
 		<Container fluid>
+			<Row className="my-3">
+				<Col>
+					<h6 className="text-black-50">Terreno #{id}</h6>
+				</Col>
+			</Row>
 			<Row className="align-items-center my-3 justify-content-end">
 				<Col xl={9} sm={12} align="end">
 					<PortionLandHandling

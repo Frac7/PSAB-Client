@@ -93,7 +93,7 @@ const DocumentForm = ({
 					<Label for="id">{values.element}</Label>
 					<Input valid={touched.id && !errors.id} type="select" name="id" id="id" onChange={handleChange} value={values.id} disabled={isSubmitting}>
 						<option value="" />
-						{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
+						{elements.map((element, index) => <option key={index} value={element.id}>{element.id} - {element.description}</option>)}
 					</Input>
 					{errors.id && <FormText color="danger">{errors.id}</FormText>}
 				</FormGroup>

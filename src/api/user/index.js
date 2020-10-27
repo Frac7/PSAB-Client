@@ -1,5 +1,17 @@
 import { Auth } from '@aws-amplify/auth';
 
+const credentials = () =>
+	Auth.currentSession();
+
+const getUserRole = (username, idToken) =>
+	fetch(`https://titw7cpmu7.execute-api.us-east-1.amazonaws.com/dev/get-user-role?username=${username}`, {
+		headers: {
+			Authorization: idToken
+		}
+	})
+		.then((result) => result.json())
+		.catch((error) => error);
+
 const signIn = (address, password) => Auth.signIn(address, password)
 	.then((result) => {
 		return { result };
@@ -19,6 +31,8 @@ const currentUserInfo = () => Auth.currentUserInfo()
 	});
 
 export {
+	credentials,
+	getUserRole,
 	signIn,
 	signOut,
 	currentUserInfo

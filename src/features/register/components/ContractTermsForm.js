@@ -57,8 +57,8 @@ const ContractTermsForm = ({
 	}, [resetForm, initialValues]);
 
 	useEffect(() => {
-		fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
-	}, [userAddress, setElements, setIsLoading, setFetchErrors]);
+		!isSubmitting && fetchPortionsByOwner(userAddress, setElements, setIsLoading, setFetchErrors);
+	}, [userAddress, setElements, setIsLoading, setFetchErrors, isSubmitting]);
 
 	if (isLoading) {
 		return (
@@ -90,9 +90,14 @@ const ContractTermsForm = ({
 				<Label for="portion">Porzione relativa</Label>
 				<Input valid={touched.portion && !errors.portion} type="select" name="portion" id="portion" onChange={handleChange} value={values.portion} disabled={isSubmitting}>
 					<option value="" />
-					{elements.map((element, index) => <option key={index} value={element.id}>{element.description}</option>)}
+					{elements.map((element, index) => <option key={index} value={element.id}>{element.id} - {element.description}</option>)}
 				</Input>
 				{errors.portion && <FormText color="danger">{errors.portion}</FormText>}
+			</FormGroup>
+			<FormGroup>
+				<Label for="address">Address acquirente</Label>
+				<Input valid={touched.address && !errors.address} type="text" name="address" id="address" placeholder="0xa1b2c3d4e5f6..." onChange={handleChange} value={values.address} disabled={isSubmitting}/>
+				{errors.address && <FormText color="danger">{errors.address}</FormText>}
 			</FormGroup>
 			<FormGroup>
 				<Label for="price">Prezzo</Label>
