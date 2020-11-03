@@ -56,7 +56,7 @@ const OperatorActivities = ({ userAddress }) => {
 						<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
 					)}
 					{!maintenance.length && (
-						<Alert color="info" className="my-3">Nessuna attività di produzione registrata</Alert>
+						<Alert color="info" className="my-3">Nessuna attività di manutenzione registrata</Alert>
 					)}
 					{!products.length && (
 						<Alert color="info" className="my-3">Nessun prodotto registrato</Alert>
