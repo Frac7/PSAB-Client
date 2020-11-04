@@ -173,7 +173,7 @@ const forms = {
 		}, handleFeedback, senderAddress) => {
 			const today = new Date();
 			const deadline = duration ?
-				new Date(today.getFullYear() + duration, today.getMonth(), today.getDate()).getTime() : 0;
+				new Date(today.getFullYear() + duration, today.getMonth(), today.getDate()).getTime() / 1000 : 0;
 
 			const portionInstance = new window.web3.eth.Contract(contracts[PORTION].ABI, contracts[PORTION].address);
 			portionInstance.methods.defineTerms(
