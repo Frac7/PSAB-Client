@@ -22,7 +22,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 				</Col>
 			</Row>
 			{element !== MAINTENANCE_ACTIVITIES && (
-				<Row className="align-items-center justify-content-end my-3">
+				<Row className="align-items-start justify-content-end my-3">
 					<Col xl={9} sm={12} align="end">
 						<CertificationHandling
 							id={id}
@@ -32,7 +32,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 						/>
 					</Col>
 				</Row>)}
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Porzione</Title>
 				</Col>
@@ -45,7 +45,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 					/>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
@@ -53,7 +53,7 @@ const DiscoverActivityProduct = ({ id, portion, description, registeredBy, eleme
 					<p align="justify">{description}</p>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Registrato da</Title>
 				</Col>

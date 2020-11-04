@@ -12,7 +12,7 @@ const OPERATOR = 'Operatore';
 const USER = 'Utente';
 
 const CONTRACT_TERMS = 'Termini del contratto';
-const TRANSFER_OWNERSHIP = 'Trasferimento proprietà'
+const TRANSFER_OWNERSHIP = 'Trasferimento proprietà';
 
 const roles = [
 	USER,

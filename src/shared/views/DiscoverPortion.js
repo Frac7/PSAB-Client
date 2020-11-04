@@ -23,7 +23,9 @@ const DiscoverPortion = ({ id, ...rest }) => {
 		duration,
 		expectedProduction,
 		expectedMaintenanceCost,
-		expectedProdActivityCost
+		expectedProdActivityCost,
+		owner,
+		buyer
 	} = useMemo(() => {
 		if (rest[0] && rest[1]) {
 			return {
@@ -51,7 +53,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					<h6 className="text-black-50">Porzione #{id}</h6>
 				</Col>
 			</Row>
-			<Row className="align-items-center justify-content-end my-3">
+			<Row className="align-items-start justify-content-end my-3">
 				<Col xl={9} sm={12} align="end">
 					<ActivityProductOwnershipHandling
 						setIsOpen={setIsHistoryOpen}
@@ -60,7 +62,15 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					/>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
+				<Col xl={3} sm={12}>
+					<Title>Proprietario</Title>
+				</Col>
+				<Col>
+					<p align="justify">{owner}</p>
+				</Col>
+			</Row>
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Terreno</Title>
 				</Col>
@@ -73,7 +83,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 					/>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
@@ -82,7 +92,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Col>
 			</Row>
 			{documents && documents.length ? (
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Documenti</Title>
 				</Col>
@@ -94,7 +104,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Col>
 			</Row>) : null}
 			{expectedProduction && expectedProduction.length  && (
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col align="center">
 						<StyledLinkButton color="link" onClick={handleDetailsClick}>
 							Dati del contratto <FontAwesomeIcon icon={icon} />
@@ -103,7 +113,15 @@ const DiscoverPortion = ({ id, ...rest }) => {
 				</Row>
 			)}
 			<Collapse isOpen={isDetailsOpen}>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
+					<Col xl={3} sm={12}>
+						<Title>Acquirente</Title>
+					</Col>
+					<Col>
+						<p align="justify">{buyer}</p>
+					</Col>
+				</Row>
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Canone</Title>
 					</Col>
@@ -111,7 +129,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<p align="justify">€ {price && (parseInt(price)/100).toFixed(2)}</p>
 					</Col>
 				</Row>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Durata</Title>
 					</Col>
@@ -119,7 +137,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<p align="justify">{parseInt(duration) ? `Fino al ${new Date(parseInt(duration) * 1000).toLocaleDateString()}` : 'Perpetua'}</p>
 					</Col>
 				</Row>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Produzione attesa</Title>
 					</Col>
@@ -127,7 +145,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<p align="justify">{expectedProduction}</p>
 					</Col>
 				</Row>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Periodicità</Title>
 					</Col>
@@ -135,7 +153,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<p align="justify">{periodicity}</p>
 					</Col>
 				</Row>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Costi di manutenzione attesi</Title>
 					</Col>
@@ -143,7 +161,7 @@ const DiscoverPortion = ({ id, ...rest }) => {
 						<p align="justify">€ {expectedMaintenanceCost && (parseInt(expectedMaintenanceCost)/100).toFixed(2)}</p>
 					</Col>
 				</Row>
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Costi di produzione attesi</Title>
 					</Col>

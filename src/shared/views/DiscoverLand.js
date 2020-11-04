@@ -16,7 +16,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 					<h6 className="text-black-50">Terreno #{id}</h6>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3 justify-content-end">
+			<Row className="align-items-start my-3 justify-content-end">
 				<Col xl={9} sm={12} align="end">
 					<PortionLandHandling
 						id={id}
@@ -25,7 +25,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 					/>
 				</Col>
 			</Row>
-			<Row className="align-items-center my-3">
+			<Row className="align-items-start my-3">
 				<Col xl={3} sm={12}>
 					<Title>Descrizione</Title>
 				</Col>
@@ -34,7 +34,7 @@ const DiscoverLand = ({ id, description, documents }) => {
 				</Col>
 			</Row>
 			{documents && documents.length ? (
-				<Row className="align-items-center my-3">
+				<Row className="align-items-start my-3">
 					<Col xl={3} sm={12}>
 						<Title>Documenti</Title>
 					</Col>

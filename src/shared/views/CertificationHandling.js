@@ -69,7 +69,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 				<ModalBody>
 					{isLoading && (
 						<Container fluid>
-							<Row className="my-3 justify-content-center align-content-center align-items-center">
+							<Row className="my-3 justify-content-center align-content-center align-items-start">
 								<Col xl="auto" sm="auto">
 									<StyledSpinner size="large"/>
 								</Col>
@@ -78,7 +78,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 					)}
 					{hasErrors && (
 						<Container fluid>
-							<Row className="justify-content-center align-content-center align-items-center">
+							<Row className="justify-content-center align-content-center align-items-start">
 								<Col xl={12} sm={12}>
 									<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 								</Col>
@@ -86,7 +86,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 						</Container>
 					)}
 					{!data.length && !isLoading && !hasErrors && (
-						<Row className="justify-content-center align-content-center align-items-center">
+						<Row className="justify-content-center align-content-center align-items-start">
 							<Col xl={12} sm={12}>
 								<Alert color="info" className="my-3">Nessuna certificazione</Alert>
 							</Col>
@@ -101,7 +101,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 											<h6 className="text-black-50">Certificazione</h6>
 										</Col>
 									</Row>
-									<Row className="align-items-center my-3">
+									<Row className="align-items-start my-3">
 										<Col xl={3} sm={12}>
 											<Title>Descrizione</Title>
 										</Col>
@@ -109,7 +109,7 @@ const CertificationHandling = ({ id, isOpen, setIsOpen, element, user: { data: {
 											<p align="justify">{description}</p>
 										</Col>
 									</Row>
-									<Row className="align-items-center my-3">
+									<Row className="align-items-start my-3">
 										<Col xl={3} sm={12}>
 											<Title>Certificato da</Title>
 										</Col>

@@ -61,7 +61,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element,
 				<ModalBody>
 					{isLoading && (
 						<Container fluid>
-							<Row className="my-3 justify-content-center align-content-center align-items-center">
+							<Row className="my-3 justify-content-center align-content-center align-items-start">
 								<Col xl="auto" sm="auto">
 									<StyledSpinner size="large"/>
 								</Col>
@@ -70,7 +70,7 @@ const LandPortionHandling = ({ id, isOpen, setIsOpen, setOpenedPortion, element,
 					)}
 					{hasErrors && (
 						<Container fluid>
-							<Row className="justify-content-center align-content-center align-items-center">
+							<Row className="justify-content-center align-content-center align-items-start">
 								<Col xl={12} sm={12}>
 									<Alert color="danger" className="my-3">Si è verificato un errore nel caricamento degli elementi</Alert>
 								</Col>
