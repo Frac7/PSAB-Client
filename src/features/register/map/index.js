@@ -30,6 +30,10 @@ addMethod(string, 'user', function () {
 	return this.test('user', 'Address non valido per effettuare questo tipo di operazione', function (value) {
 		const { path, createError } = this;
 
+		if (!value || !value.length) {
+			return false;
+		}
+
 		if (window.web3.eth.defaultAccount === value) {
 			return false;
 		}
