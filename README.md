@@ -27,4 +27,7 @@ This project was created with:
 ## Deploy
 - `yarn deploy`
 # Other
-[Related contracts](https://github.com/Frac7/PSAB-Contracts)
+- [Related contracts](https://github.com/Frac7/PSAB-Contracts)
+- [Related commands](https://github.com/Frac7/PSAB-Command)
+- [Presentation](https://docs.google.com/presentation/d/1V7ISYpDet3mJM73BigmIqlmbBgTyXib4lHxOkBVCg48/edit?usp=sharing)
+- [Report](https://docs.google.com/document/d/1uyh_axD01u76sRBwiYHKpGhDTrG5fXV1LpSWpqWHX20/edit?usp=sharing)
